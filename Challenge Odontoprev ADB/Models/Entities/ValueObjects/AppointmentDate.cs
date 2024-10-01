@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc.Diagnostics;
+using Microsoft.EntityFrameworkCore;
 
 namespace Challenge_Odontoprev_ADB.Models.Entities.ValueObjects;
 
+[Owned]
 public class AppointmentDate
 {
     public DateTime Date { get; private set; }

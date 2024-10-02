@@ -17,11 +17,11 @@ public class Appointment : _BaseEntity
     [Required]
     public Patient Patient { get; set; } // Relação 1:1 com Patient (uma consulta tem um paciente)
     [Required]
-    [ForeignKey(nameof(Patient))]
+    [ForeignKey(nameof(PatientId))]
     public int PatientId { get; set; }
     [Required]
     public Doctor Doctor { get; set; } // Relação 1:1 com Doctor (uma consulta tem um médico)
     [Required]
-    [ForeignKey(nameof(Doctor))]
+    [ForeignKey(nameof(DoctorId))]
     public int DoctorId { get; set; }
 }

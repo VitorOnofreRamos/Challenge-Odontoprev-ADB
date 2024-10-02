@@ -5,8 +5,8 @@ namespace Challenge_Odontoprev_ADB.Models.Entities.ValueObjects;
 [Owned]
 public class Location
 {
-    public string City { get; set; }
-    public string State { get; set; }
+    public string City { get; private set; }
+    public string State { get; private set; }
 
     private Location() {}
 

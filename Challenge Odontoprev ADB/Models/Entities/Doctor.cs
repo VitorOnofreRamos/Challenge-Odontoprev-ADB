@@ -8,7 +8,7 @@ public class Doctor
     [MinLength(3)]
     public string Name { get; set; } // Nome do médico
     [Required]
-    public string CRM { get; set; } // Registro profissional do médico
+    public string CRM { get; set; } // Registro profissional do médico "XXXXXX-XX/UF" (^\d{6}-\d{2}\/[A-Z]{2}$) 
     [Required]
     public string Specialty { get; set; } // Especialidade médica (mudar para um enum)
 

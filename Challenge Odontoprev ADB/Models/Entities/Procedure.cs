@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Challenge_Odontoprev_ADB.Models.Entities.ValueObjects;
+using System.ComponentModel.DataAnnotations;
 
 namespace Challenge_Odontoprev_ADB.Models.Entities;
 
@@ -7,7 +8,7 @@ public class Procedure : _BaseEntity //Procedimentos odontológicos
     [Required]
     public string ProcedureName { get; set; } // Nome do procedimento (ex.: limpeza, canal)
     [Required]
-    public decimal Cost { get; set; } // Custo do procedimento
+    public Cost Cost { get; set; } // Custo do procedimento
 
     [Required]
     // Relacionamento N:N com Appointment (uma consulta pode ter vários procedimentos)

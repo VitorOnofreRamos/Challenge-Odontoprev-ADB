@@ -1,14 +1,22 @@
-﻿namespace Challenge_Odontoprev_ADB.Models.Entities.ValueObjects;
+﻿using Microsoft.EntityFrameworkCore;
 
-public class Amount
+namespace Challenge_Odontoprev_ADB.Models.Entities.ValueObjects;
+
+[Owned]
+public class Cost
 {
-    public decimal Value { get; private set; }
+    public decimal Amount { get; private set; }
 
-    private Amount() { }
+    private Cost() { }
 
-    private Amount(decimal value) {
-        if (value < 0)
+    private Cost(decimal amount) {
+        if (amount < 0)
             throw new ArgumentException("Price cannot be negative.");
-        Value = value; 
+
+        Amount = amount; 
     }
+
+    public static implicit operator decimal(Cost value) => value.Amount;
+
+    public override string ToString() => $"R$ {Amount:F2}";
 }

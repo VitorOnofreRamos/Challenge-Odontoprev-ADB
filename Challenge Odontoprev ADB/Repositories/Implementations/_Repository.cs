@@ -1,9 +1,10 @@
 ﻿using Challenge_Odontoprev_ADB.Infrastructure;
 using Challenge_Odontoprev_ADB.Models.Entities;
+using Challenge_Odontoprev_ADB.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
-namespace Challenge_Odontoprev_ADB.Repositories;
+namespace Challenge_Odontoprev_ADB.Repositories.Implementations;
 
 public class _Repository<T> : _IRepository<T> where T : _BaseEntity
 {
@@ -12,7 +13,7 @@ public class _Repository<T> : _IRepository<T> where T : _BaseEntity
 
     public _Repository(ApplicationDbContext context)
     {
-        _context = context; 
+        _context = context;
         _entities = context.Set<T>();
     }
 

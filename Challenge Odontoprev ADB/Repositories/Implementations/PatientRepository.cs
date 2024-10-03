@@ -10,12 +10,6 @@ public class PatientRepository : _Repository<Patient>, IPatientRepository
 {
     public PatientRepository(ApplicationDbContext context) : base(context) { }
 
-    public async Task<Patient> GetPatientByIdAsync(int id)
-    {
-        return await _context.Patients
-            .FirstOrDefaultAsync(c => c.Id == id);
-    }
-
     public async Task<Patient> GetPatientByNameAsync(string name)
     {
         return await _context.Patients

@@ -1,6 +1,6 @@
 ﻿using Challenge_Odontoprev_ADB.Infrastructure;
 using Challenge_Odontoprev_ADB.Models.Entities;
-using Challenge_Odontoprev_ADB.Models.Entities.Domain;
+using Challenge_Odontoprev_ADB.Models.Entities.Enums;
 using Challenge_Odontoprev_ADB.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 

@@ -1,4 +1,4 @@
-﻿using Challenge_Odontoprev_ADB.Models.Entities.Domain;
+﻿using Challenge_Odontoprev_ADB.Models.Entities.Enums;
 using Challenge_Odontoprev_ADB.Models.Entities.ValueObjects;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.ConstrainedExecution;

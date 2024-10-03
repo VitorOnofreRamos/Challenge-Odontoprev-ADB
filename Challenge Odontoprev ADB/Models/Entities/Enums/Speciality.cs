@@ -1,4 +1,4 @@
-﻿namespace Challenge_Odontoprev_ADB.Models.Entities.Domain;
+﻿namespace Challenge_Odontoprev_ADB.Models.Entities.Enums;
 
 public enum Speciality
 {

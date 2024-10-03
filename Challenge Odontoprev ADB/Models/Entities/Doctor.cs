@@ -1,4 +1,4 @@
-﻿using Challenge_Odontoprev_ADB.Models.Entities.Domain;
+﻿using Challenge_Odontoprev_ADB.Models.Entities.Enums;
 using System.ComponentModel.DataAnnotations;
 
 namespace Challenge_Odontoprev_ADB.Models.Entities;

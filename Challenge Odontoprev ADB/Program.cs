@@ -1,4 +1,9 @@
+using Challenge_Odontoprev_ADB.Application.Services;
 using Challenge_Odontoprev_ADB.Infrastructure;
+using Challenge_Odontoprev_ADB.Models.Entities;
+using Challenge_Odontoprev_ADB.Repositories;
+using Challenge_Odontoprev_ADB.Repositories.Implementations;
+using Challenge_Odontoprev_ADB.Repositories.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -14,7 +19,15 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 // Add services to the container.
 //builder.Services.AddControllersWithViews();
 
-builder.Services.AddScoped<IAppointment>
+builder.Services.AddScoped<IPatientRepository, PatientRepository>();
+builder.Services.AddScoped<IDoctorRepository, DoctorRepository>();
+builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
+builder.Services.AddScoped<ITreatmentRepository, TreatmentRepository>();
+
+builder.Services.AddScoped<PatientService>();
+builder.Services.AddScoped<DoctorService>();
+builder.Services.AddScoped<AppointmentService>();
+builder.Services.AddScoped<TreatmentService>();
 
 builder.Services.AddControllers();
 

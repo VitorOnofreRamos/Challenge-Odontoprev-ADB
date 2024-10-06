@@ -26,10 +26,25 @@ public class _Repository<T> : _IRepository<T> where T : _BaseEntity
     public async Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> predicate)
         => await _entities.Where(predicate).ToListAsync();
 
-    public async Task AddAsync(T entity)
-        => await _entities.AddAsync(entity);
+    public async Task AddAsync(T entity) 
+    {
+        await _entities.AddAsync(entity);
+        await _context.SaveChangesAsync();
+    }
 
-    public void Update(T entity) => _entities.Update(entity);
+    public async Task UpdateAsync(T entity)
+    {
+        _entities.Update(entity);
+        await _context.SaveChangesAsync();
+    }
 
-    public void Remove(T entity) => _entities.Remove(entity);
+    public async Task RemoveAsync(int id)
+    {
+        var searchId = await _entities.FindAsync(id);
+        if (searchId != null)
+        {
+            _entities.Remove(searchId);
+            await _context.SaveChangesAsync();
+        }
+    }
 }

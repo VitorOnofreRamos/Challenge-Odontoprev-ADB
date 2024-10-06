@@ -11,6 +11,6 @@ public interface _IRepository<T> where T : _BaseEntity
     Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> predicate);
 
     Task AddAsync(T entity);
-    void Update(T entity);
-    void Remove(T entity);
+    Task UpdateAsync(T entity);
+    Task RemoveAsync(int id);
 }

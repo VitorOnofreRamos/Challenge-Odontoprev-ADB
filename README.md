@@ -35,9 +35,6 @@ Este framework foi desenvolvido como parte de um desafio da FIAP em parceria com
 2. Configure a conexão com o banco de dados
 3. Implemente os serviços necessários na sua aplicação
 
-### Contribuição
-Contribuições são bem-vindas! Por favor, leia nosso guia de contribuição antes de enviar um pull request.
-
 ### Licença
 Este projeto está licenciado sob a MIT License - veja o arquivo LICENSE.md para detalhes.
 

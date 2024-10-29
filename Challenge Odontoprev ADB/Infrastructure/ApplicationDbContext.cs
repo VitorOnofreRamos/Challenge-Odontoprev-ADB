@@ -1,7 +1,12 @@
 ﻿using Challenge_Odontoprev_ADB.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Microsoft.SqlServer.Server;
 using System.Numerics;
+using Challenge_Odontoprev_ADB.Models;
+using Challenge_Odontoprev_ADB.Models.Entities;
+using Challenge_Odontoprev_ADB.Models.Entities.ValueObjects;
+using System.Globalization;
 
 namespace Challenge_Odontoprev_ADB.Infrastructure;
 
@@ -47,13 +52,40 @@ public class ApplicationDbContext : DbContext
             .OnDelete(DeleteBehavior.Cascade);
     }
 
-    //private void SeedData(ModelBuilder modelBuilder)
-    //{
-    //    // Adicionando dados iniciais para Format
-    //    modelBuilder.Entity<Patient>().HasData(
-    //        new Patient {Id = 1, Name = "Paulin Bacana", Genero = "Masculino"}
-    //    );
-    //}
+    private void SeedData(ModelBuilder modelBuilder)
+    {
+        // Adicionando dados iniciais para Format
+        modelBuilder.Entity<Patient>().HasData(
+            new Patient
+            {
+                Name = "Paulin Bacana",
+                DateofBirth = DateTime.ParseExact("15/05/1985", "dd/MM/yyyy", CultureInfo.InvariantCulture),
+                CPF = "123.456.789-00",
+                Gender = "Masculino"
+            },
+            new Patient
+            {
+                Name = "Paulin Jr.",
+                DateofBirth = DateTime.ParseExact("15/05/2020", "dd/MM/yyyy", CultureInfo.InvariantCulture),
+                CPF = "234.567.891-00",
+                Gender = "Feminino"
+            },
+            new Patient
+            {
+                Name = "Paulin Desbacana",
+                DateofBirth = DateTime.ParseExact("15/05/2000", "dd/MM/yyyy", CultureInfo.InvariantCulture),
+                CPF = "345.678.912-00",
+                Gender = "Masculino"
+            },
+            new Patient
+            {
+                Name = "Bacana Paulin",
+                DateofBirth = DateTime.ParseExact("15/05/1999", "dd/MM/yyyy", CultureInfo.InvariantCulture),
+                CPF = "456.789.123-00",
+                Gender = "Masculino"
+            }
+        );
+    }
 
     //protected override void OnModelCreating(ModelBuilder modelBuilder)
     //{

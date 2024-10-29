@@ -21,6 +21,7 @@ namespace Challenge_Odontoprev_ADB.Controllers
 
         public IActionResult Index()
         {
+            var majorEvents = await _unitOfWork.Events.GetAllAsync();
             return View();
         }
 

@@ -16,8 +16,7 @@ public class Patient : _BaseEntity
     [RegularExpression(@"[0-9]{3}\.?[0-9]{3}\.?[0-9]{3}\-?[0-9]{2}")]
     public string CPF { get; set; } // Identificação do paciente
     
-    [EnumDataType(typeof(Gender))]
-    public Gender? Gender { get; set; } // Gênero do paciente
+    public string? Gender { get; set; } // Gênero do paciente
 
     // Relacionamento 1:N com Appointment (Um paciente pode ter várias consultas)
     public virtual ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();

@@ -1,4 +1,4 @@
-# Sistema de Redução de Busca de Consultas Odontoprev
+# Sistema de Busca de Consultas Odontoprev
 Este framework foi desenvolvido como parte de um desafio da FIAP em parceria com a Odontoprev, visando reduzir sinistros no setor odontológico.
 
 ### Funções Principais

@@ -13,45 +13,41 @@ using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Add services to the container.
+builder.Services.AddControllersWithViews();
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseOracle(builder.Configuration.GetConnectionString("FiapOracleConnection")));
 
-// Add services to the container.
-//builder.Services.AddControllersWithViews();
+//builder.Services.AddScoped<IPatientRepository, PatientRepository>();
+//builder.Services.AddScoped<IDoctorRepository, DoctorRepository>();
+//builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
+//builder.Services.AddScoped<ITreatmentRepository, TreatmentRepository>();
 
-builder.Services.AddScoped<IPatientRepository, PatientRepository>();
-builder.Services.AddScoped<IDoctorRepository, DoctorRepository>();
-builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
-builder.Services.AddScoped<ITreatmentRepository, TreatmentRepository>();
-
-builder.Services.AddScoped<PatientService>();
-builder.Services.AddScoped<DoctorService>();
-builder.Services.AddScoped<AppointmentService>();
-builder.Services.AddScoped<TreatmentService>();
-
-builder.Services.AddControllers();
+//builder.Services.AddScoped<PatientService>();
+//builder.Services.AddScoped<DoctorService>();
+//builder.Services.AddScoped<AppointmentService>();
+//builder.Services.AddScoped<TreatmentService>();
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-//if (!app.Environment.IsDevelopment())
-//{
-//    app.UseExceptionHandler("/Home/Error");
-//    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-//    app.UseHsts();
-//}
+if (!app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler("/Home/Error");
+    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+    app.UseHsts();
+}
 
-//app.UseHttpsRedirection();
-//app.UseStaticFiles();
+app.UseHttpsRedirection();
+app.UseStaticFiles();
 
-//app.UseRouting();
+app.UseRouting();
 
 app.UseAuthorization();
 
-//app.MapControllerRoute(
-//    name: "default",
-//    pattern: "{controller=Home}/{action=Index}/{id?}");
-
-app.MapControllers();
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();

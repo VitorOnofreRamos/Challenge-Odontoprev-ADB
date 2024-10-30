@@ -361,4 +361,6 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
 /Challenge Odontoprev ADB/appsettings.json
+/Challenge Odontoprev ABD/appsettings.Development.json

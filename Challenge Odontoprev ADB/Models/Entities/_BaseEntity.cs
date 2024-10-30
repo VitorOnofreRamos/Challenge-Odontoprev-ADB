@@ -8,6 +8,10 @@ public abstract class _BaseEntity
     [Key] // Marca como chave primária
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)] // Indica que o ID será gerado automaticamente
     public int Id { get; set; }
-    public DateTime CreatedAt { get; set; } = DateTime.Now;
-    public DateTime UpdatedAt { get; set; } = DateTime.Now;
+    
+    [Required]
+    public DateTime CreatedAt { get; set; }
+
+    [Required]
+    public DateTime UpdatedAt { get; set; }
 }

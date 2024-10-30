@@ -1,33 +1,26 @@
-using Challenge_Odontoprev_ADB.Application.Services;
 using Challenge_Odontoprev_ADB.Infrastructure;
 using Challenge_Odontoprev_ADB.Models.Entities;
-using Challenge_Odontoprev_ADB.Repositories;
 using Challenge_Odontoprev_ADB.Repositories.Implementations;
 using Challenge_Odontoprev_ADB.Repositories.Interfaces;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddDistributedMemoryCache();
+
+//builder.Services.AddSession(options =>
+//{
+//    options.IdleTimeout = TimeSpan.FromSeconds(60);
+//    options.Cookie.Name = "_AplicationSession";
+//    options.Cookie.IsEssential = true;
+//});
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseOracle(builder.Configuration.GetConnectionString("FiapOracleConnection")));
 
-//builder.Services.AddScoped<IPatientRepository, PatientRepository>();
-//builder.Services.AddScoped<IDoctorRepository, DoctorRepository>();
-//builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
-//builder.Services.AddScoped<ITreatmentRepository, TreatmentRepository>();
-
-//builder.Services.AddScoped<PatientService>();
-//builder.Services.AddScoped<DoctorService>();
-//builder.Services.AddScoped<AppointmentService>();
-//builder.Services.AddScoped<TreatmentService>();
+builder.Services.AddScoped<_IRepository<_BaseEntity>, _Repository<_BaseEntity>>();
 
 var app = builder.Build();
 
@@ -45,6 +38,8 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+
+//app.UseSession();
 
 app.MapControllerRoute(
     name: "default",

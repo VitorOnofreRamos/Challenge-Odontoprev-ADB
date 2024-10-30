@@ -29,12 +29,14 @@ public class _Repository<T> : _IRepository<T> where T : _BaseEntity
     public async Task AddAsync(T entity) 
     {
         await _entities.AddAsync(entity);
+        entity.CreatedAt = DateTime.UtcNow;
         await _context.SaveChangesAsync();
     }
 
     public async Task UpdateAsync(T entity)
     {
         _entities.Update(entity);
+        entity.UpdatedAt = DateTime.UtcNow;
         await _context.SaveChangesAsync();
     }
 

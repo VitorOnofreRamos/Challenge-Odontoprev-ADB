@@ -1,4 +1,4 @@
-# Sistema de Redução de Sinistros com Análise Preditiva para Atendimentos Odontológicos
+# Sistema de Busca de consultas Odeontoprev
 Este framework foi desenvolvido como parte de um desafio da FIAP em parceria com a Odontoprev, visando reduzir sinistros no setor odontológico.
 
 ### Funções Principais

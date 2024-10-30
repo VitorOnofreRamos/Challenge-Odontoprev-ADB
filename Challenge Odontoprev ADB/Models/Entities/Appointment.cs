@@ -1,4 +1,5 @@
-﻿using Challenge_Odontoprev_ADB.Models.Entities.ValueObjects;
+﻿using Challenge_Odontoprev_ADB.Models.Entities.Enums;
+using Challenge_Odontoprev_ADB.Models.Entities.ValueObjects;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -13,7 +14,7 @@ public class Appointment : _BaseEntity
     public AppointmentLocation Location { get; set; } // Local da consulta
 
     [Required]
-    [Column("AppointmentDate")]
+    [Column("Appointment_Date")]
     public AppointmentDate Date { get; set; } // Data da consulta
     
     [Required]
@@ -29,6 +30,11 @@ public class Appointment : _BaseEntity
     [Required]
     [ForeignKey(nameof(Treatment))]
     public int TreatmentId { get; set; }
+
+    [Required]
+    [EnumDataType(typeof(AppointmentStatus))]
+    [Column("Appointment_Status")]
+    public AppointmentStatus Status { get; set; }
 
     //
     public virtual ICollection<Treatment> Treatments { get; set; } = new List<Treatment>();

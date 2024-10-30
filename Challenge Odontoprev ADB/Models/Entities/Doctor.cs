@@ -17,9 +17,9 @@ public class Doctor : _BaseEntity
     public string CRM { get; set; } // Registro profissional do médico "XXXXXX-XX/UF" (^\d{6}-\d{2}\/[A-Z]{2}$) 
 
     [Required]
-    [EnumDataType(typeof(Speciality))]
+    [EnumDataType(typeof(DoctorSpeciality))]
     [Column("Speciality")]
-    public Speciality Speciality { get; set; }
+    public DoctorSpeciality Speciality { get; set; }
 
     [Required]
     [RegularExpression(@"^\(\d{2}\)\s\d{4,5}-\d{4}$")]

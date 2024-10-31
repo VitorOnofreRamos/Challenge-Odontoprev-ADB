@@ -5,12 +5,12 @@ namespace Challenge_Odontoprev_ADB.Repositories.Interfaces;
 
 public interface _IRepository<T> where T : _BaseEntity
 {
-    Task<T> GetByIdAsync(int id);
-    Task<IEnumerable<T>> GetAllAsync();
+    Task<T> GetByIdAsync(int id); //GET BY ID
+    Task<IEnumerable<T>> GetAllAsync(); //GET ALL
 
     Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> predicate);
 
-    Task AddAsync(T entity);
-    Task UpdateAsync(T entity);
-    Task RemoveAsync(int id);
+    Task AddAsync(T entity); //CREATE ENTITY
+    Task UpdateAsync(T entity); //UPDATE ENTITY
+    Task RemoveAsync(int id); //DELETE BY ID
 }

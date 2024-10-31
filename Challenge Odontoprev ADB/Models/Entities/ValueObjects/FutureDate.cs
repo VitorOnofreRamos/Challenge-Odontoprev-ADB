@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore;
 namespace Challenge_Odontoprev_ADB.Models.Entities.ValueObjects;
 
 [Owned]
-public class AppointmentDate
+public class FutureDate
 {
     public DateTime Date { get; private set; }
 
-    private AppointmentDate() {}
+    private FutureDate() {}
 
-    public AppointmentDate(DateTime date)
+    public FutureDate(DateTime date)
     {
         if (date < DateTime.Now)
             throw new ArgumentException("Event date cannot be in the past.");

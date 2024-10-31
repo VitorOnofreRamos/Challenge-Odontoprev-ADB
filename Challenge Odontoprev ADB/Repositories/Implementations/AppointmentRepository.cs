@@ -16,7 +16,7 @@ public class AppointmentRepository : _Repository<Appointment>, IAppointmentRepos
         return await _context.Appointments.FirstOrDefaultAsync(c => c.Location == location);
     }
 
-    public async Task<Appointment> GetAppointmetByDateAsync(AppointmentDate date)
+    public async Task<Appointment> GetAppointmetByDateAsync(FutureDate date)
     {
         return await _context.Appointments.FirstOrDefaultAsync(c => c.Date == date);
     }

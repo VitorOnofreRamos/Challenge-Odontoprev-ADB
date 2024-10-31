@@ -1,11 +1,11 @@
 ﻿using Challenge_Odontoprev_ADB.Models.Entities.Enums;
-using System.ComponentModel.DataAnnotations;
+using Challenge_Odontoprev_ADB.Models.Entities;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
-namespace Challenge_Odontoprev_ADB.Models.Entities;
+namespace Challenge_Odontoprev_ADB.Application.DTOs;
 
-[Table("OdonPrev_Doctor")]
-public class Doctor : _BaseEntity
+public class DoctorDTO
 {
     [Required]
     [Column("Doctor_Name")]
@@ -26,10 +26,7 @@ public class Doctor : _BaseEntity
     [Column("Doctor_Phone")]
     public string Phone { get; set; } // Telefone paciente
 
-    //[Required]
-    //[ForeignKey(nameof(Appointment))]
-    //public int AppointmentId { get; set; }
-
-    //Relacionamento 1:N necessário para o Entity Framework (Um médico pode realizar várias consultas)
-    public virtual ICollection<Appointment> Appointments { get; set; } = new List<Appointment>(); 
+    [Required]
+    [ForeignKey(nameof(Appointment))]
+    public int AppointmentId { get; set; }
 }

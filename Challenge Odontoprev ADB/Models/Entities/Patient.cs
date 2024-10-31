@@ -18,7 +18,7 @@ public class Patient : _BaseEntity
     [DataType(DataType.DateTime)]
     [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
     [Column("DateOfBirth")]
-    public DateTime DateOfBirth { get; set; } // Data de nascimento
+    public FutureDate DateOfBirth { get; set; } // Data de nascimento
 
     [Required]
     [RegularExpression(@"[0-9]{3}\.?[0-9]{3}\.?[0-9]{3}\-?[0-9]{2}")]
@@ -39,9 +39,9 @@ public class Patient : _BaseEntity
     [Column("HealthCard")]
     public int HealthCard { get; set; } // Carterinha
 
-    [Required]
-    [ForeignKey(nameof(Appointment))]
-    public int AppointmentId { get; set; }
+    //[Required]
+    //[ForeignKey(nameof(Appointment))]
+    //public int AppointmentId { get; set; }
 
     // Relacionamento 1:N com Appointment (Um paciente pode ter várias consultas)
     public virtual ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();

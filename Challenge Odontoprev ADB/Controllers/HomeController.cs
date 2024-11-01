@@ -19,9 +19,10 @@ namespace Challenge_Odontoprev_ADB.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var majorAppointment = await _unitOfWork.Appointment.GetAllAsync();
+            return View(majorAppointment);
         }
 
         public IActionResult Privacy()

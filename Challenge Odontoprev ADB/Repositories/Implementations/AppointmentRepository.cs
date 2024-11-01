@@ -11,7 +11,7 @@ public class AppointmentRepository : _Repository<Appointment>, IAppointmentRepos
 {
     public AppointmentRepository(ApplicationDbContext context) : base(context) { }
 
-    public async Task<Appointment> GetAppointmetByLocationAsync(AppointmentLocation location)
+    public async Task<Appointment> GetAppointmetByLocationAsync(LocationAddress location)
     {
         return await _context.Appointments.FirstOrDefaultAsync(c => c.Location == location);
     }

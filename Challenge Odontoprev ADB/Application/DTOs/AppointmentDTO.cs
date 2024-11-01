@@ -14,7 +14,7 @@ public class AppointmentDTO
 
     [Required]
     [Column("Appointment_Location")]
-    public AppointmentLocation Location { get; set; } // Local da consulta
+    public LocationAddress Location { get; set; } // Local da consulta
 
     [Required]
     [DataType(DataType.DateTime)]

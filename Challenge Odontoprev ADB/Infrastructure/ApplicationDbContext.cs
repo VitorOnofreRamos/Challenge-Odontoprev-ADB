@@ -1,4 +1,5 @@
 ﻿using Challenge_Odontoprev_ADB.Models.Entities;
+using Challenge_Odontoprev_ADB.Models.Entities.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Numerics;
@@ -14,169 +15,61 @@ public class ApplicationDbContext : DbContext
 
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    private void SeedData(ModelBuilder modelBuilder)
     {
-        //Configuração para Patient
-        modelBuilder.Entity<Patient>(entity =>
-        {
-            entity.ToTable("OdonPrev_Patient");
+        modelBuilder.Entity<Doctor>().HasData(
+            new Doctor { Id = 1, Name = "Dr. João", CRM = "123456-78/SP", Speciality = DoctorSpeciality.GeneralDentistry, Phone = "(11) 1234-5678" }
+        );
 
-            entity.HasKey(e => e.Id); // Chave primária
-
-            entity.Property(e => e.Name)
-                  .IsRequired()
-                  .HasColumnName("Patient_Name");
-
-            entity.Property(e => e.DateOfBirth)
-                  .IsRequired()
-                  .HasColumnName("DateOfBirth");
-
-            entity.Property(e => e.CPF)
-                  .IsRequired()
-                  .HasColumnName("CPF");
-
-            entity.Property(e => e.Address)
-                  .IsRequired()
-                  .HasColumnName("Address");
-
-            entity.Property(e => e.Phone)
-                  .IsRequired()
-                  .HasColumnName("Patient_Phone");
-
-            entity.Property(e => e.HealthCard)
-                  .IsRequired()
-                  .HasColumnName("HealthCard");
-        });
-
-        // Configuração para Doctor
-        modelBuilder.Entity<Doctor>(entity =>
-        {
-            entity.ToTable("OdonPrev_Doctor");
-
-            entity.HasKey(e => e.Id); // Chave primária
-
-            entity.Property(e => e.Name)
-                  .IsRequired()
-                  .HasColumnName("Doctor_Name");
-
-            entity.Property(e => e.CRM)
-                  .IsRequired()
-                  .HasColumnName("CRM");
-
-            entity.Property(e => e.Speciality)
-                  .IsRequired()
-                  .HasColumnName("Speciality");
-
-            entity.Property(e => e.Phone)
-                  .IsRequired()
-                  .HasColumnName("Doctor_Phone");
-        });
-
-        // Configuração para Appointment
-        modelBuilder.Entity<Appointment>(entity =>
-        {
-            entity.ToTable("OdonPrev_Appointment");
-
-            entity.HasKey(e => e.Id); // Chave primária
-
-            entity.Property(e => e.AppointmentReason)
-                  .HasColumnName("AppointmentReason");
-
-            entity.Property(e => e.Location)
-                  .IsRequired()
-                  .HasColumnName("Appointment_Location");
-
-            entity.Property(e => e.Date)
-                  .IsRequired()
-                  .HasColumnName("Appointment_Date");
-
-            entity.Property(e => e.Status)
-                  .IsRequired()
-                  .HasColumnName("Appointment_Status");
-
-            // Configurar relacionamentos
-            entity.HasOne(e => e.Patient)
-                  .WithMany(e => e.Appointments)
-                  .HasForeignKey(e => e.PatientId)
-                  .OnDelete(DeleteBehavior.Cascade);
-
-            entity.HasOne(e => e.Doctor)
-                  .WithMany(e => e.Appointments)
-                  .HasForeignKey(e => e.DoctorId)
-                  .OnDelete(DeleteBehavior.Cascade);
-
-            entity.HasMany(e => e.Treatments)
-                  .WithOne(e => e.Appointment)
-                  .HasForeignKey(e => e.AppointmentId)
-                  .OnDelete(DeleteBehavior.Cascade);
-        });
-
-        // Configuração para Treatment
-        modelBuilder.Entity<Treatment>(entity =>
-        {
-            entity.ToTable("OdonPrev_Treatment");
-
-            entity.HasKey(e => e.Id); // Chave primária
-
-            entity.Property(e => e.ProcedureType)
-                  .IsRequired();
-
-            entity.Property(e => e.ProcedureDescription)
-                  .HasColumnName("ProcedureDescription");
-
-            entity.Property(e => e.Cost)
-                  .IsRequired();
-
-            // Relacionamento já definido em Appointment
-            entity.HasOne(e => e.Appointment)
-                  .WithMany(e => e.Treatments)
-                  .HasForeignKey(e => e.AppointmentId)
-                  .OnDelete(DeleteBehavior.Cascade);
-        });
-
-        //modelBuilder.Entity<Patient>()
-        //    .HasKey(p => p.Id);
-
-        //modelBuilder.Entity<Doctor>()
-        //    .HasKey(d => d.Id);
-
-        //modelBuilder.Entity<Appointment>()
-        //    .HasKey(c => c.Id);
-
-        //modelBuilder.Entity<Treatment>()
-        //    .HasKey(t => t.Id);
-
-        //modelBuilder.Entity<Appointment>()
-        //    .HasOne(c => c.Patient)
-        //    .WithMany(p => p.Appointments)
-        //    .HasForeignKey(c => c.PatientId)
-        //    .OnDelete(DeleteBehavior.Cascade);
-
-        //modelBuilder.Entity<Appointment>()
-        //    .HasOne(c => c.Doctor)
-        //    .WithMany(d => d.Appointments)
-        //    .HasForeignKey(c => c.DoctorId)
-        //    .OnDelete(DeleteBehavior.Cascade);
-
-        //modelBuilder.Entity<Treatment>()
-        //    .HasOne(t => t.Appointment)
-        //    .WithMany(c => c.Treatments)
-        //    .HasForeignKey(t => t.AppointmentId)
-        //    .OnDelete(DeleteBehavior.Cascade);
+        //modelBuilder.Entity<Patient>().HasData(
+        //    new Patient { Id = 1, Name = "Maria Silva", CPF = "123.456.789-00", Address = "Rua A, 123", DateOfBirth = "10/5/1990", Phone = "(11) 98765-4321", HealthCard = 12345 }
+        //);
     }
 
-    //private void SeedData(ModelBuilder modelBuilder)
-    //{
-    //    // Adicionando dados iniciais para Format
-    //    modelBuilder.Entity<Patient>().HasData(
-    //        new Patient {Id = 1, Name = "Paulin Bacana", Genero = "Masculino"}
-    //    );
-    //}
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        // Configurações específicas de propriedades e relacionamentos
 
-    //protected override void OnModelCreating(ModelBuilder modelBuilder)
-    //{
-    //    // Configuração para Price como Owned Type em Appointment
+        // Configuração para campos de endereço do paciente (se necessário)
+        modelBuilder.Entity<Patient>().OwnsOne(p => p.Address, address =>
+        {
+            address.Property(a => a.Street).HasColumnName("Street").HasMaxLength(150);
+            address.Property(a => a.City).HasColumnName("City").HasMaxLength(100);
+            address.Property(a => a.State).HasColumnName("State").HasMaxLength(50);
+        });
 
-    //    //Configuração para Location como Owned Type em Appointment
-    //}
+        // Configuração da relação entre Appointment e Patient
+        modelBuilder.Entity<Appointment>()
+            .HasOne(a => a.Patient)
+            .WithMany(p => p.Appointments)
+            .HasForeignKey(a => a.PatientId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        // Configuração da relação entre Appointment e Doctor
+        modelBuilder.Entity<Appointment>()
+            .HasOne(a => a.Doctor)
+            .WithMany(d => d.Appointments)
+            .HasForeignKey(a => a.DoctorId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        // Configuração da relação entre Appointment e Treatment
+        modelBuilder.Entity<Appointment>()
+            .HasMany(a => a.Treatments)
+            .WithOne(t => t.Appointment)
+            .HasForeignKey(t => t.AppointmentId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        // Configuração da relação entre Treatment e Appointment (1:N)
+        modelBuilder.Entity<Treatment>()
+            .HasOne(t => t.Appointment)
+            .WithMany(a => a.Treatments)
+            .HasForeignKey(t => t.AppointmentId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        // Configuração adicional para o custo como Owned Type em Treatment
+        modelBuilder.Entity<Treatment>().OwnsOne(t => t.Cost, cost =>
+        {
+            cost.Property(c => c.Amount).HasColumnName("Cost").HasColumnType("decimal(18,2)");
+        });
+    }
 }

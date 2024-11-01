@@ -27,7 +27,7 @@ public class Patient : _BaseEntity
 
     [Required]
     [Column("Address")]
-    public string Address { get; set; } // Endereco do paciente
+    public LocationAddress Address { get; set; } // Endereco do paciente
 
     [Required]
     [RegularExpression(@"^\\(\\d{2}\\)\\s\\d{4,5}-\\d{4}$")]

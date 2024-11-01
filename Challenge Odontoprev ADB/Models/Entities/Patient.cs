@@ -18,7 +18,7 @@ public class Patient : _BaseEntity
     [DataType(DataType.DateTime)]
     [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
     [Column("DateOfBirth")]
-    public FutureDate DateOfBirth { get; set; } // Data de nascimento
+    public PassDate DateOfBirth { get; set; } // Data de nascimento
 
     [Required]
     [RegularExpression(@"[0-9]{3}\.?[0-9]{3}\.?[0-9]{3}\-?[0-9]{2}")]

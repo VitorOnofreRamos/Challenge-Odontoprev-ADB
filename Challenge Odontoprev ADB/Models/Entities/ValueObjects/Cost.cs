@@ -9,7 +9,7 @@ public class Cost
 
     private Cost() { }
 
-    private Cost(decimal amount) {
+    public Cost(decimal amount) {
         if (amount < 0)
             throw new ArgumentException("Price cannot be negative.");
 

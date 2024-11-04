@@ -21,7 +21,7 @@ public class AppointmentDTO
     public string Address_State { get; set; }
     [Required]
     [DataType(DataType.Date)]
-    public DateTime AppointmnetDate { get; set; }
+    public DateTime AppointmentDate { get; set; }
     [Required]
     public int PatientId{ get; set; }
     [Required]

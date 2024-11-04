@@ -20,7 +20,21 @@ namespace Challenge_Odontoprev_ADB.Controllers
         public async Task<IActionResult> Index() 
         {
             var appointments = await _unitOfWork.Appointment.GetAllAsync();
-            return View(appointments); //View para listar todos os appointments
+            var appointmentsDTOs = appointments.Select(a => new AppointmentDTO
+            {
+                Id = a.Id,
+                Status = a.Status,
+                Address_Street = a.Address_Street,
+                Address_City = a.Address_City,
+                Address_State = a.Address_State,
+                AppointmentDate = a.AppointmentDate,
+                PatientId = a.PatientId,
+                DoctorId = a.DoctorId,
+                TreatmentsId = a.Treatments.Select(t => t.Id).ToList(),
+                AppointmentReason = a.AppointmentReason
+            }).ToList();
+
+            return View(appointmentsDTOs); //View para listar todos os appointments
         }
 
         // GET: /appointments/details/{id}
@@ -46,14 +60,27 @@ namespace Challenge_Odontoprev_ADB.Controllers
         // POST: /appointments/create
         [HttpPost("create")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Appointment appointment)
+        public async Task<IActionResult> Create(AppointmentDTO dto)
         {
             if (ModelState.IsValid)
             {
+                var appointment = new Appointment
+                {
+                    Status = dto.Status,
+                    Address_Street = dto.Address_Street,
+                    Address_City = dto.Address_City,
+                    Address_State = dto.Address_State,
+                    AppointmentDate = dto.AppointmentDate,
+                    PatientId = dto.PatientId,
+                    DoctorId = dto.DoctorId,
+                    AppointmentReason = dto.AppointmentReason,
+                    Treatments = dto.TreatmentsId.Select(id => new Treatment { Id = id }).ToList()
+                };
+
                 await _unitOfWork.Appointment.AddAsync(appointment);
                 return RedirectToAction(nameof(Index));
             }
-            return View(appointment);
+            return View(dto);
         }
 
         // GET: /appointments/delete/1

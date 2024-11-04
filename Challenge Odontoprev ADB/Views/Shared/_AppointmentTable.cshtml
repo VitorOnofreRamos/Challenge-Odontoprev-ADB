@@ -1,16 +1,17 @@
-﻿<h1>Major Appointment</h1>
+﻿@model IEnumerable<Challenge_Odontoprev_ADB.Application.DTOs.AppointmentDTO>
+
+<h2>Appointments List</h2>
 <table class="table">
 	<thead>
 	<tr>
 		<th>Status</th>
 		<th>Appointment Date</th>
-		<th>Address Street</th>
-		<th>Address City</th>
-		<th>Address State</th>
-		<th>Patient</th>
-		<th>Doctor</th>
+		<th>Address</th>
+		<th>Patient ID</th>
+		<th>Doctor ID</th>
 		<th>Treatments</th>
-		<th>AppointmentReason</th>
+		<th>Appointment Reason</th>
+		<th>Actions</th>
 	</tr>
 	</thead>
 	<tbody>
@@ -18,22 +19,24 @@
 		{
 			<tr>
 				<td>@appointmentItem.Status</td>
-				<td>@appointmentItem.AppointmentDate.ToString()</td>
-				<td>@appointmentItem.Address_Street</td>
-				<td>@appointmentItem.Address_City</td>
-				<td>@appointmentItem.Address_State</td>
-				<td>@appointmentItem.Patient</td>
-				<td>@appointmentItem.Doctor</td>
-				<td>@appointmentItem.Treatments</td>
+				<td>@appointmentItem.AppointmentDate.ToString("dd/MM/yyyy")</td>
+				<td>@appointmentItem.@($"{appointmentItem.Address_Street}, {appointmentItem.Address_City}, {appointmentItem.Address_State}")</td>
+				<td>@appointmentItem.PatientId</td>
+				<td>@appointmentItem.DoctorId</td>
 				<td>
-					@if (appointmentItem.AppointmentReason != null || appointmentItem.AppointmentReason != "")
+					@if (appointmentItem.TreatmentsId.Any())
 					{
-						@(appointmentItem.AppointmentReason)
+						@string.Join(", ", appointmentItem.TreatmentsId)
 					} else
 					{
-						@("Motivo da consulta não especificado.")
+						<span>No treatments assigned</span>
 					}
 				</td>
+					<td>@(string.IsNullOrEmpty(appointmentItem.AppointmentReason) ? "Reason not specified" : appointmentItem.AppointmentReason)</td>
+					<td>
+						<a asp-controller="Appointment" asp-action="Edit" asp-route-id="@appointmentItem.Id" class="btn btn-warning btn-sm">Edit</a>
+						<a asp-controller="Appointment" asp-action="Delete" asp-route-id="@appointmentItem.Id" class="btn btn-danger btn-sm">Delete</a>
+					</td>
 			</tr>
 		}
 	</tbody>

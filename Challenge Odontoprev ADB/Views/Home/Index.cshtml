@@ -2,5 +2,10 @@
 ﻿@{
 	ViewData["Title"] = "Challenge_Odontoprev_ADB";
 }
-@Html.Partial("_AppointmentTable")
+
+<h1>Appointments</h1>
+
+<a asp-controller="Appointment" asp-action="Create" class="btn btn-primary">Create New Appointment</a>
+
+@Html.Partial("_AppointmentTable", Model)
 

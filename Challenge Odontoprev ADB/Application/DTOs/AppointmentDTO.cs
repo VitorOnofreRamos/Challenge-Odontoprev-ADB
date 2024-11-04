@@ -7,29 +7,25 @@ namespace Challenge_Odontoprev_ADB.Application.DTOs;
 
 public class AppointmentDTO
 {
-    public string? AppointmentReason { get; set; } // Motivo da consulta
-
+    public int? Id { get; set; }
     [Required]
-    public string Address_Street { get; set; } // Local da consulta
+    public EnumAppointmentStatus Status { get; set; }
     [Required]
+    [StringLength(100)]
+    public string Address_Street { get; set; }
+    [Required]
+    [StringLength(50)]
     public string Address_City { get; set; }
     [Required]
+    [StringLength(50)]
     public string Address_State { get; set; }
-
     [Required]
-    //[DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
-    public DateTime AppointmentDate { get; set; } // Data da consulta
-
+    [DataType(DataType.Date)]
+    public DateTime AppointmnetDate { get; set; }
     [Required]
-    public int PatientId { get; set; }
-
+    public int PatientId{ get; set; }
     [Required]
     public int DoctorId { get; set; }
-
-    [Required]
-    public int TreatmentId { get; set; }
-
-    [Required]
-    [EnumDataType(typeof(EnumAppointmentStatus))]
-    public EnumAppointmentStatus Status { get; set; }
+    public List<int> TreatmentsId { get; set; } = new();
+    public string? AppointmentReason { get; set; }
 }

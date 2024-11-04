@@ -1,16 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc.Diagnostics;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace Challenge_Odontoprev_ADB.Models.Entities.ValueObjects;
 
 [Owned]
-public class FutureDate
+public class ValueAppointmentDate
 {
     public DateTime Date { get; private set; }
 
-    private FutureDate() {}
+    private ValueAppointmentDate() {}
 
-    public FutureDate(DateTime date)
+    public ValueAppointmentDate(DateTime date)
     {
         if (date < DateTime.Now)
             throw new ArgumentException("Event date cannot be in the past.");

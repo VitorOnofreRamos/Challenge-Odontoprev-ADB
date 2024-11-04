@@ -10,7 +10,7 @@ public class TreatmentRepository : _Repository<Treatment>, ITreatmentRepository
 {
     public TreatmentRepository(ApplicationDbContext context) : base(context) { }
 
-    public async Task<Treatment> GetTreatmentByProcedureTypeAsync(ProcedureType procedure)
+    public async Task<Treatment> GetTreatmentByProcedureTypeAsync(EnumProcedureType procedure)
     {
         return await _context.Treatments
             .FirstOrDefaultAsync(c => c.ProcedureType == procedure);

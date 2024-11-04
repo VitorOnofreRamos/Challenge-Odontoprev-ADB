@@ -3,13 +3,13 @@
 namespace Challenge_Odontoprev_ADB.Models.Entities.ValueObjects;
 
 [Owned]
-public class PassDate
+public class ValueDateOfBirth
 {
     public DateTime Date { get; private set; }
 
-    private PassDate() { }
+    private ValueDateOfBirth() { }
 
-    public PassDate(DateTime date)
+    public ValueDateOfBirth(DateTime date)
     {
         if (date > DateTime.Now)
             throw new ArgumentException("Event date cannot be in the future.");

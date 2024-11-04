@@ -10,9 +10,9 @@ public class PatientRepository : _Repository<Patient>, IPatientRepository
 {
     public PatientRepository(ApplicationDbContext context) : base(context) { }
 
-    public async Task<Patient> GetPatientByNameAsync(string name)
+    public async Task<Patient> GetPatientByCPFAsync(string cpf)
     {
         return await _context.Patients
-            .FirstOrDefaultAsync(c => c.Name == name);
+            .FirstOrDefaultAsync(c => c.CPF == cpf);
     }
 }

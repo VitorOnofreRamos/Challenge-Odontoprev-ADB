@@ -5,5 +5,5 @@ namespace Challenge_Odontoprev_ADB.Repositories.Interfaces;
 
 public interface ITreatmentRepository : _IRepository<Treatment>
 {
-    Task<Treatment> GetTreatmentByProcedureTypeAsync(ProcedureType procedure);
+    Task<Treatment> GetTreatmentByProcedureTypeAsync(EnumProcedureType procedure);
 }

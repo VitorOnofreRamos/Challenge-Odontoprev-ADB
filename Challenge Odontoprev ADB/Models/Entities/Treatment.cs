@@ -10,14 +10,13 @@ namespace Challenge_Odontoprev_ADB.Models.Entities;
 public class Treatment : _BaseEntity //Procedimentos odontológicos
 {
     [Required]
-    [EnumDataType(typeof(ProcedureType))]
-    public ProcedureType ProcedureType { get; set; } // Tipo de procedimento
+    [EnumDataType(typeof(EnumProcedureType))]
+    public EnumProcedureType ProcedureType { get; set; } // Tipo de procedimento
 
-    [Required]
     public string? ProcedureDescription { get; set; }
 
     [Required]
-    public Cost Cost { get; set; } // Custo do procedimento
+    public ValueCost Cost { get; set; } // Custo do procedimento
 
     [Required]
     [ForeignKey(nameof(Appointment))]

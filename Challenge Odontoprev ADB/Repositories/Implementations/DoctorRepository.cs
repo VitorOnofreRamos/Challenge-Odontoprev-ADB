@@ -10,9 +10,9 @@ public class DoctorRepository : _Repository<Doctor>, IDoctorRepository
 {
     public DoctorRepository(ApplicationDbContext context) : base(context) { }
 
-    public async Task<Doctor> GetDoctorByNameAsync(string name)
+    public async Task<Doctor> GetDoctorByCRMAsync(string crm)
     {
         return await _context.Doctors
-            .FirstOrDefaultAsync(c => c.Name == name);
+            .FirstOrDefaultAsync(c => c.CRM == crm);
     }
 }

@@ -4,5 +4,5 @@ namespace Challenge_Odontoprev_ADB.Repositories.Interfaces;
 
 public interface IDoctorRepository : _IRepository<Doctor>
 {
-    Task<Doctor> GetDoctorByNameAsync(string name);
+    Task<Doctor> GetDoctorByCRMAsync(string crm);
 }

@@ -19,33 +19,39 @@ public class ApplicationDbContext : DbContext
     private void SeedData(ModelBuilder modelBuilder)
     {
         //modelBuilder.Entity<Doctor>().HasData(
-        //    new Doctor { Id = 1, 
-        //        Name = "Dr. Teste", 
-        //        CRM = "123456-78/SP", 
-        //        Speciality = DoctorSpeciality.GeneralDentistry, 
+        //    new Doctor
+        //    {
+        //        Id = 1,
+        //        Name = "Dr. Teste",
+        //        CRM = "123456-78/SP",
+        //        Speciality = DoctorSpeciality.GeneralDentistry,
         //        Phone = "(11) 1234-5678",
         //        CreatedAt = DateTime.Now
         //    }
         //);
 
         //modelBuilder.Entity<Patient>().HasData(
-        //    new Patient { Id = 1, 
-        //        Name = "Paciente Teste", 
-        //        CPF = "123.456.789-00", 
-        //        Address = new LocationAddress("Rua A, 123", "São Paulo", "SP"), 
-        //        DateOfBirth = new PassDate(new DateTime(1987, 7, 22)), 
-        //        Phone = "(11) 98765-4321", 
+        //    new Patient
+        //    {
+        //        Id = 1,
+        //        Name = "Paciente Teste",
+        //        CPF = "123.456.789-00",
+        //        Address = new LocationAddress("Rua A, 123", "São Paulo", "SP"),
+        //        DateOfBirth = new DateOfBirth(new DateTime(1987, 7, 22)),
+        //        Phone = "(11) 98765-4321",
         //        HealthCard = 12345,
         //        CreatedAt = DateTime.Now
         //    }
         //);
 
         //modelBuilder.Entity<Appointment>().HasData(
-        //    new Appointment { Id = 1,
+        //    new Appointment
+        //    {
+        //        Id = 1,
         //        AppointmentReason = "Consulta inicial",
         //        Location = new LocationAddress("Rua C, 789", "São Paulo", "SP"),
-        //        Date = new FutureDate(DateTime.Now.AddDays(10)),
-        //        PatientId = 1, 
+        //        AppointmentDate = new AppointmentDate(new DateTime(2025, 8, 10)),
+        //        PatientId = 1,
         //        DoctorId = 1,
         //        Status = AppointmentStatus.AGENDADA,
         //        CreatedAt = DateTime.Now
@@ -76,17 +82,11 @@ public class ApplicationDbContext : DbContext
         });
 
         // Configuração para LocationAddress como Owned Type em Appointment
-        modelBuilder.Entity<Appointment>().OwnsOne(a => a.Location, loc =>
+        modelBuilder.Entity<Appointment>().OwnsOne(a => a.Address, loc =>
         {
             loc.Property(l => l.Street).HasColumnName("Street").HasMaxLength(100);
             loc.Property(l => l.City).HasColumnName("City").HasMaxLength(50);
             loc.Property(l => l.State).HasColumnName("State").HasMaxLength(50);
-        });
-
-        // Configuração para FutureDate como Owned Type em Appointment
-        modelBuilder.Entity<Appointment>().OwnsOne(a => a.Date, date =>
-        {
-            date.Property(d => d.Date).HasColumnName("AppointmentDate").HasColumnType("datetime");
         });
 
         // Configuração de relacionamento entre Appointment e Patient

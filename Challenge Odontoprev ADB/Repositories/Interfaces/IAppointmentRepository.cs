@@ -5,6 +5,6 @@ namespace Challenge_Odontoprev_ADB.Repositories.Interfaces;
 
 public interface IAppointmentRepository : _IRepository<Appointment>
 {
-    Task<Appointment> GetAppointmetByLocationAsync(LocationAddress location);
-    Task<Appointment> GetAppointmetByDateAsync(FutureDate date);
+    Task<Appointment> GetAppointmetByAddressAsync(ValueLocationAddress address);
+    Task<Appointment> GetAppointmetByDateAsync(ValueAppointmentDate date);
 }

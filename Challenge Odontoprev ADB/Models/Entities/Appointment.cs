@@ -8,19 +8,17 @@ namespace Challenge_Odontoprev_ADB.Models.Entities;
 [Table("OdonPrev_Appointment")]
 public class Appointment : _BaseEntity
 {
-    [Required]
-    [Column("AppointmentReason")]
     public string? AppointmentReason { get; set; } // Motivo da consulta
 
     [Required]
-    [Column("Appointment_Location")]
-    public LocationAddress Location { get; set; } // Local da consulta
+    [Column("AppointmentAddress")]
+    public ValueLocationAddress Address { get; set; } // Local da consulta
 
     [Required]
     [DataType(DataType.DateTime)]
     [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
-    [Column("Appointment_Date")]
-    public FutureDate Date { get; set; } // Data da consulta
+    [Column(TypeName = "TIMESTAMP")]
+    public ValueAppointmentDate AppointmentDate { get; set; } // Data da consulta
     
     [Required]
     [ForeignKey(nameof(Patient))]
@@ -37,9 +35,8 @@ public class Appointment : _BaseEntity
     //public int TreatmentId { get; set; }
 
     [Required]
-    [EnumDataType(typeof(AppointmentStatus))]
-    [Column("Appointment_Status")]
-    public AppointmentStatus Status { get; set; }
+    [EnumDataType(typeof(EnumAppointmentStatus))]
+    public EnumAppointmentStatus Status { get; set; }
 
     public virtual ICollection<Treatment> Treatments { get; set; } = new List<Treatment>();
 }

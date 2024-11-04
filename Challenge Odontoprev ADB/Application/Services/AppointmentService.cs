@@ -21,10 +21,9 @@ public class AppointmentService
     public async Task AddAppointmentAsync(Appointment appointment) =>
         await _appointmentRepository.AddAsync(appointment);
 
-    public async Task UpdateAppointmentAsync(Appointment consulta) =>
-        await _appointmentRepository.UpdateAsync(consulta);
+    public async Task UpdateAppointmentAsync(Appointment appointment) =>
+        await _appointmentRepository.UpdateAsync(appointment);
 
     public async Task RemoveAppointmentAsync(int id) =>
         await _appointmentRepository.RemoveAsync(id);
-
 }

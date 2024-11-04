@@ -2,19 +2,22 @@
 using Challenge_Odontoprev_ADB.Models.Entities.ValueObjects;
 using Challenge_Odontoprev_ADB.Models.Entities;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Challenge_Odontoprev_ADB.Application.DTOs;
 
 public class TreatmentDTO
 {
     [Required]
-    [EnumDataType(typeof(ProcedureType))]
-    public ProcedureType ProcedureType { get; set; } // Tipo de procedimento
+    [EnumDataType(typeof(EnumProcedureType))]
+    public EnumProcedureType ProcedureType { get; set; } // Tipo de procedimento
 
     public string? ProcedureDescription { get; set; }
 
     [Required]
-    public Cost Cost { get; set; } // Custo do procedimento
+    public ValueCost Cost { get; set; } // Custo do procedimento
 
-    public virtual Appointment Appointment { get; set; }
+    [Required]
+    public int AppointmentId { get; set; }
+
 }

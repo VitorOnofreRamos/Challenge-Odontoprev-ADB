@@ -11,13 +11,13 @@ public class AppointmentRepository : _Repository<Appointment>, IAppointmentRepos
 {
     public AppointmentRepository(ApplicationDbContext context) : base(context) { }
 
-    public async Task<Appointment> GetAppointmetByLocationAsync(LocationAddress location)
+    public async Task<Appointment> GetAppointmetByAddressAsync(ValueLocationAddress address)
     {
-        return await _context.Appointments.FirstOrDefaultAsync(c => c.Location == location);
+        return await _context.Appointments.FirstOrDefaultAsync(c => c.Address == address);
     }
 
-    public async Task<Appointment> GetAppointmetByDateAsync(FutureDate date)
+    public async Task<Appointment> GetAppointmetByDateAsync(ValueAppointmentDate date)
     {
-        return await _context.Appointments.FirstOrDefaultAsync(c => c.Date == date);
+        return await _context.Appointments.FirstOrDefaultAsync(c => c.AppointmentDate == date);
     }
 }

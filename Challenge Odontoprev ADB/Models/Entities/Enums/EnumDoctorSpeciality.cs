@@ -1,6 +1,6 @@
 ﻿namespace Challenge_Odontoprev_ADB.Models.Entities.Enums;
 
-public enum DoctorSpeciality
+public enum EnumDoctorSpeciality
 {
     GeneralDentistry,
     Orthodontics,

@@ -1,5 +1,4 @@
 ﻿using Challenge_Odontoprev_ADB.Models.Entities.Enums;
-using Challenge_Odontoprev_ADB.Models.Entities.ValueObjects;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -16,7 +15,7 @@ public class Treatment : _BaseEntity //Procedimentos odontológicos
     public string? ProcedureDescription { get; set; }
 
     [Required]
-    public ValueCost Cost { get; set; } // Custo do procedimento
+    public float Cost { get; set; } // Custo do procedimento
 
     [Required]
     [ForeignKey(nameof(Appointment))]

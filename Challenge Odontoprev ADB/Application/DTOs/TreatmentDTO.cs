@@ -1,5 +1,4 @@
 ﻿using Challenge_Odontoprev_ADB.Models.Entities.Enums;
-using Challenge_Odontoprev_ADB.Models.Entities.ValueObjects;
 using Challenge_Odontoprev_ADB.Models.Entities;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -15,7 +14,7 @@ public class TreatmentDTO
     public string? ProcedureDescription { get; set; }
 
     [Required]
-    public ValueCost Cost { get; set; } // Custo do procedimento
+    public float Cost { get; set; } // Custo do procedimento
 
     [Required]
     public int AppointmentId { get; set; }

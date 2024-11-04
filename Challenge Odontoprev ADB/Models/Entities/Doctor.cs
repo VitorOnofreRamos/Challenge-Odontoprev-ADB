@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Challenge_Odontoprev_ADB.Models.Entities;
 
-[Table("OdonPrevDoctor")]
+[Table("OdonPrev_Doctor")]
 public class Doctor : _BaseEntity
 {
     [Required]
@@ -23,10 +23,6 @@ public class Doctor : _BaseEntity
     [RegularExpression(@"^\(\d{2}\)\s\d{4,5}-\d{4}$")]
     [Column("DoctorPhone")]
     public string Phone { get; set; } // Telefone paciente
-
-    //[Required]
-    //[ForeignKey(nameof(Appointment))]
-    //public int AppointmentId { get; set; }
 
     //Relacionamento 1:N necessário para o Entity Framework (Um médico pode realizar várias consultas)
     public virtual ICollection<Appointment> Appointments { get; set; } = new List<Appointment>(); 

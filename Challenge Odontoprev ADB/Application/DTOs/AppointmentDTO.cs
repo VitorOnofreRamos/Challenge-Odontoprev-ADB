@@ -1,5 +1,4 @@
 ﻿using Challenge_Odontoprev_ADB.Models.Entities.Enums;
-using Challenge_Odontoprev_ADB.Models.Entities.ValueObjects;
 using Challenge_Odontoprev_ADB.Models.Entities;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
@@ -11,12 +10,15 @@ public class AppointmentDTO
     public string? AppointmentReason { get; set; } // Motivo da consulta
 
     [Required]
-    public ValueLocationAddress Location { get; set; } // Local da consulta
+    public string Address_Street { get; set; } // Local da consulta
+    [Required]
+    public string Address_City { get; set; }
+    [Required]
+    public string Address_State { get; set; }
 
     [Required]
-    [DataType(DataType.DateTime)]
-    [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
-    public ValueAppointmentDate AppointmentDate { get; set; } // Data da consulta
+    //[DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+    public DateTime AppointmentDate { get; set; } // Data da consulta
 
     [Required]
     public int PatientId { get; set; }

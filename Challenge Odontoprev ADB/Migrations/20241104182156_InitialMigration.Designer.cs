@@ -12,8 +12,8 @@ using Oracle.EntityFrameworkCore.Metadata;
 namespace Challenge_Odontoprev_ADB.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241104145714__InitialMigration")]
-    partial class _InitialMigration
+    [Migration("20241104182156_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,6 +32,21 @@ namespace Challenge_Odontoprev_ADB.Migrations
                         .HasColumnType("NUMBER(10)");
 
                     OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Address_City")
+                        .IsRequired()
+                        .HasColumnType("NVARCHAR2(2000)");
+
+                    b.Property<string>("Address_State")
+                        .IsRequired()
+                        .HasColumnType("NVARCHAR2(2000)");
+
+                    b.Property<string>("Address_Street")
+                        .IsRequired()
+                        .HasColumnType("NVARCHAR2(2000)");
+
+                    b.Property<DateTime>("AppointmentDate")
+                        .HasColumnType("TIMESTAMP");
 
                     b.Property<string>("AppointmentReason")
                         .HasColumnType("NVARCHAR2(2000)");
@@ -58,6 +73,21 @@ namespace Challenge_Odontoprev_ADB.Migrations
                     b.HasIndex("PatientId");
 
                     b.ToTable("OdonPrev_Appointment");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Address_City = "São Paulo",
+                            Address_State = "SP",
+                            Address_Street = "Rua C, 789",
+                            AppointmentDate = new DateTime(2025, 8, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AppointmentReason = "Consulta inicial",
+                            CreatedAt = new DateTime(2024, 11, 4, 15, 21, 56, 281, DateTimeKind.Local).AddTicks(3609),
+                            DoctorId = 1,
+                            PatientId = 1,
+                            Status = 0
+                        });
                 });
 
             modelBuilder.Entity("Challenge_Odontoprev_ADB.Models.Entities.Doctor", b =>
@@ -93,7 +123,18 @@ namespace Challenge_Odontoprev_ADB.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("OdonPrevDoctor");
+                    b.ToTable("OdonPrev_Doctor");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CRM = "123456-78/SP",
+                            CreatedAt = new DateTime(2024, 11, 4, 15, 21, 56, 281, DateTimeKind.Local).AddTicks(3451),
+                            Name = "Dr. Teste",
+                            Phone = "(11) 1234-5678",
+                            Speciality = 0
+                        });
                 });
 
             modelBuilder.Entity("Challenge_Odontoprev_ADB.Models.Entities.Patient", b =>
@@ -110,6 +151,9 @@ namespace Challenge_Odontoprev_ADB.Migrations
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("TIMESTAMP(7)");
+
+                    b.Property<DateTime>("DateOfBirth")
+                        .HasColumnType("TIMESTAMP");
 
                     b.Property<int>("HealthCard")
                         .HasColumnType("NUMBER(10)");
@@ -130,6 +174,18 @@ namespace Challenge_Odontoprev_ADB.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("OdonPrev_Patient");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CPF = "123.456.789-00",
+                            CreatedAt = new DateTime(2024, 11, 4, 15, 21, 56, 281, DateTimeKind.Local).AddTicks(3587),
+                            DateOfBirth = new DateTime(1987, 7, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            HealthCard = 12345,
+                            Name = "Paciente Teste",
+                            Phone = "(11) 98765-4321"
+                        });
                 });
 
             modelBuilder.Entity("Challenge_Odontoprev_ADB.Models.Entities.Treatment", b =>
@@ -142,6 +198,9 @@ namespace Challenge_Odontoprev_ADB.Migrations
 
                     b.Property<int>("AppointmentId")
                         .HasColumnType("NUMBER(10)");
+
+                    b.Property<float>("Cost")
+                        .HasColumnType("BINARY_FLOAT");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("TIMESTAMP(7)");
@@ -160,6 +219,17 @@ namespace Challenge_Odontoprev_ADB.Migrations
                     b.HasIndex("AppointmentId");
 
                     b.ToTable("OdonPrev_Treatment");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AppointmentId = 1,
+                            Cost = 200f,
+                            CreatedAt = new DateTime(2024, 11, 4, 15, 21, 56, 281, DateTimeKind.Local).AddTicks(3626),
+                            ProcedureDescription = "Limpeza dental completa",
+                            ProcedureType = 0
+                        });
                 });
 
             modelBuilder.Entity("Challenge_Odontoprev_ADB.Models.Entities.Appointment", b =>
@@ -176,112 +246,9 @@ namespace Challenge_Odontoprev_ADB.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.OwnsOne("Challenge_Odontoprev_ADB.Models.Entities.ValueObjects.ValueLocationAddress", "Address", b1 =>
-                        {
-                            b1.Property<int>("AppointmentId")
-                                .HasColumnType("NUMBER(10)");
-
-                            b1.Property<string>("City")
-                                .IsRequired()
-                                .HasMaxLength(50)
-                                .HasColumnType("NVARCHAR2(50)")
-                                .HasColumnName("City");
-
-                            b1.Property<string>("State")
-                                .IsRequired()
-                                .HasMaxLength(50)
-                                .HasColumnType("NVARCHAR2(50)")
-                                .HasColumnName("State");
-
-                            b1.Property<string>("Street")
-                                .IsRequired()
-                                .HasMaxLength(100)
-                                .HasColumnType("NVARCHAR2(100)")
-                                .HasColumnName("Street");
-
-                            b1.HasKey("AppointmentId");
-
-                            b1.ToTable("OdonPrev_Appointment");
-
-                            b1.WithOwner()
-                                .HasForeignKey("AppointmentId");
-                        });
-
-                    b.OwnsOne("Challenge_Odontoprev_ADB.Models.Entities.ValueObjects.ValueAppointmentDate", "AppointmentDate", b1 =>
-                        {
-                            b1.Property<int>("AppointmentId")
-                                .HasColumnType("NUMBER(10)");
-
-                            b1.Property<DateTime>("Date")
-                                .HasColumnType("TIMESTAMP(7)");
-
-                            b1.HasKey("AppointmentId");
-
-                            b1.ToTable("OdonPrev_Appointment");
-
-                            b1.WithOwner()
-                                .HasForeignKey("AppointmentId");
-                        });
-
-                    b.Navigation("Address")
-                        .IsRequired();
-
-                    b.Navigation("AppointmentDate")
-                        .IsRequired();
-
                     b.Navigation("Doctor");
 
                     b.Navigation("Patient");
-                });
-
-            modelBuilder.Entity("Challenge_Odontoprev_ADB.Models.Entities.Patient", b =>
-                {
-                    b.OwnsOne("Challenge_Odontoprev_ADB.Models.Entities.ValueObjects.ValueLocationAddress", "Address", b1 =>
-                        {
-                            b1.Property<int>("PatientId")
-                                .HasColumnType("NUMBER(10)");
-
-                            b1.Property<string>("City")
-                                .IsRequired()
-                                .HasColumnType("NVARCHAR2(2000)");
-
-                            b1.Property<string>("State")
-                                .IsRequired()
-                                .HasColumnType("NVARCHAR2(2000)");
-
-                            b1.Property<string>("Street")
-                                .IsRequired()
-                                .HasColumnType("NVARCHAR2(2000)");
-
-                            b1.HasKey("PatientId");
-
-                            b1.ToTable("OdonPrev_Patient");
-
-                            b1.WithOwner()
-                                .HasForeignKey("PatientId");
-                        });
-
-                    b.OwnsOne("Challenge_Odontoprev_ADB.Models.Entities.ValueObjects.ValueDateOfBirth", "DateOfBirth", b1 =>
-                        {
-                            b1.Property<int>("PatientId")
-                                .HasColumnType("NUMBER(10)");
-
-                            b1.Property<DateTime>("Date")
-                                .HasColumnType("TIMESTAMP(7)");
-
-                            b1.HasKey("PatientId");
-
-                            b1.ToTable("OdonPrev_Patient");
-
-                            b1.WithOwner()
-                                .HasForeignKey("PatientId");
-                        });
-
-                    b.Navigation("Address")
-                        .IsRequired();
-
-                    b.Navigation("DateOfBirth")
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Challenge_Odontoprev_ADB.Models.Entities.Treatment", b =>
@@ -292,27 +259,7 @@ namespace Challenge_Odontoprev_ADB.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.OwnsOne("Challenge_Odontoprev_ADB.Models.Entities.ValueObjects.ValueCost", "Cost", b1 =>
-                        {
-                            b1.Property<int>("TreatmentId")
-                                .HasColumnType("NUMBER(10)");
-
-                            b1.Property<decimal>("Amount")
-                                .HasColumnType("decimal(18,2)")
-                                .HasColumnName("Cost");
-
-                            b1.HasKey("TreatmentId");
-
-                            b1.ToTable("OdonPrev_Treatment");
-
-                            b1.WithOwner()
-                                .HasForeignKey("TreatmentId");
-                        });
-
                     b.Navigation("Appointment");
-
-                    b.Navigation("Cost")
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Challenge_Odontoprev_ADB.Models.Entities.Appointment", b =>

@@ -1,5 +1,4 @@
 ﻿using Challenge_Odontoprev_ADB.Models.Entities.Enums;
-using Challenge_Odontoprev_ADB.Models.Entities.ValueObjects;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -10,15 +9,18 @@ public class Appointment : _BaseEntity
 {
     public string? AppointmentReason { get; set; } // Motivo da consulta
 
+    // Adicione as propriedades do ValueObject aqui
     [Required]
-    [Column("AppointmentAddress")]
-    public ValueLocationAddress Address { get; set; } // Local da consulta
+    public string Address_Street { get; set; }
+    [Required]
+    public string Address_City { get; set; }
+    [Required]
+    public string Address_State { get; set; }
 
     [Required]
-    [DataType(DataType.DateTime)]
-    [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+    //[DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
     [Column(TypeName = "TIMESTAMP")]
-    public ValueAppointmentDate AppointmentDate { get; set; } // Data da consulta
+    public DateTime AppointmentDate { get; set; } // Data da consulta
     
     [Required]
     [ForeignKey(nameof(Patient))]
@@ -29,10 +31,6 @@ public class Appointment : _BaseEntity
     [ForeignKey(nameof(Doctor))]
     public int DoctorId { get; set; }
     public virtual Doctor Doctor { get; set; } // Relação 1:1 com Doctor (uma consulta tem um médico)
-
-    //[Required]
-    //[ForeignKey(nameof(Treatment))]
-    //public int TreatmentId { get; set; }
 
     [Required]
     [EnumDataType(typeof(EnumAppointmentStatus))]

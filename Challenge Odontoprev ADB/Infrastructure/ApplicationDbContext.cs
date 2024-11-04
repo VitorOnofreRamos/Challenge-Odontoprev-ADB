@@ -1,6 +1,5 @@
 ﻿using Challenge_Odontoprev_ADB.Models.Entities;
 using Challenge_Odontoprev_ADB.Models.Entities.Enums;
-using Challenge_Odontoprev_ADB.Models.Entities.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Numerics;
@@ -18,57 +17,58 @@ public class ApplicationDbContext : DbContext
 
     private void SeedData(ModelBuilder modelBuilder)
     {
-        //modelBuilder.Entity<Doctor>().HasData(
-        //    new Doctor
-        //    {
-        //        Id = 1,
-        //        Name = "Dr. Teste",
-        //        CRM = "123456-78/SP",
-        //        Speciality = DoctorSpeciality.GeneralDentistry,
-        //        Phone = "(11) 1234-5678",
-        //        CreatedAt = DateTime.Now
-        //    }
-        //);
+        modelBuilder.Entity<Doctor>().HasData(
+            new Doctor
+            {
+                Id = 1,
+                Name = "Dr. Teste",
+                CRM = "123456-78/SP",
+                Speciality = EnumDoctorSpeciality.GeneralDentistry,
+                Phone = "(11) 1234-5678",
+                CreatedAt = DateTime.Now
+            }
+        );
 
-        //modelBuilder.Entity<Patient>().HasData(
-        //    new Patient
-        //    {
-        //        Id = 1,
-        //        Name = "Paciente Teste",
-        //        CPF = "123.456.789-00",
-        //        Address = new LocationAddress("Rua A, 123", "São Paulo", "SP"),
-        //        DateOfBirth = new DateOfBirth(new DateTime(1987, 7, 22)),
-        //        Phone = "(11) 98765-4321",
-        //        HealthCard = 12345,
-        //        CreatedAt = DateTime.Now
-        //    }
-        //);
+        modelBuilder.Entity<Patient>().HasData(
+            new Patient
+            {
+                Id = 1,
+                Name = "Paciente Teste",
+                CPF = "123.456.789-00",
+                DateOfBirth = new DateTime(1987, 7, 22),
+                Phone = "(11) 98765-4321",
+                HealthCard = 12345,
+                CreatedAt = DateTime.Now
+            }
+        );
 
-        //modelBuilder.Entity<Appointment>().HasData(
-        //    new Appointment
-        //    {
-        //        Id = 1,
-        //        AppointmentReason = "Consulta inicial",
-        //        Location = new LocationAddress("Rua C, 789", "São Paulo", "SP"),
-        //        AppointmentDate = new AppointmentDate(new DateTime(2025, 8, 10)),
-        //        PatientId = 1,
-        //        DoctorId = 1,
-        //        Status = AppointmentStatus.AGENDADA,
-        //        CreatedAt = DateTime.Now
-        //    }
-        //);
+        modelBuilder.Entity<Appointment>().HasData(
+            new Appointment
+            {
+                Id = 1,
+                AppointmentReason = "Consulta inicial",
+                Address_Street = "Rua C, 789",
+                Address_City = "São Paulo",
+                Address_State = "SP",
+                AppointmentDate = new DateTime(2025, 8, 10),
+                PatientId = 1,
+                DoctorId = 1,
+                Status = EnumAppointmentStatus.AGENDADA,
+                CreatedAt = DateTime.Now
+            }
+        );
 
-        //modelBuilder.Entity<Treatment>().HasData(
-        //    new Treatment
-        //    {
-        //        Id = 1,
-        //        ProcedureType = ProcedureType.Cleaning,
-        //        ProcedureDescription = "Limpeza dental completa",
-        //        Cost = new Cost(200.00m), // Valor em Reais
-        //        AppointmentId = 1,
-        //        CreatedAt = DateTime.Now
-        //    }
-        //);
+        modelBuilder.Entity<Treatment>().HasData(
+            new Treatment
+            {
+                Id = 1,
+                ProcedureType = EnumProcedureType.Cleaning,
+                ProcedureDescription = "Limpeza dental completa",
+                Cost = 200, // Valor em Reais
+                AppointmentId = 1,
+                CreatedAt = DateTime.Now
+            }
+        );
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -76,18 +76,18 @@ public class ApplicationDbContext : DbContext
         // Configuração dos ValueObjects para Cost, LocationAddress e FutureDate
 
         // Configuração para Cost como Owned Type em Treatment
-        modelBuilder.Entity<Treatment>().OwnsOne(t => t.Cost, cost =>
-        {
-            cost.Property(c => c.Amount).HasColumnName("Cost").HasColumnType("decimal(18,2)");
-        });
+        //modelBuilder.Entity<Treatment>().OwnsOne(t => t.Cost, cost =>
+        //{
+        //    cost.Property(c => c.Amount).HasColumnName("Cost").HasColumnType("decimal(18,2)");
+        //});
 
         // Configuração para LocationAddress como Owned Type em Appointment
-        modelBuilder.Entity<Appointment>().OwnsOne(a => a.Address, loc =>
-        {
-            loc.Property(l => l.Street).HasColumnName("Street").HasMaxLength(100);
-            loc.Property(l => l.City).HasColumnName("City").HasMaxLength(50);
-            loc.Property(l => l.State).HasColumnName("State").HasMaxLength(50);
-        });
+        //modelBuilder.Entity<Appointment>().OwnsOne(a => a.Address, loc =>
+        //{
+        //    loc.Property(l => l.Street).HasColumnName("Street").HasMaxLength(100);
+        //    loc.Property(l => l.City).HasColumnName("City").HasMaxLength(50);
+        //    loc.Property(l => l.State).HasColumnName("State").HasMaxLength(50);
+        //});
 
         // Configuração de relacionamento entre Appointment e Patient
         modelBuilder.Entity<Appointment>()

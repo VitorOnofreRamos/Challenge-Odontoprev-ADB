@@ -20,12 +20,14 @@ public class AppointmentDTO
     [StringLength(50)]
     public string Address_State { get; set; }
     [Required]
+    [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
     [DataType(DataType.Date)]
     public DateTime AppointmentDate { get; set; }
     [Required]
     public int PatientId{ get; set; }
     [Required]
     public int DoctorId { get; set; }
-    public List<int> TreatmentsId { get; set; } = new();
+    [Required]
+    public List<int> TreatmentsId { get; set; }
     public string? AppointmentReason { get; set; }
 }

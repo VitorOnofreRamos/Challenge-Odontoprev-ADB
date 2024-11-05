@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace Challenge_Odontoprev_ADB.Migrations
 {
     /// <inheritdoc />
@@ -109,22 +111,42 @@ namespace Challenge_Odontoprev_ADB.Migrations
             migrationBuilder.InsertData(
                 table: "OdonPrev_Doctor",
                 columns: new[] { "Id", "CRM", "CreatedAt", "DoctorName", "DoctorPhone", "Speciality", "UpdatedAt" },
-                values: new object[] { 1, "123456-78/SP", new DateTime(2024, 11, 4, 15, 21, 56, 281, DateTimeKind.Local).AddTicks(3451), "Dr. Teste", "(11) 1234-5678", 0, null });
+                values: new object[,]
+                {
+                    { 1, "123456-78/SP", new DateTime(2024, 11, 5, 14, 45, 35, 476, DateTimeKind.Local).AddTicks(2395), "Dr. João Silva", "(11) 1234-5678", 0, null },
+                    { 2, "234567-89/MG", new DateTime(2024, 11, 5, 14, 45, 35, 476, DateTimeKind.Local).AddTicks(2405), "Dra. Maria Oliveira", "(11) 2345-6789", 8, null },
+                    { 3, "345678-91/SP", new DateTime(2024, 11, 5, 14, 45, 35, 476, DateTimeKind.Local).AddTicks(2407), "Dr. Paulo Lima", "(11) 34567-8910", 9, null }
+                });
 
             migrationBuilder.InsertData(
                 table: "OdonPrev_Patient",
                 columns: new[] { "Id", "CPF", "CreatedAt", "DateOfBirth", "HealthCard", "PatientName", "PatientPhone", "UpdatedAt" },
-                values: new object[] { 1, "123.456.789-00", new DateTime(2024, 11, 4, 15, 21, 56, 281, DateTimeKind.Local).AddTicks(3587), new DateTime(1987, 7, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), 12345, "Paciente Teste", "(11) 98765-4321", null });
+                values: new object[,]
+                {
+                    { 1, "123.456.789-00", new DateTime(2024, 11, 5, 14, 45, 35, 476, DateTimeKind.Local).AddTicks(2524), new DateTime(1987, 7, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), 12345, "Lucas Pereira", "(11) 98765-4321", null },
+                    { 2, "234.555.779-20", new DateTime(2024, 11, 5, 14, 45, 35, 476, DateTimeKind.Local).AddTicks(2527), new DateTime(2000, 12, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 22365, "Miguel Alves", "(11) 9455-4771", null },
+                    { 3, "321.456.665-12", new DateTime(2024, 11, 5, 14, 45, 35, 476, DateTimeKind.Local).AddTicks(2528), new DateTime(1998, 4, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), 87745, "Rafael Cardoso", "(11) 92775-5378", null }
+                });
 
             migrationBuilder.InsertData(
                 table: "OdonPrev_Appointment",
                 columns: new[] { "Id", "Address_City", "Address_State", "Address_Street", "AppointmentDate", "AppointmentReason", "CreatedAt", "DoctorId", "PatientId", "Status", "UpdatedAt" },
-                values: new object[] { 1, "São Paulo", "SP", "Rua C, 789", new DateTime(2025, 8, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "Consulta inicial", new DateTime(2024, 11, 4, 15, 21, 56, 281, DateTimeKind.Local).AddTicks(3609), 1, 1, 0, null });
+                values: new object[,]
+                {
+                    { 1, "São Paulo", "SP", "Rua A, 123", new DateTime(2025, 8, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2024, 11, 5, 14, 45, 35, 476, DateTimeKind.Local).AddTicks(2549), 1, 1, 0, null },
+                    { 2, "Rio de Janeiro", "RJ", "Rua B, 456", new DateTime(2024, 12, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Visita de Emergência", new DateTime(2024, 11, 5, 14, 45, 35, 476, DateTimeKind.Local).AddTicks(2551), 2, 2, 2, null },
+                    { 3, "Fortaleza", "CE", "Rua C, 789", new DateTime(2024, 11, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), "Extração dentária", new DateTime(2024, 11, 5, 14, 45, 35, 476, DateTimeKind.Local).AddTicks(2552), 3, 3, 1, null }
+                });
 
             migrationBuilder.InsertData(
                 table: "OdonPrev_Treatment",
                 columns: new[] { "Id", "AppointmentId", "Cost", "CreatedAt", "ProcedureDescription", "ProcedureType", "UpdatedAt" },
-                values: new object[] { 1, 1, 200f, new DateTime(2024, 11, 4, 15, 21, 56, 281, DateTimeKind.Local).AddTicks(3626), "Limpeza dental completa", 0, null });
+                values: new object[,]
+                {
+                    { 1, 1, 200f, new DateTime(2024, 11, 5, 14, 45, 35, 476, DateTimeKind.Local).AddTicks(2570), "Limpeza dental completa", 0, null },
+                    { 2, 2, 350f, new DateTime(2024, 11, 5, 14, 45, 35, 476, DateTimeKind.Local).AddTicks(2571), "Prenchimento", 7, null },
+                    { 3, 3, 500f, new DateTime(2024, 11, 5, 14, 45, 35, 476, DateTimeKind.Local).AddTicks(2572), "Implantação de protese", 10, null }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_OdonPrev_Appointment_DoctorId",

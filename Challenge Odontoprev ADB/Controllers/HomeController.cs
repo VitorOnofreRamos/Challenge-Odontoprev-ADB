@@ -5,6 +5,7 @@ using Challenge_Odontoprev_ADB.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using Challenge_Odontoprev_ADB.Application.DTOs;
 
 namespace Challenge_Odontoprev_ADB.Controllers
 {
@@ -21,8 +22,22 @@ namespace Challenge_Odontoprev_ADB.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var majorAppointment = await _unitOfWork.Appointment.GetAllAsync();
-            return View(majorAppointment);
+            var majorAppointments = await _unitOfWork.Appointment.GetAllAsync();
+
+            var majorAppointmentsDTOs = majorAppointments.Select(a => new AppointmentDTO
+            {
+                Status = a.Status,
+                Address_Street = a.Address_Street,
+                Address_City = a.Address_City,
+                Address_State = a.Address_State,
+                AppointmentDate = a.AppointmentDate,
+                PatientId = a.PatientId,
+                DoctorId = a.DoctorId,
+                TreatmentsId = a.Treatments.Select(t => t.Id).ToList(),
+                AppointmentReason = a.AppointmentReason
+            }).ToList();
+
+            return View(majorAppointmentsDTOs);
         }
 
         public IActionResult Privacy()

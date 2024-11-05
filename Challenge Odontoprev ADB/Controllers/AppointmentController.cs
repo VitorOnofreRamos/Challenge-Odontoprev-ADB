@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Challenge_Odontoprev_ADB.Controllers
 {
-    [Route("appointments")]
+    [Route("Appointment")]
     public class AppointmentController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -20,6 +20,7 @@ namespace Challenge_Odontoprev_ADB.Controllers
         public async Task<IActionResult> Index() 
         {
             var appointments = await _unitOfWork.Appointment.GetAllAsync();
+
             var appointmentsDTOs = appointments.Select(a => new AppointmentDTO
             {
                 Id = a.Id,
@@ -46,19 +47,31 @@ namespace Challenge_Odontoprev_ADB.Controllers
             {
                 return NotFound();
             }
-            return View(appointment); //View para ver detalhes de um appointment
+            var dto = new AppointmentDTO
+            {
+                Id = appointment.Id,
+                Status = appointment.Status,
+                Address_Street = appointment.Address_Street,
+                Address_City = appointment.Address_City,
+                Address_State = appointment.Address_State,
+                AppointmentDate = appointment.AppointmentDate,
+                PatientId = appointment.PatientId,
+                DoctorId = appointment.DoctorId,
+                TreatmentsId = appointment.Treatments.Select(t => t.Id).ToList(),
+                AppointmentReason = appointment.AppointmentReason
+            };
+            return View(dto); // Passando AppointmentDTO para a View
         }
 
         // GET: /appointment/create
-        [HttpGet("create")]
-        [ValidateAntiForgeryToken]
+        [HttpGet("Create")]
         public IActionResult Create()
         {
             return View();
         }
 
         // POST: /appointments/create
-        [HttpPost("create")]
+        [HttpPost("Create")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(AppointmentDTO dto)
         {
@@ -83,7 +96,7 @@ namespace Challenge_Odontoprev_ADB.Controllers
             return View(dto);
         }
 
-        // GET: /appointments/delete/1
+        // GET: /appointments/delete/{id}
         [HttpGet("delete/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
@@ -92,11 +105,11 @@ namespace Challenge_Odontoprev_ADB.Controllers
             {
                 return NotFound();
             }
-            return View(appointment); // View para confirmar a exclusão
+            return View(new AppointmentDTO { Id = appointment.Id}); // View para confirmar a exclusão
         }
 
-        // POST: /appointments/delete/1
-        [HttpDelete("delete/{id}")]
+        // POST: /appointments/delete/{id}
+        [HttpPost("delete/{id}")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {

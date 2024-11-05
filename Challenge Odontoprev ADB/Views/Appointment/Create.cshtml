@@ -1,0 +1,76 @@
+﻿@model Challenge_Odontoprev_ADB.Application.DTOs.AppointmentDTO
+
+@{
+    ViewData["Title"] = "Criar Agendamento";
+}
+
+<h2>Criar Agendamento</h2>
+
+@* <form asp-action="Create" method="post">
+    <div class="form-group">
+        <label asp-for="AppointmentReason"></label>
+        <input asp-for="AppointmentReason" class="form-control" />
+        <span asp-validation-for="AppointmentReason" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Address_Street"></label>
+        <input asp-for="Address_Street" class="form-control" required />
+        <span asp-validation-for="Address_Street" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Address_City"></label>
+        <input asp-for="Address_City" class="form-control" required />
+        <span asp-validation-for="Address_City" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Address_State"></label>
+        <input asp-for="Address_State" class="form-control" required />
+        <span asp-validation-for="Address_State" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="AppointmentDate"></label>
+        <input asp-for="AppointmentDate" class="form-control" type="datetime-local" required />
+        <span asp-validation-for="AppointmentDate" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="PatientId">Paciente</label>
+        <select asp-for="PatientId" class="form-control" asp-items="@(new SelectList(ViewBag.Patients, "Id", "Name"))" required>
+            <option value="">Selecione um Paciente</option>
+        </select>
+        <span asp-validation-for="PatientId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="DoctorId">Médico</label>
+        <select asp-for="DoctorId" class="form-control" asp-items="@(new SelectList(ViewBag.Doctors, "Id", "Name"))" required>
+            <option value="">Selecione um Médico</option>
+        </select>
+        <span asp-validation-for="DoctorId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Status"></label>
+        <select asp-for="Status" class="form-control" required>
+            <option value="0">AGENDADA</option>
+            <option value="1">CANCELADA</option>
+            <option value="2">CONCLUIDA</option>
+        </select>
+        <span asp-validation-for="Status" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Criar Agendamento</button>
+    </div>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+ *@

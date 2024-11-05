@@ -77,13 +77,38 @@ namespace Challenge_Odontoprev_ADB.Migrations
                             Id = 1,
                             Address_City = "São Paulo",
                             Address_State = "SP",
-                            Address_Street = "Rua C, 789",
+                            Address_Street = "Rua A, 123",
                             AppointmentDate = new DateTime(2025, 8, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            AppointmentReason = "Consulta inicial",
-                            CreatedAt = new DateTime(2024, 11, 4, 15, 21, 56, 281, DateTimeKind.Local).AddTicks(3609),
+                            CreatedAt = new DateTime(2024, 11, 5, 14, 45, 35, 476, DateTimeKind.Local).AddTicks(2549),
                             DoctorId = 1,
                             PatientId = 1,
                             Status = 0
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Address_City = "Rio de Janeiro",
+                            Address_State = "RJ",
+                            Address_Street = "Rua B, 456",
+                            AppointmentDate = new DateTime(2024, 12, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AppointmentReason = "Visita de Emergência",
+                            CreatedAt = new DateTime(2024, 11, 5, 14, 45, 35, 476, DateTimeKind.Local).AddTicks(2551),
+                            DoctorId = 2,
+                            PatientId = 2,
+                            Status = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Address_City = "Fortaleza",
+                            Address_State = "CE",
+                            Address_Street = "Rua C, 789",
+                            AppointmentDate = new DateTime(2024, 11, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AppointmentReason = "Extração dentária",
+                            CreatedAt = new DateTime(2024, 11, 5, 14, 45, 35, 476, DateTimeKind.Local).AddTicks(2552),
+                            DoctorId = 3,
+                            PatientId = 3,
+                            Status = 1
                         });
                 });
 
@@ -127,10 +152,28 @@ namespace Challenge_Odontoprev_ADB.Migrations
                         {
                             Id = 1,
                             CRM = "123456-78/SP",
-                            CreatedAt = new DateTime(2024, 11, 4, 15, 21, 56, 281, DateTimeKind.Local).AddTicks(3451),
-                            Name = "Dr. Teste",
+                            CreatedAt = new DateTime(2024, 11, 5, 14, 45, 35, 476, DateTimeKind.Local).AddTicks(2395),
+                            Name = "Dr. João Silva",
                             Phone = "(11) 1234-5678",
                             Speciality = 0
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CRM = "234567-89/MG",
+                            CreatedAt = new DateTime(2024, 11, 5, 14, 45, 35, 476, DateTimeKind.Local).AddTicks(2405),
+                            Name = "Dra. Maria Oliveira",
+                            Phone = "(11) 2345-6789",
+                            Speciality = 8
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CRM = "345678-91/SP",
+                            CreatedAt = new DateTime(2024, 11, 5, 14, 45, 35, 476, DateTimeKind.Local).AddTicks(2407),
+                            Name = "Dr. Paulo Lima",
+                            Phone = "(11) 34567-8910",
+                            Speciality = 9
                         });
                 });
 
@@ -177,11 +220,31 @@ namespace Challenge_Odontoprev_ADB.Migrations
                         {
                             Id = 1,
                             CPF = "123.456.789-00",
-                            CreatedAt = new DateTime(2024, 11, 4, 15, 21, 56, 281, DateTimeKind.Local).AddTicks(3587),
+                            CreatedAt = new DateTime(2024, 11, 5, 14, 45, 35, 476, DateTimeKind.Local).AddTicks(2524),
                             DateOfBirth = new DateTime(1987, 7, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             HealthCard = 12345,
-                            Name = "Paciente Teste",
+                            Name = "Lucas Pereira",
                             Phone = "(11) 98765-4321"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CPF = "234.555.779-20",
+                            CreatedAt = new DateTime(2024, 11, 5, 14, 45, 35, 476, DateTimeKind.Local).AddTicks(2527),
+                            DateOfBirth = new DateTime(2000, 12, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            HealthCard = 22365,
+                            Name = "Miguel Alves",
+                            Phone = "(11) 9455-4771"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CPF = "321.456.665-12",
+                            CreatedAt = new DateTime(2024, 11, 5, 14, 45, 35, 476, DateTimeKind.Local).AddTicks(2528),
+                            DateOfBirth = new DateTime(1998, 4, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            HealthCard = 87745,
+                            Name = "Rafael Cardoso",
+                            Phone = "(11) 92775-5378"
                         });
                 });
 
@@ -223,9 +286,27 @@ namespace Challenge_Odontoprev_ADB.Migrations
                             Id = 1,
                             AppointmentId = 1,
                             Cost = 200f,
-                            CreatedAt = new DateTime(2024, 11, 4, 15, 21, 56, 281, DateTimeKind.Local).AddTicks(3626),
+                            CreatedAt = new DateTime(2024, 11, 5, 14, 45, 35, 476, DateTimeKind.Local).AddTicks(2570),
                             ProcedureDescription = "Limpeza dental completa",
                             ProcedureType = 0
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AppointmentId = 2,
+                            Cost = 350f,
+                            CreatedAt = new DateTime(2024, 11, 5, 14, 45, 35, 476, DateTimeKind.Local).AddTicks(2571),
+                            ProcedureDescription = "Prenchimento",
+                            ProcedureType = 7
+                        },
+                        new
+                        {
+                            Id = 3,
+                            AppointmentId = 3,
+                            Cost = 500f,
+                            CreatedAt = new DateTime(2024, 11, 5, 14, 45, 35, 476, DateTimeKind.Local).AddTicks(2572),
+                            ProcedureDescription = "Implantação de protese",
+                            ProcedureType = 10
                         });
                 });
 

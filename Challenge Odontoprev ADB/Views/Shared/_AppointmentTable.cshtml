@@ -1,6 +1,5 @@
 ﻿@model IEnumerable<Challenge_Odontoprev_ADB.Application.DTOs.AppointmentDTO>
 
-<h2>Appointments List</h2>
 <table class="table">
 	<thead>
 	<tr>
@@ -20,7 +19,7 @@
 			<tr>
 				<td>@appointmentItem.Status</td>
 				<td>@appointmentItem.AppointmentDate.ToString("dd/MM/yyyy")</td>
-				<td>@appointmentItem.@($"{appointmentItem.Address_Street}, {appointmentItem.Address_City}, {appointmentItem.Address_State}")</td>
+				<td>@($"{appointmentItem.Address_Street}, {appointmentItem.Address_City}, {appointmentItem.Address_State}")</td>
 				<td>@appointmentItem.PatientId</td>
 				<td>@appointmentItem.DoctorId</td>
 				<td>
@@ -34,6 +33,7 @@
 				</td>
 					<td>@(string.IsNullOrEmpty(appointmentItem.AppointmentReason) ? "Reason not specified" : appointmentItem.AppointmentReason)</td>
 					<td>
+						<a asp-controller="Appointment" asp-action="Details" asp-route-id="@appointmentItem.Id" class="btn btn-info btn-sm">Details</a>
 						<a asp-controller="Appointment" asp-action="Edit" asp-route-id="@appointmentItem.Id" class="btn btn-warning btn-sm">Edit</a>
 						<a asp-controller="Appointment" asp-action="Delete" asp-route-id="@appointmentItem.Id" class="btn btn-danger btn-sm">Delete</a>
 					</td>

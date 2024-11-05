@@ -33,7 +33,7 @@ namespace Challenge_Odontoprev_ADB.Controllers
                 AppointmentDate = a.AppointmentDate,
                 PatientId = a.PatientId,
                 DoctorId = a.DoctorId,
-                TreatmentsId = a.Treatments.Select(t => t.Id).ToList(),
+                TreatmentId = a.TreatmentId,
                 AppointmentReason = a.AppointmentReason
             }).ToList();
 

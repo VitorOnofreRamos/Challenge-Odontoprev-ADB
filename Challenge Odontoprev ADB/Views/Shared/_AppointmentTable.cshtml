@@ -8,7 +8,7 @@
 		<th>Address</th>
 		<th>Patient ID</th>
 		<th>Doctor ID</th>
-		<th>Treatments</th>
+		<th>Treatment ID</th>
 		<th>Appointment Reason</th>
 		<th>Actions</th>
 	</tr>
@@ -22,15 +22,7 @@
 				<td>@($"{appointmentItem.Address_Street}, {appointmentItem.Address_City}, {appointmentItem.Address_State}")</td>
 				<td>@appointmentItem.PatientId</td>
 				<td>@appointmentItem.DoctorId</td>
-				<td>
-					@if (appointmentItem.TreatmentsId.Any())
-					{
-						@string.Join(", ", appointmentItem.TreatmentsId)
-					} else
-					{
-						<span>No treatments assigned</span>
-					}
-				</td>
+				<td>@appointmentItem.TreatmentId</td>
 					<td>@(string.IsNullOrEmpty(appointmentItem.AppointmentReason) ? "Reason not specified" : appointmentItem.AppointmentReason)</td>
 					<td>
 						<a asp-controller="Appointment" asp-action="Details" asp-route-id="@appointmentItem.Id" class="btn btn-info btn-sm">Details</a>

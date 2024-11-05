@@ -17,9 +17,6 @@ public class Treatment : _BaseEntity //Procedimentos odontológicos
     [Required]
     public float Cost { get; set; } // Custo do procedimento
 
-    [Required]
-    [ForeignKey(nameof(Appointment))]
-    public int AppointmentId { get; set; }
-
-    public virtual Appointment Appointment { get; set; }
+    //Relacionamento 1:N necessário para o Entity Framework (Um médico pode realizar várias consultas)
+    public virtual ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
 }

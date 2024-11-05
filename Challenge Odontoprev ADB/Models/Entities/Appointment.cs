@@ -33,8 +33,11 @@ public class Appointment : _BaseEntity
     public virtual Doctor Doctor { get; set; } // Relação 1:1 com Doctor (uma consulta tem um médico)
 
     [Required]
+    [ForeignKey(nameof(Treatment))]
+    public int TreatmentId { get; set; }
+    public virtual Treatment Treatment { get; set; }
+
+    [Required]
     [EnumDataType(typeof(EnumAppointmentStatus))]
     public EnumAppointmentStatus Status { get; set; }
-
-    public virtual ICollection<Treatment> Treatments { get; set; } = new List<Treatment>();
 }

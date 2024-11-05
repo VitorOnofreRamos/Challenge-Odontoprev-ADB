@@ -1,4 +1,5 @@
 ﻿using Challenge_Odontoprev_ADB.Application.DTOs;
+using Challenge_Odontoprev_ADB.Application.Services;
 using Challenge_Odontoprev_ADB.Infrastructure;
 using Challenge_Odontoprev_ADB.Models.Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -9,10 +10,16 @@ namespace Challenge_Odontoprev_ADB.Controllers
     public class AppointmentController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly AppointmentService _appointmentService;
+        private readonly PatientService _patientService;
+        private readonly DoctorService _doctorService;
 
-        public  AppointmentController(IUnitOfWork unitOfWork)
+        public AppointmentController(IUnitOfWork unitOfWork, AppointmentService appointmentService, PatientService patientService, DoctorService doctorService)
         {
             _unitOfWork = unitOfWork;
+            _appointmentService = appointmentService;
+            _patientService = patientService;
+            _doctorService = doctorService;
         }
 
         // GET: /appointments
@@ -31,7 +38,7 @@ namespace Challenge_Odontoprev_ADB.Controllers
                 AppointmentDate = a.AppointmentDate,
                 PatientId = a.PatientId,
                 DoctorId = a.DoctorId,
-                TreatmentsId = a.Treatments.Select(t => t.Id).ToList(),
+                TreatmentId = a.TreatmentId,
                 AppointmentReason = a.AppointmentReason
             }).ToList();
 
@@ -57,7 +64,7 @@ namespace Challenge_Odontoprev_ADB.Controllers
                 AppointmentDate = appointment.AppointmentDate,
                 PatientId = appointment.PatientId,
                 DoctorId = appointment.DoctorId,
-                TreatmentsId = appointment.Treatments.Select(t => t.Id).ToList(),
+                TreatmentId = appointment.TreatmentId,
                 AppointmentReason = appointment.AppointmentReason
             };
             return View(dto); // Passando AppointmentDTO para a View
@@ -65,8 +72,17 @@ namespace Challenge_Odontoprev_ADB.Controllers
 
         // GET: /appointment/create
         [HttpGet("Create")]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            var patients = await _patientService.GetAllPatientsAsync();
+            var doctors = await _doctorService.GetAllDoctorsAsync();
+
+            // Adicione um log para verificar os pacientes e médicos
+            Console.WriteLine($"Patients Count: {patients.Count()}, Doctors Count: {doctors.Count()}");
+
+            ViewBag.Patients = patients;
+            ViewBag.Doctors = doctors;
+
             return View();
         }
 
@@ -86,13 +102,33 @@ namespace Challenge_Odontoprev_ADB.Controllers
                     AppointmentDate = dto.AppointmentDate,
                     PatientId = dto.PatientId,
                     DoctorId = dto.DoctorId,
-                    AppointmentReason = dto.AppointmentReason,
-                    Treatments = dto.TreatmentsId.Select(id => new Treatment { Id = id }).ToList()
+                    TreatmentId = dto.TreatmentId,
+                    AppointmentReason = dto.AppointmentReason
                 };
 
-                await _unitOfWork.Appointment.AddAsync(appointment);
+                // Adicione logs para verificar os dados do agendamento
+                Console.WriteLine($"Creating Appointment: {dto.AppointmentReason}, PatientId: {dto.PatientId}, DoctorId: {dto.DoctorId}");
+
+                await _appointmentService.AddAppointmentAsync(appointment);
                 return RedirectToAction(nameof(Index));
             }
+
+            // Se o ModelState não for válido, logue os erros
+            foreach (var modelState in ModelState.Values)
+            {
+                foreach (var error in modelState.Errors)
+                {
+                    Console.WriteLine($"Model Error: {error.ErrorMessage}");
+                }
+            }
+
+            // Se voltar para a view, também recarregue os dados
+            var patients = await _patientService.GetAllPatientsAsync();
+            var doctors = await _doctorService.GetAllDoctorsAsync();
+
+            ViewBag.Patients = patients;
+            ViewBag.Doctors = doctors;
+
             return View(dto);
         }
 

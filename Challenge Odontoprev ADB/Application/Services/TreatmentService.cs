@@ -1,14 +1,13 @@
 ﻿using Challenge_Odontoprev_ADB.Models.Entities;
-using Challenge_Odontoprev_ADB.Repositories.Implementations;
 using Challenge_Odontoprev_ADB.Repositories.Interfaces;
 
 namespace Challenge_Odontoprev_ADB.Application.Services;
 
 public class TreatmentService
 {
-    private readonly TreatmentRepository _treatmentRepository;
+    private readonly ITreatmentRepository _treatmentRepository;
 
-    public TreatmentService(TreatmentRepository treatmentRepository)
+    public TreatmentService(ITreatmentRepository treatmentRepository)
     {
         _treatmentRepository = treatmentRepository;
     }

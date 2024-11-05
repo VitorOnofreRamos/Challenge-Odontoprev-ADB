@@ -12,7 +12,7 @@ using Oracle.EntityFrameworkCore.Metadata;
 namespace Challenge_Odontoprev_ADB.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241105174535_InitialMigration")]
+    [Migration("20241105203551_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -63,6 +63,9 @@ namespace Challenge_Odontoprev_ADB.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("NUMBER(10)");
 
+                    b.Property<int>("TreatmentId")
+                        .HasColumnType("NUMBER(10)");
+
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("TIMESTAMP(7)");
 
@@ -72,47 +75,9 @@ namespace Challenge_Odontoprev_ADB.Migrations
 
                     b.HasIndex("PatientId");
 
-                    b.ToTable("OdonPrev_Appointment");
+                    b.HasIndex("TreatmentId");
 
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Address_City = "São Paulo",
-                            Address_State = "SP",
-                            Address_Street = "Rua A, 123",
-                            AppointmentDate = new DateTime(2025, 8, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedAt = new DateTime(2024, 11, 5, 14, 45, 35, 476, DateTimeKind.Local).AddTicks(2549),
-                            DoctorId = 1,
-                            PatientId = 1,
-                            Status = 0
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Address_City = "Rio de Janeiro",
-                            Address_State = "RJ",
-                            Address_Street = "Rua B, 456",
-                            AppointmentDate = new DateTime(2024, 12, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            AppointmentReason = "Visita de Emergência",
-                            CreatedAt = new DateTime(2024, 11, 5, 14, 45, 35, 476, DateTimeKind.Local).AddTicks(2551),
-                            DoctorId = 2,
-                            PatientId = 2,
-                            Status = 2
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Address_City = "Fortaleza",
-                            Address_State = "CE",
-                            Address_Street = "Rua C, 789",
-                            AppointmentDate = new DateTime(2024, 11, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            AppointmentReason = "Extração dentária",
-                            CreatedAt = new DateTime(2024, 11, 5, 14, 45, 35, 476, DateTimeKind.Local).AddTicks(2552),
-                            DoctorId = 3,
-                            PatientId = 3,
-                            Status = 1
-                        });
+                    b.ToTable("OdonPrev_Appointment");
                 });
 
             modelBuilder.Entity("Challenge_Odontoprev_ADB.Models.Entities.Doctor", b =>
@@ -155,7 +120,7 @@ namespace Challenge_Odontoprev_ADB.Migrations
                         {
                             Id = 1,
                             CRM = "123456-78/SP",
-                            CreatedAt = new DateTime(2024, 11, 5, 14, 45, 35, 476, DateTimeKind.Local).AddTicks(2395),
+                            CreatedAt = new DateTime(2024, 11, 5, 17, 35, 51, 516, DateTimeKind.Local).AddTicks(9722),
                             Name = "Dr. João Silva",
                             Phone = "(11) 1234-5678",
                             Speciality = 0
@@ -164,7 +129,7 @@ namespace Challenge_Odontoprev_ADB.Migrations
                         {
                             Id = 2,
                             CRM = "234567-89/MG",
-                            CreatedAt = new DateTime(2024, 11, 5, 14, 45, 35, 476, DateTimeKind.Local).AddTicks(2405),
+                            CreatedAt = new DateTime(2024, 11, 5, 17, 35, 51, 516, DateTimeKind.Local).AddTicks(9732),
                             Name = "Dra. Maria Oliveira",
                             Phone = "(11) 2345-6789",
                             Speciality = 8
@@ -173,7 +138,7 @@ namespace Challenge_Odontoprev_ADB.Migrations
                         {
                             Id = 3,
                             CRM = "345678-91/SP",
-                            CreatedAt = new DateTime(2024, 11, 5, 14, 45, 35, 476, DateTimeKind.Local).AddTicks(2407),
+                            CreatedAt = new DateTime(2024, 11, 5, 17, 35, 51, 516, DateTimeKind.Local).AddTicks(9759),
                             Name = "Dr. Paulo Lima",
                             Phone = "(11) 34567-8910",
                             Speciality = 9
@@ -223,7 +188,7 @@ namespace Challenge_Odontoprev_ADB.Migrations
                         {
                             Id = 1,
                             CPF = "123.456.789-00",
-                            CreatedAt = new DateTime(2024, 11, 5, 14, 45, 35, 476, DateTimeKind.Local).AddTicks(2524),
+                            CreatedAt = new DateTime(2024, 11, 5, 17, 35, 51, 516, DateTimeKind.Local).AddTicks(9884),
                             DateOfBirth = new DateTime(1987, 7, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             HealthCard = 12345,
                             Name = "Lucas Pereira",
@@ -233,7 +198,7 @@ namespace Challenge_Odontoprev_ADB.Migrations
                         {
                             Id = 2,
                             CPF = "234.555.779-20",
-                            CreatedAt = new DateTime(2024, 11, 5, 14, 45, 35, 476, DateTimeKind.Local).AddTicks(2527),
+                            CreatedAt = new DateTime(2024, 11, 5, 17, 35, 51, 516, DateTimeKind.Local).AddTicks(9888),
                             DateOfBirth = new DateTime(2000, 12, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             HealthCard = 22365,
                             Name = "Miguel Alves",
@@ -243,7 +208,7 @@ namespace Challenge_Odontoprev_ADB.Migrations
                         {
                             Id = 3,
                             CPF = "321.456.665-12",
-                            CreatedAt = new DateTime(2024, 11, 5, 14, 45, 35, 476, DateTimeKind.Local).AddTicks(2528),
+                            CreatedAt = new DateTime(2024, 11, 5, 17, 35, 51, 516, DateTimeKind.Local).AddTicks(9890),
                             DateOfBirth = new DateTime(1998, 4, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             HealthCard = 87745,
                             Name = "Rafael Cardoso",
@@ -258,9 +223,6 @@ namespace Challenge_Odontoprev_ADB.Migrations
                         .HasColumnType("NUMBER(10)");
 
                     OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("AppointmentId")
-                        .HasColumnType("NUMBER(10)");
 
                     b.Property<float>("Cost")
                         .HasColumnType("BINARY_FLOAT");
@@ -279,37 +241,31 @@ namespace Challenge_Odontoprev_ADB.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AppointmentId");
-
                     b.ToTable("OdonPrev_Treatment");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
-                            AppointmentId = 1,
                             Cost = 200f,
-                            CreatedAt = new DateTime(2024, 11, 5, 14, 45, 35, 476, DateTimeKind.Local).AddTicks(2570),
+                            CreatedAt = new DateTime(2024, 11, 5, 17, 35, 51, 516, DateTimeKind.Local).AddTicks(9908),
                             ProcedureDescription = "Limpeza dental completa",
                             ProcedureType = 0
                         },
                         new
                         {
                             Id = 2,
-                            AppointmentId = 2,
                             Cost = 350f,
-                            CreatedAt = new DateTime(2024, 11, 5, 14, 45, 35, 476, DateTimeKind.Local).AddTicks(2571),
-                            ProcedureDescription = "Prenchimento",
-                            ProcedureType = 7
+                            CreatedAt = new DateTime(2024, 11, 5, 17, 35, 51, 516, DateTimeKind.Local).AddTicks(9910),
+                            ProcedureDescription = "Prenchimento dentário",
+                            ProcedureType = 1
                         },
                         new
                         {
                             Id = 3,
-                            AppointmentId = 3,
                             Cost = 500f,
-                            CreatedAt = new DateTime(2024, 11, 5, 14, 45, 35, 476, DateTimeKind.Local).AddTicks(2572),
-                            ProcedureDescription = "Implantação de protese",
-                            ProcedureType = 10
+                            CreatedAt = new DateTime(2024, 11, 5, 17, 35, 51, 516, DateTimeKind.Local).AddTicks(9911),
+                            ProcedureType = 11
                         });
                 });
 
@@ -327,25 +283,17 @@ namespace Challenge_Odontoprev_ADB.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Doctor");
-
-                    b.Navigation("Patient");
-                });
-
-            modelBuilder.Entity("Challenge_Odontoprev_ADB.Models.Entities.Treatment", b =>
-                {
-                    b.HasOne("Challenge_Odontoprev_ADB.Models.Entities.Appointment", "Appointment")
-                        .WithMany("Treatments")
-                        .HasForeignKey("AppointmentId")
+                    b.HasOne("Challenge_Odontoprev_ADB.Models.Entities.Treatment", "Treatment")
+                        .WithMany("Appointments")
+                        .HasForeignKey("TreatmentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Appointment");
-                });
+                    b.Navigation("Doctor");
 
-            modelBuilder.Entity("Challenge_Odontoprev_ADB.Models.Entities.Appointment", b =>
-                {
-                    b.Navigation("Treatments");
+                    b.Navigation("Patient");
+
+                    b.Navigation("Treatment");
                 });
 
             modelBuilder.Entity("Challenge_Odontoprev_ADB.Models.Entities.Doctor", b =>
@@ -354,6 +302,11 @@ namespace Challenge_Odontoprev_ADB.Migrations
                 });
 
             modelBuilder.Entity("Challenge_Odontoprev_ADB.Models.Entities.Patient", b =>
+                {
+                    b.Navigation("Appointments");
+                });
+
+            modelBuilder.Entity("Challenge_Odontoprev_ADB.Models.Entities.Treatment", b =>
                 {
                     b.Navigation("Appointments");
                 });

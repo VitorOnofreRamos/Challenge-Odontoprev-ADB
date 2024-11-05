@@ -1,13 +1,13 @@
 ﻿using Challenge_Odontoprev_ADB.Models.Entities;
-using Challenge_Odontoprev_ADB.Repositories.Implementations;
+using Challenge_Odontoprev_ADB.Repositories.Interfaces;
 
 namespace Challenge_Odontoprev_ADB.Application.Services;
 
 public class DoctorService
 {
-    private readonly DoctorRepository _doctorRepository;
+    private readonly IDoctorRepository _doctorRepository;
 
-    public DoctorService(DoctorRepository doctorRepository)
+    public DoctorService(IDoctorRepository doctorRepository)
     {
         _doctorRepository = doctorRepository;
     }

@@ -28,6 +28,6 @@ public class AppointmentDTO
     [Required]
     public int DoctorId { get; set; }
     [Required]
-    public List<int> TreatmentsId { get; set; }
+    public int TreatmentId { get; set; }
     public string? AppointmentReason { get; set; }
 }

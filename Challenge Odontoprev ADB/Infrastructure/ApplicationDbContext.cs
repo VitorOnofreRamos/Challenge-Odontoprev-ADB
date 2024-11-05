@@ -84,50 +84,6 @@ public class ApplicationDbContext : DbContext
             }
         );
 
-        modelBuilder.Entity<Appointment>().HasData(
-            new Appointment
-            {
-                Id = 1,
-                AppointmentReason = null,
-                Address_Street = "Rua A, 123",
-                Address_City = "São Paulo",
-                Address_State = "SP",
-                AppointmentDate = new DateTime(2025, 8, 10),
-                PatientId = 1,
-                DoctorId = 1,
-                Status = EnumAppointmentStatus.AGENDADA,
-                CreatedAt = DateTime.Now
-            }, 
-            
-            new Appointment
-            {
-                Id = 2,
-                AppointmentReason = "Visita de Emergência",
-                Address_Street = "Rua B, 456",
-                Address_City = "Rio de Janeiro",
-                Address_State = "RJ",
-                AppointmentDate = new DateTime(2024, 12, 1),
-                PatientId = 2,
-                DoctorId = 2,
-                Status = EnumAppointmentStatus.CANCELADA,
-                CreatedAt = DateTime.Now
-            }, 
-            
-            new Appointment
-            {
-                Id = 3,
-                AppointmentReason = "Extração dentária",
-                Address_Street = "Rua C, 789",
-                Address_City = "Fortaleza",
-                Address_State = "CE",
-                AppointmentDate = new DateTime(2024, 11, 20),
-                PatientId = 3,
-                DoctorId = 3,
-                Status = EnumAppointmentStatus.CONCLUIDA,
-                CreatedAt = DateTime.Now
-            }
-        );
-
         modelBuilder.Entity<Treatment>().HasData(
             new Treatment
             {
@@ -135,27 +91,24 @@ public class ApplicationDbContext : DbContext
                 ProcedureType = EnumProcedureType.Cleaning,
                 ProcedureDescription = "Limpeza dental completa",
                 Cost = 200,
-                AppointmentId = 1,
                 CreatedAt = DateTime.Now
             }, 
             
             new Treatment
             {
                 Id = 2,
-                ProcedureType = EnumProcedureType.OrthodonticTreatment,
-                ProcedureDescription = "Prenchimento",
+                ProcedureType = EnumProcedureType.Filling,
+                ProcedureDescription = "Prenchimento dentário",
                 Cost = 350,
-                AppointmentId = 2,
                 CreatedAt = DateTime.Now
             }, 
             
             new Treatment
             {
                 Id = 3,
-                ProcedureType = EnumProcedureType.ProsthodonticTreatment,
-                ProcedureDescription = "Implantação de protese",
+                ProcedureType = EnumProcedureType.Other,
+                ProcedureDescription = null,
                 Cost = 500,
-                AppointmentId = 3,
                 CreatedAt = DateTime.Now
             }
         );
@@ -163,21 +116,6 @@ public class ApplicationDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        // Configuração dos ValueObjects para Cost, LocationAddress e FutureDate
-
-        //Configuração para Cost como Owned Type em Treatment
-        //modelBuilder.Entity<Treatment>().OwnsOne(t => t.Cost, cost =>
-        //{
-        //    cost.Property(c => c.Amount).HasColumnName("Cost").HasColumnType("decimal(18,2)");
-        //});
-
-        // Configuração para LocationAddress como Owned Type em Appointment
-        //modelBuilder.Entity<Appointment>().OwnsOne(a => a.Address, loc =>
-        //{
-        //    loc.Property(l => l.Street).HasColumnName("Street").HasMaxLength(100);
-        //    loc.Property(l => l.City).HasColumnName("City").HasMaxLength(50);
-        //    loc.Property(l => l.State).HasColumnName("State").HasMaxLength(50);
-        //});
 
         // Configuração de relacionamento entre Appointment e Patient
         modelBuilder.Entity<Appointment>()
@@ -194,10 +132,10 @@ public class ApplicationDbContext : DbContext
             .OnDelete(DeleteBehavior.Cascade);
 
         // Configuração de relacionamento entre Treatment e Appointment
-        modelBuilder.Entity<Treatment>()
-            .HasOne(t => t.Appointment)
-            .WithMany(a => a.Treatments)
-            .HasForeignKey(t => t.AppointmentId)
+        modelBuilder.Entity<Appointment>()
+            .HasOne(t => t.Treatment)
+            .WithMany(a => a.Appointments)
+            .HasForeignKey(t => t.TreatmentId)
             .OnDelete(DeleteBehavior.Cascade);
 
         // Chamada do método SeedData para adicionar dados iniciais

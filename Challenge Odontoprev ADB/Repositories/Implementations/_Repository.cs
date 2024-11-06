@@ -42,7 +42,7 @@ public class _Repository<T> : _IRepository<T> where T : _BaseEntity
 
     public async Task RemoveAsync(int id)
     {
-        var searchId = await _entities.FindAsync(id);
+        var searchId = await GetByIdAsync(id);
         if (searchId != null)
         {
             _entities.Remove(searchId);

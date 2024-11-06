@@ -27,10 +27,12 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
 builder.Services.AddScoped<IPatientRepository, PatientRepository>();
 builder.Services.AddScoped<IDoctorRepository, DoctorRepository>();
+builder.Services.AddScoped<ITreatmentRepository, TreatmentRepository>();
 
 builder.Services.AddScoped<AppointmentService>();
 builder.Services.AddScoped<PatientService>();
 builder.Services.AddScoped<DoctorService>();
+builder.Services.AddScoped<TreatmentService>();
 
 
 var app = builder.Build();

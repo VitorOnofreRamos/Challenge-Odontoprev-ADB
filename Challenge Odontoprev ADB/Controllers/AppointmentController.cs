@@ -13,20 +13,22 @@ namespace Challenge_Odontoprev_ADB.Controllers
         private readonly AppointmentService _appointmentService;
         private readonly PatientService _patientService;
         private readonly DoctorService _doctorService;
+        private readonly TreatmentService _treatmentService;
 
-        public AppointmentController(IUnitOfWork unitOfWork, AppointmentService appointmentService, PatientService patientService, DoctorService doctorService)
+        public AppointmentController(IUnitOfWork unitOfWork, AppointmentService appointmentService, PatientService patientService, DoctorService doctorService, TreatmentService treatmentService)
         {
             _unitOfWork = unitOfWork;
             _appointmentService = appointmentService;
             _patientService = patientService;
             _doctorService = doctorService;
+            _treatmentService = treatmentService;
         }
 
         // GET: /appointments
         [HttpGet]
         public async Task<IActionResult> Index() 
         {
-            var appointments = await _unitOfWork.Appointment.GetAllAsync();
+            var appointments = await _appointmentService.GetAllAppointmentsAsync();
 
             var appointmentsDTOs = appointments.Select(a => new AppointmentDTO
             {
@@ -46,10 +48,10 @@ namespace Challenge_Odontoprev_ADB.Controllers
         }
 
         // GET: /appointments/details/{id}
-        [HttpGet("details/{id}")]
+        [HttpGet("Details/{id}")]
         public async Task<IActionResult> Details(int id)
         {
-            var appointment = await _unitOfWork.Appointment.GetByIdAsync(id);
+            var appointment = await _appointmentService.GetAppointmentByIdAsync(id);
             if (appointment == null)
             {
                 return NotFound();
@@ -76,12 +78,14 @@ namespace Challenge_Odontoprev_ADB.Controllers
         {
             var patients = await _patientService.GetAllPatientsAsync();
             var doctors = await _doctorService.GetAllDoctorsAsync();
+            var treatments =  await _treatmentService.GetAllTreatmentsAsync();
 
-            // Adicione um log para verificar os pacientes e médicos
-            Console.WriteLine($"Patients Count: {patients.Count()}, Doctors Count: {doctors.Count()}");
+            // Adicione um log para verificar os pacientes, médicos e tratamentos
+            Console.WriteLine($"Patients Count: {patients.Count()}, Doctors Count: {doctors.Count()}, Treatments Count: {treatments.Count()}");
 
             ViewBag.Patients = patients;
             ViewBag.Doctors = doctors;
+            ViewBag.Treatments = treatments;
 
             return View();
         }
@@ -107,10 +111,10 @@ namespace Challenge_Odontoprev_ADB.Controllers
                 };
 
                 // Adicione logs para verificar os dados do agendamento
-                Console.WriteLine($"Creating Appointment: {dto.AppointmentReason}, PatientId: {dto.PatientId}, DoctorId: {dto.DoctorId}");
+                Console.WriteLine($"Creating Appointment: {dto.AppointmentReason}, PatientId: {dto.PatientId}, DoctorId: {dto.DoctorId}, TreatmentId: {dto.TreatmentId}");
 
                 await _appointmentService.AddAppointmentAsync(appointment);
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Home");
             }
 
             // Se o ModelState não for válido, logue os erros
@@ -125,18 +129,20 @@ namespace Challenge_Odontoprev_ADB.Controllers
             // Se voltar para a view, também recarregue os dados
             var patients = await _patientService.GetAllPatientsAsync();
             var doctors = await _doctorService.GetAllDoctorsAsync();
+            var treatments = await _treatmentService.GetAllTreatmentsAsync();
 
             ViewBag.Patients = patients;
             ViewBag.Doctors = doctors;
+            ViewBag.Treatmens = treatments;
 
             return View(dto);
         }
 
         // GET: /appointments/delete/{id}
-        [HttpGet("delete/{id}")]
+        [HttpGet("Delete/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var appointment = await _unitOfWork.Appointment.GetByIdAsync(id);
+            var appointment = await _appointmentService.GetAppointmentByIdAsync(id);
             if (appointment == null)
             {
                 return NotFound();
@@ -144,13 +150,13 @@ namespace Challenge_Odontoprev_ADB.Controllers
             return View(new AppointmentDTO { Id = appointment.Id}); // View para confirmar a exclusão
         }
 
-        // POST: /appointments/delete/{id}
-        [HttpPost("delete/{id}")]
+        // Delete: /appointments/delete/{id}
+        [HttpDelete("Delete/{id}")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            await _unitOfWork.Appointment.RemoveAsync(id);
-            return RedirectToAction(nameof(Index));
+            await _appointmentService.RemoveAppointmentAsync(id);
+            return RedirectToAction("Index", "Home");
         }
     }
 }

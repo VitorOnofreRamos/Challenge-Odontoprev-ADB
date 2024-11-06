@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using Challenge_Odontoprev_ADB.Application.DTOs;
+using Challenge_Odontoprev_ADB.Application.Services;
 
 namespace Challenge_Odontoprev_ADB.Controllers
 {
@@ -13,19 +14,22 @@ namespace Challenge_Odontoprev_ADB.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly AppointmentService _appointmentService;
 
-        public HomeController(ILogger<HomeController> logger, IUnitOfWork unitOfWork)
+        public HomeController(ILogger<HomeController> logger, IUnitOfWork unitOfWork, AppointmentService appointmentService)
         {
             _logger = logger;
             _unitOfWork = unitOfWork;
+            _appointmentService = appointmentService;
         }
 
         public async Task<IActionResult> Index()
         {
-            var majorAppointments = await _unitOfWork.Appointment.GetAllAsync();
+            var majorAppointments = await _appointmentService.GetAllAppointmentsAsync();
 
             var majorAppointmentsDTOs = majorAppointments.Select(a => new AppointmentDTO
             {
+                Id = a.Id,
                 Status = a.Status,
                 Address_Street = a.Address_Street,
                 Address_City = a.Address_City,

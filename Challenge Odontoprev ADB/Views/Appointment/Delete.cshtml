@@ -1,0 +1,48 @@
+﻿@model Challenge_Odontoprev_ADB.Application.DTOs.AppointmentDTO
+
+@{
+    ViewData["Title"] = "Confirmar Exclusão da Consulta";
+}
+
+<h2>Confirmar Exclusão da Consulta</h2>
+
+<p>Tem certeza de que deseja excluir esta consulta?</p>
+
+<div class="card mt-3">
+    <div class="card-body">
+        <h4>Detalhes da Consulta</h4>
+
+        <dl class="row">
+            <dt class="col-sm-3">ID</dt>
+            <dd class="col-sm-9">@Model.Id</dd>
+        </dl>
+
+        <button id="delete-button" class="btn btn-danger">Excluir</button>
+        <a href="@Url.Action("Index", "Home")" class="btn btn-secondary">Cancelar</a>
+    </div>
+</div>
+
+@section Script{
+    <script>
+        // Quando o usuário clicar no botão Excluir
+        document.getElementById('delete-button').onclick = function () {
+            if (confirm('Tem certeza de que deseja excluir esta consulta?')) {
+                // Realiza a requisição DELETE usando fetch (AJAX)
+                fetch('@Url.Action("DeleteConfirmed", "Appointment", new { id = Model.Id })', {
+                    method: 'DELETE',
+                    headers: {
+                        'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val() // Token de segurança
+                    }
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            window.location.href = '@Url.Action("Index", "Appointment")'; // Redireciona para a lista
+                        } else {
+                            alert('Erro ao excluir a consulta');
+                        }
+                    })
+                    .catch(error => alert('Erro na requisição de exclusão: ' + error));
+            }
+        }
+    </script>
+}

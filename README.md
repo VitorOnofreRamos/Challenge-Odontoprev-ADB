@@ -1,42 +1,89 @@
-# Sistema de Busca de Consultas Odontoprev
+Aqui está um exemplo de `README.md` que detalha as funcionalidades principais do seu projeto de gerenciamento de agendamentos de consultas. Esse modelo inclui uma visão geral, instruções de instalação e uso, além de detalhes sobre as funcionalidades principais.
 
-Este framework foi desenvolvido como parte de um desafio da FIAP em parceria com a Odontoprev, visando reduzir sinistros no setor odontológico.
+---
 
-### Funções Principais
-1. Gestão de Pacientes:
-    - Cadastro e gerenciamento de informações de pacientes
-    - Histórico de atendimentos e tratamentos
+# Sistema de Gerenciamento de Agendamentos de Consultas
 
-2. Gestão de Dentistas:
-    - Cadastro e gerenciamento de informações de dentistas
-    - Especializações e histórico de atendimentos
+## Visão Geral do Projeto
 
-3. Agendamento de Consultas:
-    - Sistema de agendamento de consultas
-    - Gerenciamento de horários e disponibilidade de dentistas
+Este projeto consiste em um sistema de gerenciamento de consultas desenvolvido em ASP.NET Core, que permite criar, visualizar, atualizar e deletar agendamentos de consultas médicas. O objetivo é fornecer uma plataforma simples e intuitiva para monitorar agendamentos de consultas, facilitando o acompanhamento de status, detalhes de pacientes, médicos, e tratamentos realizados.
 
-4. Registro de Tratamentos:
-    - Documentação detalhada de tratamentos realizados
-    - Custos associados e materiais utilizados
+As principais funcionalidades incluem:
+- **Criação de Agendamentos de Consultas**: Inclui informações detalhadas como data e hora, endereço, paciente, médico responsável, tipo de tratamento e motivo da consulta.
+- **Visualização e Edição de Agendamentos**: Permite visualizar e atualizar informações de consultas, mantendo um histórico claro e atualizado.
+- **Listagem de Consultas Agendadas**: Apresenta uma lista com todos os agendamentos e seus respectivos status para fácil monitoramento e controle.
+- **Validações Integradas**: Garante que todos os campos necessários sejam preenchidos de forma correta e que a aplicação siga boas práticas de validação.
 
-5. Relatórios e Dashboards:
-    - Visualização de dados sobre sinistros e tendências
-    - Ferramentas de análise para tomada de decisões
+## Funcionalidades
 
-6. Integração com Sistemas Existentes:
-    - API para integração com sistemas de gestão da Odontoprev
-    - Compatibilidade com diferentes formatos de dados
+- **CRUD de Consultas**:
+  - Criação, visualização, edição e exclusão de consultas.
+  - Acesso rápido aos dados dos pacientes, médicos e tratamentos relacionados a cada consulta.
+- **Monitoramento de Status**: Cada consulta possui status de *Agendada*, *Concluída* ou *Cancelada*, facilitando o acompanhamento de andamento e conclusão de cada agendamento.
+- **Interface com Bootstrap**: Interface amigável e responsiva utilizando Bootstrap para melhorar a experiência do usuário.
+- **Validações e Controle de Erros**: Aplicação de validações e mensagens de erro claras para orientar o usuário.
 
-### Tecnologias Utilizadas
-- ASP.NET Core
-- Entity Framework Core
+## Estrutura do Projeto
 
-### Como Usar
-1. Instale o pacote NuGet do framework
-2. Configure a conexão com o banco de dados
-3. Implemente os serviços necessários na sua aplicação
+O projeto segue uma arquitetura limpa, com separação de responsabilidades por camada:
+- **Camada de Apresentação (Views)**: Interface do usuário com validações e formulários dinâmicos.
+- **Camada de Aplicação (Services)**: Controla a lógica de negócio principal, intermediando as operações entre o banco de dados e a interface.
+- **Camada de Persistência (Repositories)**: Acesso ao banco de dados usando o Entity Framework Core para operações CRUD de maneira otimizada.
+- **Camada de Modelos (Models)**: Definição das entidades principais e DTOs para transferência de dados.
 
-### Licença
-Este projeto está licenciado sob a MIT License - veja o arquivo LICENSE.md para detalhes.
+## Pré-requisitos
 
-Este framework visa fornecer uma solução robusta para reduzir sinistros odontológicos, melhorando a eficiência operacional da Odontoprev e proporcionando um serviço de saúde dental mais seguro e confiável aos pacientes.
+Para configurar e rodar este projeto, você precisará de:
+- .NET SDK (versão 6 ou superior)
+- Visual Studio ou Visual Studio Code
+- SQL Server ou outra base de dados configurada para o Entity Framework
+
+## Instruções de Instalação
+
+1. **Clone o repositório**:
+   ```bash
+   git clone https://github.com/seu-usuario/seu-projeto.git
+   cd seu-projeto
+   ```
+
+2. **Configuração do Banco de Dados**:
+   - Configure a string de conexão com seu banco de dados no arquivo `appsettings.json` na seção `ConnectionStrings`.
+   - Rode as migrações do Entity Framework para criar as tabelas necessárias:
+     ```bash
+     dotnet ef database update
+     ```
+
+3. **Configuração do Projeto**:
+   - Abra o projeto em seu editor de preferência (recomendado: Visual Studio ou Visual Studio Code).
+   - Restaure as dependências:
+     ```bash
+     dotnet restore
+     ```
+
+4. **Iniciar a Aplicação**:
+   ```bash
+   dotnet run
+   ```
+
+5. Acesse a aplicação em `http://localhost:5000` (ou conforme a configuração do seu ambiente).
+
+## Rotas Principais
+
+- **Rota Principal**:
+  - `/` - Página inicial com a lista de consultas agendadas.
+- **CRUD de Consultas**:
+  - `/appointment/create` - Criação de um novo agendamento.
+  - `/appointment/edit/{id}` - Edição de um agendamento existente.
+  - `/appointment/details/{id}` - Visualização dos detalhes de um agendamento.
+  - `/appointment/delete/{id}` - Exclusão de um agendamento.
+
+## Layout e Customização
+
+A aplicação usa o layout principal com cabeçalho, rodapé e barra de navegação. A interface é customizada com Bootstrap para responsividade e inclui:
+- **Barra de navegação** para acessar as principais funcionalidades.
+- **Formulários responsivos** para criar e editar consultas.
+- **Tabela de Listagem** com status e detalhes das consultas.
+
+---
+
+Sinta-se à vontade para personalizar ou ajustar o README conforme as especificidades do seu projeto.

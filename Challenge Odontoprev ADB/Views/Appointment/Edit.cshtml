@@ -1,72 +1,86 @@
-﻿@model Challenge_Odontoprev_ADB.Application.DTOs.AppointmentDTO
+﻿@using Challenge_Odontoprev_ADB.Models.Entities
+@model Challenge_Odontoprev_ADB.Application.DTOs.AppointmentDTO
 
 @{
-    ViewData["Title"] = "Edit Appointment";
+    ViewData["Title"] = "Editar Agendamento";
 }
 
 <h2>@ViewData["Title"]</h2>
 
-<form method="post" asp-action="Edit" asp-route-id="@Model.Id">
-    @Html.AntiForgeryToken()
-    <input type="hidden" name="_method" value="PUT" />
+<form asp-action="Edit" method="post" asp-route-id="@Model.Id">
+    <input type="hidden" name="Id" value="@Model.Id" />
 
     <div class="form-group">
-        <label for="AppointmentDate">Appointment Date</label>
-        <input type="datetime-local" class="form-control" id="AppointmentDate" name="AppointmentDate" value="@Model.AppointmentDate.ToString("yyyy-MM-ddTHH:mm")" required />
-    </div>
-    <div class="form-group">
-        <label for="Address_Street">Street</label>
-        <input type="text" class="form-control" id="Address_Street" name="Address_Street" value="@Model.Address_Street" required />
-    </div>
-    <div class="form-group">
-        <label for="Address_City">City</label>
-        <input type="text" class="form-control" id="Address_City" name="Address_City" value="@Model.Address_City" required />
-    </div>
-    <div class="form-group">
-        <label for="Address_State">State</label>
-        <input type="text" class="form-control" id="Address_State" name="Address_State" value="@Model.Address_State" required />
-    </div>
-    <div class="form-group">
-        <label for="AppointmentReason">Appointment Reason</label>
-        <textarea class="form-control" id="AppointmentReason" name="AppointmentReason" required>@Model.AppointmentReason</textarea>
+        <label asp-for="AppointmentReason"></label>
+        <input asp-for="AppointmentReason" class="form-control" />
+        <span asp-validation-for="AppointmentReason" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label for="Status">Status</label>
-        <select class="form-control" id="Status" name="Status" required>
-            <option value="Scheduled" @(Model.Status == "Scheduled" ? "selected" : "")>Scheduled</option>
-            <option value="Completed" @(Model.Status == "Completed" ? "selected" : "")>Completed</option>
-            <option value="Cancelled" @(Model.Status == "Cancelled" ? "selected" : "")>Cancelled</option>
-        </select>
+        <label asp-for="Address_Street"></label>
+        <input asp-for="Address_Street" class="form-control" required />
+        <span asp-validation-for="Address_Street" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label for="PatientId">Patient</label>
-        <select class="form-control" id="PatientId" name="PatientId" required>
-            @foreach (var patient in ViewBag.Patients)
-            {
-                <option value="@patient.Id" @(patient.Id == Model.PatientId ? "selected" : "")>@patient.Name</option>
-            }
-        </select>
-    </div>
-    <div class="form-group">
-        <label for="DoctorId">Doctor</label>
-        <select class="form-control" id="DoctorId" name="DoctorId" required>
-            @foreach (var doctor in ViewBag.Doctors)
-            {
-                <option value="@doctor.Id" @(doctor.Id == Model.DoctorId ? "selected" : "")>@doctor.Name</option>
-            }
-        </select>
-    </div>
-    <div class="form-group">
-        <label for="TreatmentId">Treatment</label>
-        <select class="form-control" id="TreatmentId" name="TreatmentId" required>
-            @foreach (var treatment in ViewBag.Treatments)
-            {
-                <option value="@treatment.Id" @(treatment.Id == Model.TreatmentId ? "selected" : "")>@treatment.Name</option>
-            }
-        </select>
+        <label asp-for="Address_City"></label>
+        <input asp-for="Address_City" class="form-control" required />
+        <span asp-validation-for="Address_City" class="text-danger"></span>
     </div>
 
-    <button type="submit" class="btn btn-primary">Save Changes</button>
+    <div class="form-group">
+        <label asp-for="Address_State"></label>
+        <input asp-for="Address_State" class="form-control" required />
+        <span asp-validation-for="Address_State" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="AppointmentDate"></label>
+        <input asp-for="AppointmentDate" class="form-control" type="datetime-local" required value="@Model.AppointmentDate.ToString("yyyy-MM-ddTHH:mm")" />
+        <span asp-validation-for="AppointmentDate" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="PatientId">Paciente</label>
+        <select asp-for="PatientId" class="form-control" asp-items="@(new SelectList(ViewBag.Patients ?? new List<Patient>(), "Id", "Name"))" required>
+            <option value="">Selecione um Paciente</option>
+        </select>
+        <span asp-validation-for="PatientId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="DoctorId">Médico</label>
+        <select asp-for="DoctorId" class="form-control" asp-items="@(new SelectList(ViewBag.Doctors ?? new List<Doctor>(), "Id", "Name"))" required>
+            <option value="">Selecione um Médico</option>
+        </select>
+        <span asp-validation-for="DoctorId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="TreatmentId">Tratamento</label>
+        <select asp-for="TreatmentId" class="form-control" asp-items="@(new SelectList(ViewBag.Treatments ?? new List<Treatment>(), "Id", "ProcedureType"))" required>
+            <option value="">Selecione um Tratamento</option>
+        </select>
+        <span asp-validation-for="TreatmentId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Status"></label>
+        <select asp-for="Status" class="form-control" required>
+            <option value="0">AGENDADA</option>
+            <option value="1">CONCLUÍDA</option>
+            <option value="2">CANCELADA</option>
+        </select>
+        <span asp-validation-for="Status" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+    </div>
 </form>
+
+@section Scripts {
+    @{ 
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -194,8 +194,8 @@ namespace Challenge_Odontoprev_ADB.Controllers
             return View(dto);
         }
 
-        // PUT: /appointments/edit/{id}
-        [HttpPut("Edit/{id}")]
+        // Post: /appointments/edit/{id}
+        [HttpPost("Edit/{id}")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, AppointmentDTO dto)
         {
@@ -226,7 +226,7 @@ namespace Challenge_Odontoprev_ADB.Controllers
                 // Salva as mudanças
                 await _appointmentService.UpdateAppointmentAsync(appointment);
 
-                return RedirectToAction("Index", "Home"); // Redireciona para a lista de agendamentos
+                return Redirect("~/"); // Redireciona para a lista de agendamentos
             }
 
             // Caso o ModelState não seja válido, recarregue os dados e mostre o erro

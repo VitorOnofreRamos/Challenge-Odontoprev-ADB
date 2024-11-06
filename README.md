@@ -1,7 +1,3 @@
-Aqui está um exemplo de `README.md` que detalha as funcionalidades principais do seu projeto de gerenciamento de agendamentos de consultas. Esse modelo inclui uma visão geral, instruções de instalação e uso, além de detalhes sobre as funcionalidades principais.
-
----
-
 # Sistema de Gerenciamento de Agendamentos de Consultas
 
 ## Visão Geral do Projeto
@@ -86,4 +82,5 @@ A aplicação usa o layout principal com cabeçalho, rodapé e barra de navegaç
 
 ---
 
-Sinta-se à vontade para personalizar ou ajustar o README conforme as especificidades do seu projeto.
+## Integrates
+- Vitor Onofre Ramos | RM553241

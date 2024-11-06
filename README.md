@@ -38,8 +38,8 @@ Para configurar e rodar este projeto, você precisará de:
 
 1. **Clone o repositório**:
    ```bash
-   git clone https://github.com/seu-usuario/seu-projeto.git
-   cd seu-projeto
+   git clone https://github.com/VitorOnofreRamos/Challenge-Odontoprev-ADB.git
+   cd Challenge-Odontoprev-ADB
    ```
 
 2. **Configuração do Banco de Dados**:

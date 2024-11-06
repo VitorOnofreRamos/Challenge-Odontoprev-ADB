@@ -1,0 +1,72 @@
+﻿@model Challenge_Odontoprev_ADB.Application.DTOs.AppointmentDTO
+
+@{
+    ViewData["Title"] = "Edit Appointment";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form method="post" asp-action="Edit" asp-route-id="@Model.Id">
+    @Html.AntiForgeryToken()
+    <input type="hidden" name="_method" value="PUT" />
+
+    <div class="form-group">
+        <label for="AppointmentDate">Appointment Date</label>
+        <input type="datetime-local" class="form-control" id="AppointmentDate" name="AppointmentDate" value="@Model.AppointmentDate.ToString("yyyy-MM-ddTHH:mm")" required />
+    </div>
+    <div class="form-group">
+        <label for="Address_Street">Street</label>
+        <input type="text" class="form-control" id="Address_Street" name="Address_Street" value="@Model.Address_Street" required />
+    </div>
+    <div class="form-group">
+        <label for="Address_City">City</label>
+        <input type="text" class="form-control" id="Address_City" name="Address_City" value="@Model.Address_City" required />
+    </div>
+    <div class="form-group">
+        <label for="Address_State">State</label>
+        <input type="text" class="form-control" id="Address_State" name="Address_State" value="@Model.Address_State" required />
+    </div>
+    <div class="form-group">
+        <label for="AppointmentReason">Appointment Reason</label>
+        <textarea class="form-control" id="AppointmentReason" name="AppointmentReason" required>@Model.AppointmentReason</textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="Status">Status</label>
+        <select class="form-control" id="Status" name="Status" required>
+            <option value="Scheduled" @(Model.Status == "Scheduled" ? "selected" : "")>Scheduled</option>
+            <option value="Completed" @(Model.Status == "Completed" ? "selected" : "")>Completed</option>
+            <option value="Cancelled" @(Model.Status == "Cancelled" ? "selected" : "")>Cancelled</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="PatientId">Patient</label>
+        <select class="form-control" id="PatientId" name="PatientId" required>
+            @foreach (var patient in ViewBag.Patients)
+            {
+                <option value="@patient.Id" @(patient.Id == Model.PatientId ? "selected" : "")>@patient.Name</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="DoctorId">Doctor</label>
+        <select class="form-control" id="DoctorId" name="DoctorId" required>
+            @foreach (var doctor in ViewBag.Doctors)
+            {
+                <option value="@doctor.Id" @(doctor.Id == Model.DoctorId ? "selected" : "")>@doctor.Name</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="TreatmentId">Treatment</label>
+        <select class="form-control" id="TreatmentId" name="TreatmentId" required>
+            @foreach (var treatment in ViewBag.Treatments)
+            {
+                <option value="@treatment.Id" @(treatment.Id == Model.TreatmentId ? "selected" : "")>@treatment.Name</option>
+            }
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+</form>

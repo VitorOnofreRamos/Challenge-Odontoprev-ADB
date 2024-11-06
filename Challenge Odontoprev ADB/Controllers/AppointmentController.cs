@@ -114,7 +114,7 @@ namespace Challenge_Odontoprev_ADB.Controllers
                 Console.WriteLine($"Creating Appointment: {dto.AppointmentReason}, PatientId: {dto.PatientId}, DoctorId: {dto.DoctorId}, TreatmentId: {dto.TreatmentId}");
 
                 await _appointmentService.AddAppointmentAsync(appointment);
-                return RedirectToAction("Index", "Home");
+                return Redirect("~/");
             }
 
             // Se o ModelState não for válido, logue os erros
@@ -152,11 +152,93 @@ namespace Challenge_Odontoprev_ADB.Controllers
 
         // Delete: /appointments/delete/{id}
         [HttpDelete("Delete/{id}")]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             await _appointmentService.RemoveAppointmentAsync(id);
-            return RedirectToAction("Index", "Home");
+            return Redirect("~/");
+        }
+
+        // GET: /appointments/edit/{id}
+        [HttpGet("Edit/{id}")]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var appointment = await _appointmentService.GetAppointmentByIdAsync(id);
+            if (appointment == null)
+            {
+                return NotFound();
+            }
+
+            var dto = new AppointmentDTO
+            {
+                Id = appointment.Id,
+                Status = appointment.Status,
+                Address_Street = appointment.Address_Street,
+                Address_City = appointment.Address_City,
+                Address_State = appointment.Address_State,
+                AppointmentDate = appointment.AppointmentDate,
+                PatientId = appointment.PatientId,
+                DoctorId = appointment.DoctorId,
+                TreatmentId = appointment.TreatmentId,
+                AppointmentReason = appointment.AppointmentReason
+            };
+
+            var patients = await _patientService.GetAllPatientsAsync();
+            var doctors = await _doctorService.GetAllDoctorsAsync();
+            var treatments = await _treatmentService.GetAllTreatmentsAsync();
+
+            ViewBag.Patients = patients;
+            ViewBag.Doctors = doctors;
+            ViewBag.Treatments = treatments;
+
+            return View(dto);
+        }
+
+        // PUT: /appointments/edit/{id}
+        [HttpPut("Edit/{id}")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, AppointmentDTO dto)
+        {
+            if (id != dto.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                var appointment = await _appointmentService.GetAppointmentByIdAsync(id);
+                if (appointment == null)
+                {
+                    return NotFound();
+                }
+
+                // Atualiza os dados do agendamento
+                appointment.AppointmentDate = dto.AppointmentDate;
+                appointment.Address_Street = dto.Address_Street;
+                appointment.Address_City = dto.Address_City;
+                appointment.Address_State = dto.Address_State;
+                appointment.AppointmentReason = dto.AppointmentReason;
+                appointment.Status = dto.Status;
+                appointment.PatientId = dto.PatientId;
+                appointment.DoctorId = dto.DoctorId;
+                appointment.TreatmentId = dto.TreatmentId;
+
+                // Salva as mudanças
+                await _appointmentService.UpdateAppointmentAsync(appointment);
+
+                return RedirectToAction("Index", "Home"); // Redireciona para a lista de agendamentos
+            }
+
+            // Caso o ModelState não seja válido, recarregue os dados e mostre o erro
+            var patients = await _patientService.GetAllPatientsAsync();
+            var doctors = await _doctorService.GetAllDoctorsAsync();
+            var treatments = await _treatmentService.GetAllTreatmentsAsync();
+
+            ViewBag.Patients = patients;
+            ViewBag.Doctors = doctors;
+            ViewBag.Treatments = treatments;
+
+            return View(dto); // Retorna a mesma View com os erros
         }
     }
 }

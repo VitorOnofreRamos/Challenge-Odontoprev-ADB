@@ -22,7 +22,7 @@
     </div>
 </div>
 
-@section Script{
+@section Scripts{
     <script>
         // Quando o usuário clicar no botão Excluir
         document.getElementById('delete-button').onclick = function () {
@@ -36,7 +36,8 @@
                 })
                     .then(response => {
                         if (response.ok) {
-                            window.location.href = '@Url.Action("Index", "Appointment")'; // Redireciona para a lista
+                            alert('Consulta excluida com sucesso');
+                            window.location.href = '@Url.Action("Index", "Home")'; // Redireciona para a lista
                         } else {
                             alert('Erro ao excluir a consulta');
                         }

@@ -19,5 +19,22 @@ html {
 
 body {
     margin-bottom: 60px;
-    background-color: #f7f7f2;
+}
+
+.wrapper {
+    min-height: 100%;
+    position: relative;
+}
+
+.custom-body {
+    background-color: #fafaf7 !important;
+    padding-bottom: 150px;
+}
+
+.custom-footer {
+    height: 150px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
 }

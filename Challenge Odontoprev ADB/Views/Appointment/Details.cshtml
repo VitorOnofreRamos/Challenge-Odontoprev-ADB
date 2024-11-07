@@ -1,4 +1,4 @@
-﻿@model Challenge_Odontoprev_ADB.Application.DTOs.AppointmentDTO
+﻿@model Challenge_Odontoprev_ADB.Views.ViewModels.AppointmentViewModel;
 
 @{
     ViewData["Title"] = "Detalhes da Consulta";
@@ -22,36 +22,63 @@
 
             <dt class="col-sm-3">Data da Consulta</dt>
             <dd class="col-sm-9">@Model.AppointmentDate.ToString("dd/MM/yyyy HH:mm")</dd>
-        </dl>
-
-        <h4>Endereço</h4>
-        <dl class="row">
-            <dt class="col-sm-3">Rua</dt>
-            <dd class="col-sm-9">@Model.Address_Street</dd>
-
-            <dt class="col-sm-3">Cidade</dt>
-            <dd class="col-sm-9">@Model.Address_City</dd>
-
-            <dt class="col-sm-3">Estado</dt>
-            <dd class="col-sm-9">@Model.Address_State</dd>
+            
+            <dt class="col-sm-3">Endereço</dt>
+            <dd class="col-sm-9">@($"{Model.Address_Street}, {Model.Address_City}, {Model.Address_State}")</dd>
         </dl>
 
         <h4>Informações do Paciente</h4>
         <dl class="row">
-            <dt class="col-sm-3">Paciente ID</dt>
+            <dt class="col-sm-3">ID</dt>
             <dd class="col-sm-9">@Model.PatientId</dd>
+
+            <dt class="col-sm-3">Nome</dt>
+            <dd class="col-sm-9">@Model.PatientName</dd>
+            
+            <dt class="col-sm-3">Data de Nascimentno</dt>
+            <dd class="col-sm-9">@Model.DateOfBirth.ToString("dd/MM/yyyy")</dd>
+
+            <dt class="col-sm-3">CPF</dt>
+            <dd class="col-sm-9">@Model.CPF</dd>
+
+            <dt class="col-sm-3">Telefone</dt>
+            <dd class="col-sm-9">@Model.PatientPhone</dd>
+
+            <dt class="col-sm-3">Nº da Carteirinha</dt>
+            <dd class="col-sm-9">@Model.HealthCard</dd>
         </dl>
 
         <h4>Informações do Médico</h4>
         <dl class="row">
-            <dt class="col-sm-3">Médico ID</dt>
+            <dt class="col-sm-3">ID</dt>
             <dd class="col-sm-9">@Model.DoctorId</dd>
+
+            <dt class="col-sm-3">Nome</dt>
+            <dd class="col-sm-9">@Model.DoctorName</dd>
+
+            <dt class="col-sm-3">CRM</dt>
+            <dd class="col-sm-9">@Model.CRM</dd>
+
+            <dt class="col-sm-3">Especialidade</dt>
+            <dd class="col-sm-9">@Model.DoctorSpecialty</dd>
+
+            <dt class="col-sm-3">Telefone</dt>
+            <dd class="col-sm-9">@Model.DoctorPhone</dd>
         </dl>
 
         <h4>Tratamento</h4>
         <dl class="row">
-            <dt class="col-sm-3">Tratamento ID</dt>
+            <dt class="col-sm-3">ID</dt>
             <dd class="col-sm-9">@Model.TreatmentId</dd>
+
+            <dt class="col-sm-3">Tipo de Procedimento</dt>
+            <dd class="col-sm-9">@Model.ProcedureType</dd>
+
+            <dt class="col-sm-3">Descrição</dt>
+            <dd class="col-sm-9">@(string.IsNullOrEmpty(Model.TreatmentDescription) ? "Os métodos do tratamento não foram definidos" : Model.TreatmentDescription)</dd>
+
+            <dt class="col-sm-3">Custo do Procedimento</dt>
+            <dd class="col-sm-9">@Model.Cost.ToString("C2", new System.Globalization.CultureInfo("pt-BR"))</dd>
         </dl>
 
         <a href="@Url.Action("Index", "Home")" class="btn btn-primary mt-3">Voltar para a Lista</a>

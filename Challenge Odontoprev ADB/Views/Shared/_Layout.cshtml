@@ -1,13 +1,14 @@
 ﻿<!DOCTYPE html>
-<html lang="en" data-bs-theme="dark">
+<html lang="en" data-bs-theme="light">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Challenge_Odontoprev_ADB</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <!-- Bootstrap CDN -->
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 </head>
-<body>
+<body class="custom-body">
     <header>
         @Html.Partial("_NavBar")
     </header>
@@ -17,9 +18,18 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="border-top footer text-muted custom-footer bg-dark">
         <div class="container">
-            &copy; 2024 - Challenge_Odontoprev_ADB - <a asp-area="" asp-controller="Home" asp-action="About">About</a>
+            <span>&copy; 2024 - Challenge_Odontoprev_ADB - <a asp-area="" asp-controller="Home" asp-action="About">About</a></span>
+
+            <div class="row">
+                <ul>
+                    <p><b>Integrates</b></p>
+                    <li>Vitor Onofre Ramos - RM553241</li>
+                    <li>Pedro Henrique Soares Araujo - RM553801</li>
+                    <li>Beatriz Silva - RM552600</li>
+                </ul>
+            </div>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

@@ -1,5 +1,6 @@
 ﻿using Challenge_Odontoprev_ADB.Application.DTOs;
 using Challenge_Odontoprev_ADB.Application.Services;
+using Challenge_Odontoprev_ADB.Views.ViewModels;
 using Challenge_Odontoprev_ADB.Infrastructure;
 using Challenge_Odontoprev_ADB.Models.Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -56,20 +57,38 @@ namespace Challenge_Odontoprev_ADB.Controllers
             {
                 return NotFound();
             }
-            var dto = new AppointmentDTO
+
+            var doctor = await _doctorService.GetDoctorByIdAsync(appointment.DoctorId);
+            var patient = await _patientService.GetPatientByIdAsync(appointment.PatientId);
+            var treatment = await _treatmentService.GetTreatmentByIdAsync(appointment.TreatmentId);
+
+            var viewModel = new AppointmentViewModel
             {
                 Id = appointment.Id,
-                Status = appointment.Status,
+                Status = appointment.Status.ToString(),
+                AppointmentReason = appointment.AppointmentReason,
                 Address_Street = appointment.Address_Street,
                 Address_City = appointment.Address_City,
                 Address_State = appointment.Address_State,
                 AppointmentDate = appointment.AppointmentDate,
                 PatientId = appointment.PatientId,
+                PatientName = patient.Name,
+                DateOfBirth = patient.DateOfBirth,
+                CPF = patient.CPF,
+                PatientPhone = patient.Phone,
+                HealthCard = patient.HealthCard,
                 DoctorId = appointment.DoctorId,
+                DoctorName = doctor.Name,
+                CRM = doctor.CRM,
+                DoctorSpecialty = doctor.Speciality.ToString(),
+                DoctorPhone = doctor.Phone,
                 TreatmentId = appointment.TreatmentId,
-                AppointmentReason = appointment.AppointmentReason
+                ProcedureType = treatment.ProcedureType.ToString(),
+                TreatmentDescription = treatment.ProcedureDescription,
+                Cost = treatment.Cost,
             };
-            return View(dto); // Passando AppointmentDTO para a View
+
+            return View(viewModel);
         }
 
         // GET: /appointment/create

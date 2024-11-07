@@ -133,7 +133,7 @@ namespace Challenge_Odontoprev_ADB.Controllers
 
             ViewBag.Patients = patients;
             ViewBag.Doctors = doctors;
-            ViewBag.Treatmens = treatments;
+            ViewBag.Treatments = treatments;
 
             return View(dto);
         }

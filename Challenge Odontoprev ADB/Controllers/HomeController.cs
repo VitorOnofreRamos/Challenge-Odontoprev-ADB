@@ -44,7 +44,7 @@ namespace Challenge_Odontoprev_ADB.Controllers
             return View(majorAppointmentsDTOs);
         }
 
-        public IActionResult Privacy()
+        public IActionResult About()
         {
             return View();
         }

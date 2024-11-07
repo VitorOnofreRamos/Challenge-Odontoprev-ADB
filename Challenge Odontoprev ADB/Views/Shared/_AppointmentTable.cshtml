@@ -1,35 +1,41 @@
 ﻿@model IEnumerable<Challenge_Odontoprev_ADB.Application.DTOs.AppointmentDTO>
 
-<table class="table">
-	<thead>
-	<tr>
-		<th>Status</th>
-		<th>Appointment Date</th>
-		<th>Address</th>
-		<th>Patient ID</th>
-		<th>Doctor ID</th>
-		<th>Treatment ID</th>
-		<th>Appointment Reason</th>
-		<th>Actions</th>
-	</tr>
-	</thead>
-	<tbody>
-		@foreach(var appointmentItem in Model)
-		{
+<div class="card">
+	<div class="card-body">
+		<table class="table">
+			<thead>
 			<tr>
-				<td>@appointmentItem.Status</td>
-				<td>@appointmentItem.AppointmentDate.ToString("dd/MM/yyyy")</td>
-				<td>@($"{appointmentItem.Address_Street}, {appointmentItem.Address_City}, {appointmentItem.Address_State}")</td>
-				<td>@appointmentItem.PatientId</td>
-				<td>@appointmentItem.DoctorId</td>
-				<td>@appointmentItem.TreatmentId</td>
-				<td>@(string.IsNullOrEmpty(appointmentItem.AppointmentReason) ? "Motivo da consulta não definido" : appointmentItem.AppointmentReason)</td>
-				<td>
-					<a asp-controller="Appointment" asp-action="Details" asp-route-id="@appointmentItem.Id" class="btn btn-info btn-sm">Details</a>
-					<a asp-controller="Appointment" asp-action="Edit" asp-route-id="@appointmentItem.Id" class="btn btn-warning btn-sm">Edit</a>
-					<a asp-controller="Appointment" asp-action="Delete" asp-route-id="@appointmentItem.Id" class="btn btn-danger btn-sm">Delete</a>
-				</td>
+				<th>Status</th>
+				<th>Appointment Date</th>
+				<th>Address</th>
+				<th>Patient ID</th>
+				<th>Doctor ID</th>
+				<th>Treatment ID</th>
+				<th>Appointment Reason</th>
+				<th>Actions</th>
 			</tr>
-		}
-	</tbody>
-</table>
+			</thead>
+			<tbody>
+				@foreach(var appointmentItem in Model)
+				{
+					<tr>
+						<td>@appointmentItem.Status</td>
+						<td>@appointmentItem.AppointmentDate.ToString("dd/MM/yyyy")</td>
+						<td class="w-25">@($"{appointmentItem.Address_Street}, {appointmentItem.Address_City}, {appointmentItem.Address_State}")</td>
+						<td>@appointmentItem.PatientId</td>
+						<td>@appointmentItem.DoctorId</td>
+						<td>@appointmentItem.TreatmentId</td>
+						<td class="w-25">@(string.IsNullOrEmpty(appointmentItem.AppointmentReason) ? "Motivo da consulta não definido" : appointmentItem.AppointmentReason)</td>
+						<td>
+							<div class="d-inline-flex">
+								<a asp-controller="Appointment" asp-action="Details" asp-route-id="@appointmentItem.Id" class="btn btn-info btn-sm m-1">Details</a>
+								<a asp-controller="Appointment" asp-action="Edit" asp-route-id="@appointmentItem.Id" class="btn btn-warning btn-sm m-1">Edit</a>
+								<a asp-controller="Appointment" asp-action="Delete" asp-route-id="@appointmentItem.Id" class="btn btn-danger btn-sm m-1">Delete</a>
+							</div>
+						</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
+</div>

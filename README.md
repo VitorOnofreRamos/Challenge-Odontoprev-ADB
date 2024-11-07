@@ -41,12 +41,29 @@ Para configurar e rodar este projeto, você precisará de:
    git clone https://github.com/VitorOnofreRamos/Challenge-Odontoprev-ADB.git
    cd Challenge-Odontoprev-ADB
    ```
-
+   
 2. **Configuração do Banco de Dados**:
    - Configure a string de conexão com seu banco de dados no arquivo `appsettings.json` na seção `ConnectionStrings`.
+   - Se você precisar criar uma nova migration para refletir mudanças no modelo do banco de dados, execute o seguinte comando.
+     - Abra o **PowerShell** no diretório do seu projeto.
+     - Execute o comando abaixo para criar a migration:
+       
+     ```bash
+     dotnet ef migrations add NomeDaMigration
+     ```
+     *Ou se você etiver executando os comados pela IDE do Visual Studio:*
+     ```bash
+     Add-Migration NomeDaMigration
+     ```
+     *Substitua `NomeDaMigration` por um nome descritivo, como por exemplo `AddAppointmentsTable`.*
+     
    - Rode as migrações do Entity Framework para criar as tabelas necessárias:
      ```bash
      dotnet ef database update
+     ```
+     *Ou*
+      ```bash
+     Update-Database
      ```
 
 3. **Configuração do Projeto**:
@@ -61,7 +78,7 @@ Para configurar e rodar este projeto, você precisará de:
    dotnet run
    ```
 
-5. Acesse a aplicação em `http://localhost:5000` (ou conforme a configuração do seu ambiente).
+5. Acesse a aplicação em `http://localhost:8080` (ou conforme a configuração do seu ambiente).
 
 ## Rotas Principais
 
@@ -80,7 +97,11 @@ A aplicação usa o layout principal com cabeçalho, rodapé e barra de navegaç
 - **Formulários responsivos** para criar e editar consultas.
 - **Tabela de Listagem** com status e detalhes das consultas.
 
----
-
 ## Integrates
+
+**Turma 2TDSPS**
 - Vitor Onofre Ramos | RM553241
+- Pedro Henrique | RM553801
+- Beatriz Silva | RM552600
+
+---

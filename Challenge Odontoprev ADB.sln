@@ -5,7 +5,7 @@ VisualStudioVersion = 17.10.34928.147
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Challenge Odontoprev ADB", "Challenge Odontoprev ADB\Challenge Odontoprev ADB.csproj", "{B12740F2-B5B5-4476-A320-AEC8BE66DF21}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API Odontoprev", "API Odontoprev\API Odontoprev.csproj", "{8A54899D-86AE-4383-9CFF-CCE08B20B155}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API Odontoprev", "API Odontoprev\API Odontoprev.csproj", "{8A54899D-86AE-4383-9CFF-CCE08B20B155}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

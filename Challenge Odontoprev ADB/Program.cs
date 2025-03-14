@@ -30,8 +30,8 @@ builder.Services.AddScoped<IDoctorRepository, DoctorRepository>();
 builder.Services.AddScoped<ITreatmentRepository, TreatmentRepository>();
 
 builder.Services.AddScoped<AppointmentService>();
-builder.Services.AddScoped<PatientService>();
-builder.Services.AddScoped<DoctorService>();
+builder.Services.AddScoped<PacienteService>();
+builder.Services.AddScoped<_IService>();
 builder.Services.AddScoped<TreatmentService>();
 
 

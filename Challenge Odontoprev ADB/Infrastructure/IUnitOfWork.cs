@@ -1,13 +1,11 @@
-﻿using Challenge_Odontoprev_ADB.Repositories.Interfaces;
+﻿using Challenge_Odontoprev_ADB.Models.Entities;
+using Challenge_Odontoprev_ADB.Repositories;
 
 namespace Challenge_Odontoprev_ADB.Infrastructure;
 
 public interface IUnitOfWork : IDisposable
 {
-    IAppointmentRepository Appointment { get; }
-    IDoctorRepository Doctor { get; }
-    IPatientRepository Patient { get; }
-    ITreatmentRepository Treatment { get; }
+    _IRepository<_BaseEntity> _IRepository { get; }
 
     Task<int> CompleteAsync();
 }

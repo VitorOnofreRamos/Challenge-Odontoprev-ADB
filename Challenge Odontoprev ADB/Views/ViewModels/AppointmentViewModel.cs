@@ -22,5 +22,5 @@ public class AppointmentViewModel
 	public string Nome_Dentista { get; set; }
 	public string CRO { get; set; }
 	public string Especialidade { get; set; }
-	public string Telefon_Dentista { get; set; }
+	public string Telefone_Dentista { get; set; }
 }

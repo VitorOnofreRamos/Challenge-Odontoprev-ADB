@@ -1,10 +1,12 @@
 using Challenge_Odontoprev_ADB.Infrastructure;
 using Challenge_Odontoprev_ADB.Models;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using Challenge_Odontoprev_ADB.Application.DTOs;
 using Challenge_Odontoprev_ADB.Application.Services;
+using Challenge_Odontoprev_ADB.Models.Entities;
+using Challenge_Odontoprev_ADB.Repositories;
+using AutoMapper;
 
 namespace Challenge_Odontoprev_ADB.Controllers
 {
@@ -12,22 +14,25 @@ namespace Challenge_Odontoprev_ADB.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly ConsultaService consultaService;
+        private readonly _IService<Consulta> _service;
 
-        public HomeController(ILogger<HomeController> logger, IUnitOfWork unitOfWork, ConsultaService _consultaService)
-        {
+        public HomeController(
+            ILogger<HomeController> logger, 
+            IUnitOfWork unitOfWork, 
+            _IService<Consulta> service
+        ){
             _logger = logger;
             _unitOfWork = unitOfWork;
-            consultaService = _consultaService;
+            _service = service;
         }
 
         public async Task<IActionResult> Index()
         {
-            var majorConsulta = await consultaService.GetAllConsultasAsync();
+            var majorConsulta = await _service.GetAll();
 
-            var majorConsultaDTOs = majorConsulta.Select(a => new ConsultaDTO
+            var majorConsultaDTOs = majorConsulta.Select(a => new ConsultaReadDTO
             {
-                Id = a.Id,
+                ID = a.ID,
                 Data_Consulta = a.Data_Consulta,
                 ID_Dentista = a.ID_Dentista,
                 ID_Paciente = a.ID_Paciente,

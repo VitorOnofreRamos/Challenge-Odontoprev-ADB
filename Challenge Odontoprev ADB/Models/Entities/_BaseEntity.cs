@@ -5,6 +5,5 @@ namespace Challenge_Odontoprev_ADB.Models.Entities;
 
 public abstract class _BaseEntity
 {
-    [Key] 
-    public virtual long Id { get; set; }
+    public virtual long ID { get; set; }
 }

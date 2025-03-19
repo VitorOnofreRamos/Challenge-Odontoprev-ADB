@@ -1,9 +1,8 @@
 using Challenge_Odontoprev_ADB.Application.Services;
 using Challenge_Odontoprev_ADB.Infrastructure;
+using Challenge_Odontoprev_ADB.Mappings;
 using Challenge_Odontoprev_ADB.Models.Entities;
 using Challenge_Odontoprev_ADB.Repositories;
-using Challenge_Odontoprev_ADB.Repositories.Implementations;
-using Challenge_Odontoprev_ADB.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,18 +21,13 @@ builder.Services.AddDistributedMemoryCache();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseOracle(builder.Configuration.GetConnectionString("FiapOracleConnection")));
 
+builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
+
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
-builder.Services.AddScoped<IPatientRepository, PatientRepository>();
-builder.Services.AddScoped<IDoctorRepository, DoctorRepository>();
-builder.Services.AddScoped<ITreatmentRepository, TreatmentRepository>();
+builder.Services.AddScoped(typeof(_IRepository<>), typeof(_Repository<>));
 
-builder.Services.AddScoped<AppointmentService>();
-builder.Services.AddScoped<PacienteService>();
-builder.Services.AddScoped<_IService>();
-builder.Services.AddScoped<TreatmentService>();
-
+builder.Services.AddScoped(typeof(_IService<>), typeof(_Service<>));
 
 var app = builder.Build();
 

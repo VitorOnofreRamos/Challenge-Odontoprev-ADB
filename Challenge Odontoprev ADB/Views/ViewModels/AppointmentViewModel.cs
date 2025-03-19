@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Challenge_Odontoprev_ADB.Views.ViewModels;
+﻿namespace Challenge_Odontoprev_ADB.Views.ViewModels;
 
 public class AppointmentViewModel
 {

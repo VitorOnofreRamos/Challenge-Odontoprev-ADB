@@ -1,34 +1,41 @@
-﻿@model IEnumerable<Challenge_Odontoprev_ADB.Application.DTOs.ConsultaDTO>
+﻿@using Challenge_Odontoprev_ADB.Models.Entities
+@model IEnumerable<Challenge_Odontoprev_ADB.Application.DTOs.ConsultaReadDTO>
+
+@{
+	var pacientes = ViewBag.Pacientes as Dictionary<long, string>;
+	var dentistas = ViewBag.Dentistas as Dictionary<long, string>;
+}
 
 <div class="card">
-	<div class="card-body">
-		<table class="table">
-			<thead>
-			<tr>
-				<th>Appointment Date</th>
-				<th>Status</th>
-				<th>Patient ID</th>
-				<th>Doctor ID</th>
-			</tr>
-			</thead>
-			<tbody>
-				@foreach(var appointmentItem in Model)
-				{
-					<tr>
-						<td>@appointmentItem.AppointmentDate.ToString("dd/MM/yyyy")</td>
-						<td>@appointmentItem.Status</td>
-						<td>@appointmentItem.PatientId</td>
-						<td>@appointmentItem.DoctorId</td>
-						<td>
-							<div class="d-inline-flex">
-								<a asp-controller="Appointment" asp-action="Details" asp-route-id="@appointmentItem.Id" class="btn btn-info btn-sm m-1">Details</a>
-								<a asp-controller="Appointment" asp-action="Edit" asp-route-id="@appointmentItem.Id" class="btn btn-warning btn-sm m-1">Edit</a>
-								<a asp-controller="Appointment" asp-action="Delete" asp-route-id="@appointmentItem.Id" class="btn btn-danger btn-sm m-1">Delete</a>
-							</div>
-						</td>
-					</tr>
-				}
-			</tbody>
-		</table>
-	</div>
+    <div class="card-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Appointment Date</th>
+                    <th>Status</th>
+                    <th>Patient Name</th>
+                    <th>Doctor Name</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var appointmentItem in Model)
+                {
+                    <tr>
+                        <td>@appointmentItem.Data_Consulta.ToString("dd/MM/yyyy")</td>
+                        <td>@appointmentItem.Status</td>
+                        <td>@(pacientes.ContainsKey(appointmentItem.ID_Paciente) ? pacientes[appointmentItem.ID_Paciente] : "N/A")</td>
+                        <td>@(dentistas.ContainsKey(appointmentItem.ID_Dentista) ? dentistas[appointmentItem.ID_Dentista] : "N/A")</td>
+                        <td>
+                            <div class="d-inline-flex">
+                                <a asp-controller="Appointment" asp-action="Details" asp-route-id="@appointmentItem.ID" class="btn btn-info btn-sm m-1">Details</a>
+                                <a asp-controller="Appointment" asp-action="Edit" asp-route-id="@appointmentItem.ID" class="btn btn-warning btn-sm m-1">Edit</a>
+                                <a asp-controller="Appointment" asp-action="Delete" asp-route-id="@appointmentItem.ID" class="btn btn-danger btn-sm m-1">Delete</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>

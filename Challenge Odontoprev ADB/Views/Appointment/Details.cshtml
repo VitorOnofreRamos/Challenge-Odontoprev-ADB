@@ -12,10 +12,10 @@
 
         <dl class="row">
             <dt class="col-sm-3">ID</dt>
-            <dd class="col-sm-9">@Model.Id</dd>
+            <dd class="col-sm-9">@Model.ID_Consulta</dd>
 
             <dt class="col-sm-3">Data da Consulta</dt>
-            <dd class="col-sm-9">@Model.AppointmentDate.ToString("dd/MM/yyyy HH:mm")</dd>
+            <dd class="col-sm-9">@Model.Data_Consulta.ToString("dd/MM/yyyy HH:mm")</dd>
 
             <dt class="col-sm-3">Status</dt>
             <dd class="col-sm-9">@Model.Status</dd>
@@ -24,40 +24,40 @@
         <h4>Informações do Paciente</h4>
         <dl class="row">
             <dt class="col-sm-3">ID</dt>
-            <dd class="col-sm-9">@Model.PatientId</dd>
+            <dd class="col-sm-9">@Model.ID_Paciente</dd>
 
             <dt class="col-sm-3">Nome</dt>
-            <dd class="col-sm-9">@Model.PatientName</dd>
+            <dd class="col-sm-9">@Model.Nome_Paciente</dd>
             
             <dt class="col-sm-3">Data de Nascimentno</dt>
-            <dd class="col-sm-9">@Model.DateOfBirth.ToString("dd/MM/yyyy")</dd>
+            <dd class="col-sm-9">@Model.Data_Nascimento.ToString("dd/MM/yyyy")</dd>
 
             <dt class="col-sm-3">CPF</dt>
             <dd class="col-sm-9">@Model.CPF</dd>
 
             <dt class="col-sm-3">Telefone</dt>
-            <dd class="col-sm-9">@Model.PatientPhone</dd>
+            <dd class="col-sm-9">@Model.Telefone_Paciente</dd>
 
             <dt class="col-sm-3">Nº da Carteirinha</dt>
-            <dd class="col-sm-9">@Model.HealthCard</dd>
+            <dd class="col-sm-9">@Model.Carteirinha</dd>
         </dl>
 
         <h4>Informações do Médico</h4>
         <dl class="row">
             <dt class="col-sm-3">ID</dt>
-            <dd class="col-sm-9">@Model.DoctorId</dd>
+            <dd class="col-sm-9">@Model.ID_Dentista</dd>
 
             <dt class="col-sm-3">Nome</dt>
-            <dd class="col-sm-9">@Model.DoctorName</dd>
+            <dd class="col-sm-9">@Model.Nome_Dentista</dd>
 
-            <dt class="col-sm-3">CRM</dt>
-            <dd class="col-sm-9">@Model.CRM</dd>
+            <dt class="col-sm-3">CRO</dt>
+            <dd class="col-sm-9">@Model.CRO</dd>
 
             <dt class="col-sm-3">Especialidade</dt>
-            <dd class="col-sm-9">@Model.DoctorSpecialty</dd>
+            <dd class="col-sm-9">@Model.Especialidade</dd>
 
             <dt class="col-sm-3">Telefone</dt>
-            <dd class="col-sm-9">@Model.DoctorPhone</dd>
+            <dd class="col-sm-9">@Model.Telefone_Dentista</dd>
         </dl>
 
 @*         <h4>Tratamento</h4>

@@ -2,7 +2,6 @@
 using Challenge_Odontoprev_ADB.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 using Oracle.ManagedDataAccess.Client;
-using System.Collections.Generic;
 
 namespace Challenge_Odontoprev_ADB.Repositories;
 
@@ -105,7 +104,7 @@ public class _Repository<T> : _IRepository<T> where T : _BaseEntity
                                 :p_Carteirinha
                             ); END;";
             await _context.Database.ExecuteSqlRawAsync(sql,
-                new OracleParameter("p_ID_Paciente", paciente.Id),
+                new OracleParameter("p_ID_Paciente", paciente.ID),
                 new OracleParameter("p_Nome", (object)paciente.Nome ?? DBNull.Value),
                 new OracleParameter("p_Data_Nascimento", paciente.Data_Nascimento),
                 new OracleParameter("p_CPF", (object)paciente.CPF ?? DBNull.Value),
@@ -123,7 +122,7 @@ public class _Repository<T> : _IRepository<T> where T : _BaseEntity
                                 :p_Telefone
                             ); END;";
             await _context.Database.ExecuteSqlRawAsync(sql,
-                new OracleParameter("p_ID_Dentista", dentista.Id),
+                new OracleParameter("p_ID_Dentista", dentista.ID),
                 new OracleParameter("p_Nome", (object)dentista.Nome ?? DBNull.Value),
                 new OracleParameter("p_CRO", (object)dentista.CRO ?? DBNull.Value),
                 new OracleParameter("p_Especialidade", (object)dentista.Especialidade ?? DBNull.Value),
@@ -139,7 +138,7 @@ public class _Repository<T> : _IRepository<T> where T : _BaseEntity
                                 :p_Status
                             ); END;";
             await _context.Database.ExecuteSqlRawAsync(sql,
-                new OracleParameter("p_ID_Consulta", consulta.Id),
+                new OracleParameter("p_ID_Consulta", consulta.ID),
                 new OracleParameter("p_Data_Consulta", consulta.Data_Consulta),
                 new OracleParameter("p_ID_Paciente", consulta.ID_Paciente),
                 new OracleParameter("p_ID_Dentista", consulta.ID_Dentista),
@@ -155,7 +154,7 @@ public class _Repository<T> : _IRepository<T> where T : _BaseEntity
                                 :p_Observacoes
                             ); END;";
             await _context.Database.ExecuteSqlRawAsync(sql,
-                new OracleParameter("p_ID_Historico", historico.Id),
+                new OracleParameter("p_ID_Historico", historico.ID),
                 new OracleParameter("p_ID_Consulta", historico.ID_Consulta),
                 new OracleParameter("p_Data_Atendimento", historico.Data_Atendimento),
                 new OracleParameter("p_Motivo_Consulta", (object)historico.Motivo_Consulta ?? DBNull.Value),

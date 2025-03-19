@@ -1,36 +1,34 @@
-using Challenge_Odontoprev_ADB.Infrastructure;
 using Challenge_Odontoprev_ADB.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using Challenge_Odontoprev_ADB.Application.DTOs;
 using Challenge_Odontoprev_ADB.Application.Services;
 using Challenge_Odontoprev_ADB.Models.Entities;
-using Challenge_Odontoprev_ADB.Repositories;
-using AutoMapper;
 
 namespace Challenge_Odontoprev_ADB.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly _IService<Consulta> _service;
+        private readonly _IService<Consulta> _consultaService;
+		private readonly _IService<Paciente> _pacienteService;
+		private readonly _IService<Dentista> _dentistaService;
 
-        public HomeController(
-            ILogger<HomeController> logger, 
-            IUnitOfWork unitOfWork, 
-            _IService<Consulta> service
-        ){
-            _logger = logger;
-            _unitOfWork = unitOfWork;
-            _service = service;
+		public HomeController(
+            _IService<Consulta> consulta,
+			_IService<Paciente> paciente,
+			_IService<Dentista> dentista
+		)
+		{
+            _consultaService = consulta;
+            _pacienteService = paciente;
+            _dentistaService = dentista;
         }
 
         public async Task<IActionResult> Index()
         {
-            var majorConsulta = await _service.GetAll();
+            var consultas = await _consultaService.GetAll();
 
-            var majorConsultaDTOs = majorConsulta.Select(a => new ConsultaReadDTO
+            var consultaDTOs = consultas.Select(a => new ConsultaReadDTO
             {
                 ID = a.ID,
                 Data_Consulta = a.Data_Consulta,
@@ -39,7 +37,29 @@ namespace Challenge_Odontoprev_ADB.Controllers
                 Status = a.Status
             }).ToList();
 
-            return View(majorConsultaDTOs);
+			var pacientes = new Dictionary<long, string>();
+			var dentistas = new Dictionary<long, string>();
+
+			foreach (var consulta in consultaDTOs)
+			{
+				if (!pacientes.ContainsKey(consulta.ID_Paciente))
+				{
+					var paciente = await _pacienteService.GetById(consulta.ID_Paciente);
+					pacientes[consulta.ID_Paciente] = paciente?.Nome ?? "Desconhecido";
+				}
+
+				if (!dentistas.ContainsKey(consulta.ID_Dentista))
+				{
+					var dentista = await _dentistaService.GetById(consulta.ID_Dentista);
+					dentistas[consulta.ID_Dentista] = dentista?.Nome ?? "Desconhecido";
+				}
+			}
+
+			// Passando os dicionários para a ViewBag
+			ViewBag.Pacientes = pacientes;
+			ViewBag.Dentistas = dentistas;
+
+			return View(consultaDTOs);
         }
 
         public IActionResult About()

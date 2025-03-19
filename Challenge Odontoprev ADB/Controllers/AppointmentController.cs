@@ -136,8 +136,8 @@ namespace Challenge_Odontoprev_ADB.Controllers
             var pacientes = await _servicePaciente.GetAll();
             var dentistas = await _serviceDentista.GetAll();
 
-            ViewBag.Patients = pacientes;
-            ViewBag.Doctors = dentistas;
+            ViewBag.Pacientes = pacientes;
+            ViewBag.Dentistas = dentistas;
 
             return View(dto);
         }
@@ -184,8 +184,8 @@ namespace Challenge_Odontoprev_ADB.Controllers
             var pacientes = await _servicePaciente.GetAll();
             var dentistas = await _serviceDentista.GetAll();
 
-            ViewBag.Patients = pacientes;
-            ViewBag.Doctors = dentistas;
+            ViewBag.Pacientes = pacientes;
+            ViewBag.Dentistas = dentistas;
 
             return View(dto);
         }
@@ -224,8 +224,8 @@ namespace Challenge_Odontoprev_ADB.Controllers
             var pacientes = await _servicePaciente.GetAll();
             var dentistas = await _serviceDentista.GetAll();
 
-            ViewBag.Patients = pacientes;
-            ViewBag.Doctors = dentistas;
+            ViewBag.Pacientes = pacientes;
+            ViewBag.Dentistas = dentistas;
 
             return View(dto); // Retorna a mesma View com os erros
         }

@@ -1,14 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Challenge_Odontoprev_ADB.Models.Entities;
+namespace Challenge_Odontoprev_API.Models;
 
 [Table("CONSULTA")]
 public class Consulta : _BaseEntity
 {
     [Key]
     [Column("ID_CONSULTA")]
-    public override long ID { get; set; }
+    public override long Id { get; set; }
 
     [Required]
     [Column("DATA_CONSULTA")]
@@ -20,7 +20,7 @@ public class Consulta : _BaseEntity
     public long ID_Paciente { get; set; }
 
     [Required]
-    [ForeignKey("ID_DENTISTA")]
+    [ForeignKey("DENTISTA")]
     [Column("ID_DENTISTA")]
     public long ID_Dentista { get; set; }
 

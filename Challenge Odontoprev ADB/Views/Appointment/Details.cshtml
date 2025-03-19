@@ -14,17 +14,11 @@
             <dt class="col-sm-3">ID</dt>
             <dd class="col-sm-9">@Model.Id</dd>
 
-            <dt class="col-sm-3">Motivo da Consulta</dt>
-            <dd class="col-sm-9">@(string.IsNullOrEmpty(Model.AppointmentReason) ? "Motivo da consulta não definido" : Model.AppointmentReason)</dd>
+            <dt class="col-sm-3">Data da Consulta</dt>
+            <dd class="col-sm-9">@Model.AppointmentDate.ToString("dd/MM/yyyy HH:mm")</dd>
 
             <dt class="col-sm-3">Status</dt>
             <dd class="col-sm-9">@Model.Status</dd>
-
-            <dt class="col-sm-3">Data da Consulta</dt>
-            <dd class="col-sm-9">@Model.AppointmentDate.ToString("dd/MM/yyyy HH:mm")</dd>
-            
-            <dt class="col-sm-3">Endereço</dt>
-            <dd class="col-sm-9">@($"{Model.Address_Street}, {Model.Address_City}, {Model.Address_State}")</dd>
         </dl>
 
         <h4>Informações do Paciente</h4>
@@ -66,7 +60,7 @@
             <dd class="col-sm-9">@Model.DoctorPhone</dd>
         </dl>
 
-        <h4>Tratamento</h4>
+@*         <h4>Tratamento</h4>
         <dl class="row">
             <dt class="col-sm-3">ID</dt>
             <dd class="col-sm-9">@Model.TreatmentId</dd>
@@ -79,7 +73,7 @@
 
             <dt class="col-sm-3">Custo do Procedimento</dt>
             <dd class="col-sm-9">@Model.Cost.ToString("C2", new System.Globalization.CultureInfo("pt-BR"))</dd>
-        </dl>
+        </dl> *@
 
         <a href="@Url.Action("Index", "Home")" class="btn btn-primary mt-3">Voltar para a Lista</a>
     </div>

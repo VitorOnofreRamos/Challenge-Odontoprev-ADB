@@ -24,11 +24,17 @@
             <dt class="col-sm-3">ID</dt>
             <dd class="col-sm-9">@Model.Id</dd>
 
+            <dt class="col-sm-3">Data da Consulta</dt>
+            <dd class="col-sm-9">@Model.AppointmentDate.ToString("dd/MM/yyyy HH:mm")</dd>
+
             <dt class="col-sm-3">Status</dt>
             <dd class="col-sm-9">@Model.Status</dd>
 
-            <dt class="col-sm-3">Data da Consulta</dt>
-            <dd class="col-sm-9">@Model.AppointmentDate.ToString("dd/MM/yyyy HH:mm")</dd>
+            <dt class="col-sm-3">ID Paciente</dt>
+            <dd class="col-sm-9">@Model.ID_Paciente</dd>
+
+            <dt class="col-sm-3">Status</dt>
+            <dd class="col-sm-9">@Model.ID_Dentista</dd>
         </dl>
 
         <button id="delete-button" class="btn btn-danger">Excluir</button>

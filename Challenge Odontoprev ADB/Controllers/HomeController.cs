@@ -1,12 +1,12 @@
 using Challenge_Odontoprev_ADB.Infrastructure;
 using Challenge_Odontoprev_ADB.Models;
-using Challenge_Odontoprev_ADB.Repositories.Implementations;
-using Challenge_Odontoprev_ADB.Repositories.Interfaces;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using Challenge_Odontoprev_ADB.Application.DTOs;
 using Challenge_Odontoprev_ADB.Application.Services;
+using Challenge_Odontoprev_ADB.Models.Entities;
+using Challenge_Odontoprev_ADB.Repositories;
+using AutoMapper;
 
 namespace Challenge_Odontoprev_ADB.Controllers
 {
@@ -14,34 +14,32 @@ namespace Challenge_Odontoprev_ADB.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly AppointmentService _appointmentService;
+        private readonly _IService<Consulta> _service;
 
-        public HomeController(ILogger<HomeController> logger, IUnitOfWork unitOfWork, AppointmentService appointmentService)
-        {
+        public HomeController(
+            ILogger<HomeController> logger, 
+            IUnitOfWork unitOfWork, 
+            _IService<Consulta> service
+        ){
             _logger = logger;
             _unitOfWork = unitOfWork;
-            _appointmentService = appointmentService;
+            _service = service;
         }
 
         public async Task<IActionResult> Index()
         {
-            var majorAppointments = await _appointmentService.GetAllAppointmentsAsync();
+            var majorConsulta = await _service.GetAll();
 
-            var majorAppointmentsDTOs = majorAppointments.Select(a => new AppointmentDTO
+            var majorConsultaDTOs = majorConsulta.Select(a => new ConsultaReadDTO
             {
-                Id = a.Id,
-                Status = a.Status,
-                Address_Street = a.Address_Street,
-                Address_City = a.Address_City,
-                Address_State = a.Address_State,
-                AppointmentDate = a.AppointmentDate,
-                PatientId = a.PatientId,
-                DoctorId = a.DoctorId,
-                TreatmentId = a.TreatmentId,
-                AppointmentReason = a.AppointmentReason
+                ID = a.ID,
+                Data_Consulta = a.Data_Consulta,
+                ID_Dentista = a.ID_Dentista,
+                ID_Paciente = a.ID_Paciente,
+                Status = a.Status
             }).ToList();
 
-            return View(majorAppointmentsDTOs);
+            return View(majorConsultaDTOs);
         }
 
         public IActionResult About()

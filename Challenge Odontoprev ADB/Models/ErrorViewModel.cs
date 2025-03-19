@@ -1,9 +1,6 @@
-namespace Challenge_Odontoprev_ADB.Models
+namespace Challenge_Odontoprev_ADB.Models;
+public class ErrorViewModel
 {
-    public class ErrorViewModel
-    {
-        public string? RequestId { get; set; }
-
-        public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
-    }
+    public string? RequestId { get; set; }
+    public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
 }

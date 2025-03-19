@@ -1,5 +1,5 @@
 ﻿@using Challenge_Odontoprev_ADB.Models.Entities
-@model Challenge_Odontoprev_ADB.Application.DTOs.AppointmentDTO
+@model Challenge_Odontoprev_ADB.Application.DTOs.ConsultaDTO
 
 @{
     ViewData["Title"] = "Criar Agendamento";
@@ -40,7 +40,7 @@
 
     <div class="form-group">
         <label asp-for="PatientId">Paciente</label>
-        <select asp-for="PatientId" class="form-control" asp-items="@(new SelectList(ViewBag.Patients ?? new List<Patient>(), "Id", "Name"))" required>
+        <select asp-for="PatientId" class="form-control" asp-items="@(new SelectList(ViewBag.Patients ?? new List<Paciente>(), "Id", "Name"))" required>
             <option value="">Selecione um Paciente</option>
         </select>
         <span asp-validation-for="PatientId" class="text-danger"></span>
@@ -48,7 +48,7 @@
 
     <div class="form-group">
         <label asp-for="DoctorId">Médico</label>
-        <select asp-for="DoctorId" class="form-control" asp-items="@(new SelectList(ViewBag.Doctors ?? new List<Doctor>(), "Id", "Name"))" required>
+        <select asp-for="DoctorId" class="form-control" asp-items="@(new SelectList(ViewBag.Doctors ?? new List<Doutor>(), "Id", "Name"))" required>
             <option value="">Selecione um Médico</option>
         </select>
         <span asp-validation-for="DoctorId" class="text-danger"></span>

@@ -1,7 +1,6 @@
 using Challenge_Odontoprev_ADB.Application.Services;
-using Challenge_Odontoprev_ADB.Infrastructure;
+using Challenge_Odontoprev_ADB.Infraestructure;
 using Challenge_Odontoprev_ADB.Mappings;
-using Challenge_Odontoprev_ADB.Models.Entities;
 using Challenge_Odontoprev_ADB.Repositories;
 using Microsoft.EntityFrameworkCore;
 

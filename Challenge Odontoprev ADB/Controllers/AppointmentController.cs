@@ -1,7 +1,7 @@
 ﻿using Challenge_Odontoprev_ADB.Application.DTOs;
 using Challenge_Odontoprev_ADB.Application.Services;
 using Challenge_Odontoprev_ADB.Views.ViewModels;
-using Challenge_Odontoprev_ADB.Infrastructure;
+using Challenge_Odontoprev_ADB.Infraestructure;
 using Challenge_Odontoprev_ADB.Models.Entities;
 using Microsoft.AspNetCore.Mvc;
 

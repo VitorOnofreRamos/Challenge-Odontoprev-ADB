@@ -1,4 +1,4 @@
-﻿using Challenge_Odontoprev_ADB.Infrastructure;
+﻿using Challenge_Odontoprev_ADB.Infraestructure;
 using Challenge_Odontoprev_ADB.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 using Oracle.ManagedDataAccess.Client;

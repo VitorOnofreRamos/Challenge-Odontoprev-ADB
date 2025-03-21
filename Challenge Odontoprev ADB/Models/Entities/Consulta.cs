@@ -8,7 +8,7 @@ public class Consulta : _BaseEntity
 {
     [Key]
     [Column("ID_CONSULTA")]
-    public override long ID { get; set; }
+    public override long Id { get; set; }
 
     [Required]
     [Column("DATA_CONSULTA")]
@@ -20,7 +20,7 @@ public class Consulta : _BaseEntity
     public long ID_Paciente { get; set; }
 
     [Required]
-    [ForeignKey("ID_DENTISTA")]
+    [ForeignKey("DENTISTA")]
     [Column("ID_DENTISTA")]
     public long ID_Dentista { get; set; }
 
@@ -30,7 +30,11 @@ public class Consulta : _BaseEntity
     public string Status { get; set; }
 
     // Navegação
+    [ForeignKey(nameof(ID_Paciente))]
     public Paciente Paciente { get; set; }
+
+    [ForeignKey(nameof(ID_Dentista))]
     public Dentista Dentista { get; set; }
+
     public ICollection<HistoricoConsulta> Historicos { get; set; }
 }

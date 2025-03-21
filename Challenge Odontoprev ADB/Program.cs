@@ -26,7 +26,7 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddScoped(typeof(_IRepository<>), typeof(_Repository<>));
 
-builder.Services.AddScoped(typeof(_IService<>), typeof(_Service<>));
+builder.Services.AddScoped<_IService, _Service>();
 
 var app = builder.Build();
 

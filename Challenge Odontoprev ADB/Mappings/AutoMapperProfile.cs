@@ -1,13 +1,12 @@
 ﻿using AutoMapper;
-using Challenge_Odontoprev_ADB.Application.DTOs;
 using Challenge_Odontoprev_ADB.Models.Entities;
+using Challenge_Odontoprev_ADB.Application.DTOs;
 
 namespace Challenge_Odontoprev_ADB.Mappings;
 
-public class AutoMapperProfile : Profile 
+public class AutoMapperProfile : Profile
 {
-    public AutoMapperProfile()
-    {
+    public AutoMapperProfile() {
         CreateMap<Paciente, PacienteReadDTO>();
         CreateMap<PacienteCreateDTO, Paciente>();
 

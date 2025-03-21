@@ -28,9 +28,9 @@
                         <td>@(dentistas.ContainsKey(appointmentItem.ID_Dentista) ? dentistas[appointmentItem.ID_Dentista] : "N/A")</td>
                         <td>
                             <div class="d-inline-flex">
-                                <a asp-controller="Appointment" asp-action="Details" asp-route-id="@appointmentItem.ID" class="btn btn-info btn-sm m-1">Details</a>
-                                <a asp-controller="Appointment" asp-action="Edit" asp-route-id="@appointmentItem.ID" class="btn btn-warning btn-sm m-1">Edit</a>
-                                <a asp-controller="Appointment" asp-action="Delete" asp-route-id="@appointmentItem.ID" class="btn btn-danger btn-sm m-1">Delete</a>
+                                <a asp-controller="Appointment" asp-action="Details" asp-route-id="@appointmentItem.ID_Consulta" class="btn btn-info btn-sm m-1">Details</a>
+                                <a asp-controller="Appointment" asp-action="Edit" asp-route-id="@appointmentItem.ID_Consulta" class="btn btn-warning btn-sm m-1">Edit</a>
+                                <a asp-controller="Appointment" asp-action="Delete" asp-route-id="@appointmentItem.ID_Consulta" class="btn btn-danger btn-sm m-1">Delete</a>
                             </div>
                         </td>
                     </tr>

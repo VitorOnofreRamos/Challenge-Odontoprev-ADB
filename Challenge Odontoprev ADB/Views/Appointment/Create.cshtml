@@ -16,7 +16,7 @@
 
     <div class="form-group">
         <label asp-for="ID_Paciente">Paciente</label>
-        <select asp-for="ID_Paciente" class="form-control" asp-items="@(new SelectList(ViewBag.Pacientes ?? new List<Paciente>(), "ID", "Nome"))" required>
+        <select asp-for="ID_Paciente" class="form-control" asp-items="@(new SelectList(ViewBag.Pacientes ?? new List<Paciente>(), "Id", "Nome"))" required>
             <option value="">Selecione um Paciente</option>
         </select>
         <span asp-validation-for="ID_Paciente" class="text-danger"></span>
@@ -24,7 +24,7 @@
 
     <div class="form-group">
         <label asp-for="ID_Dentista">Médico</label>
-        <select asp-for="ID_Dentista" class="form-control" asp-items="@(new SelectList(ViewBag.Dentistas ?? new List<Dentista>(), "ID", "Nome"))" required>
+        <select asp-for="ID_Dentista" class="form-control" asp-items="@(new SelectList(ViewBag.Dentistas ?? new List<Dentista>(), "Id", "Nome"))" required>
             <option value="">Selecione um Médico</option>
         </select>
         <span asp-validation-for="ID_Dentista" class="text-danger"></span>

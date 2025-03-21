@@ -1,9 +1,9 @@
 ﻿using Challenge_Odontoprev_ADB.Application.DTOs;
-using Challenge_Odontoprev_ADB.Application.Services;
 using Challenge_Odontoprev_ADB.Views.ViewModels;
 using Challenge_Odontoprev_ADB.Infraestructure;
 using Challenge_Odontoprev_ADB.Models.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Challenge_Odontoprev_ADB.Repositories;
 
 namespace Challenge_Odontoprev_ADB.Controllers
 {
@@ -11,22 +11,17 @@ namespace Challenge_Odontoprev_ADB.Controllers
     public class AppointmentController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly _IService<Paciente> _servicePaciente;
-        private readonly _IService<Dentista> _serviceDentista;
-        private readonly _IService<Consulta> _serviceConsulta;
-        private readonly _IService<HistoricoConsulta> _serviceHistorico;
+        private readonly _IRepository<Consulta> _consultaService;
+        private readonly _IRepository<Paciente> _pacienteService;
+        private readonly _IRepository<Dentista> _dentistaService;
+        private readonly _IRepository<HistoricoConsulta> _serviceHistorico;
 
-        public AppointmentController(
-            IUnitOfWork unitOfWork, 
-            _IService<Paciente> servicePaciente, 
-            _IService<Dentista> serviceDentista, 
-            _IService<Consulta> serviceConsulta, 
-            _IService<HistoricoConsulta> serviceHistorico
-        ){
+        public AppointmentController(IUnitOfWork unitOfWork, _IRepository<Consulta> consultaService, _IRepository<Paciente> pacienteService, _IRepository<Dentista> dentistaService, _IRepository<HistoricoConsulta> serviceHistorico)
+        {
             _unitOfWork = unitOfWork;
-            _servicePaciente = servicePaciente;
-            _serviceDentista = serviceDentista;
-            _serviceConsulta = serviceConsulta;
+            _consultaService = consultaService;
+            _pacienteService = pacienteService;
+            _dentistaService = dentistaService;
             _serviceHistorico = serviceHistorico;
         }
 
@@ -34,11 +29,11 @@ namespace Challenge_Odontoprev_ADB.Controllers
         [HttpGet]
         public async Task<IActionResult> Index() 
         {
-            var consultas = await _serviceConsulta.GetAll();
+            var consultas = await _consultaService.GetAll();
 
             var appointmentsDTOs = consultas.Select(a => new ConsultaReadDTO
             {
-                ID = a.ID,
+                ID_Consulta = a.Id,
 				Data_Consulta = a.Data_Consulta,
 				ID_Dentista = a.ID_Dentista,
 				ID_Paciente = a.ID_Paciente,
@@ -52,22 +47,22 @@ namespace Challenge_Odontoprev_ADB.Controllers
         [HttpGet("Details/{id}")]
         public async Task<IActionResult> Details(int id)
         {
-            var consulta = await _serviceConsulta.GetById(id);
+            var consulta = await _consultaService.GetById(id);
             if (consulta == null)
             {
                 return NotFound();
             }
 
-            var paciente = await _servicePaciente.GetById(consulta.ID_Paciente);
-            var dentista = await _serviceDentista.GetById(consulta.ID_Dentista);
+            var paciente = await _pacienteService.GetById(consulta.ID_Paciente);
+            var dentista = await _dentistaService.GetById(consulta.ID_Dentista);
 
             var viewModel = new AppointmentViewModel
             {
-                ID_Consulta = consulta.ID,
+                ID_Consulta = consulta.Id,
                 Data_Consulta = consulta.Data_Consulta,
                 Status = consulta.Status,
 
-                ID_Paciente = paciente.ID,
+                ID_Paciente = paciente.Id,
                 Nome_Paciente = paciente.Nome,
                 Data_Nascimento = paciente.Data_Nascimento,
                 CPF = paciente.CPF,
@@ -75,7 +70,7 @@ namespace Challenge_Odontoprev_ADB.Controllers
                 Telefone_Paciente = paciente.Telefone,
                 Carteirinha = paciente.Carteirinha,
 
-                ID_Dentista = dentista.ID,
+                ID_Dentista = dentista.Id,
                 Nome_Dentista = dentista.Nome,
                 CRO = dentista.CRO,
                 Especialidade = dentista.Especialidade,
@@ -89,8 +84,8 @@ namespace Challenge_Odontoprev_ADB.Controllers
         [HttpGet("Create")]
         public async Task<IActionResult> Create()
         {
-            var pacientes = await _servicePaciente.GetAll();
-            var dentistas = await _serviceDentista.GetAll();;
+            var pacientes = await _pacienteService.GetAll();
+            var dentistas = await _dentistaService.GetAll();;
 
             // Adicione um log para verificar os pacientes, médicos e tratamentos
             Console.WriteLine($"Pacientes: {pacientes.Count()}, Dentistas: {dentistas.Count()}");
@@ -119,7 +114,7 @@ namespace Challenge_Odontoprev_ADB.Controllers
                 // Adicione logs para verificar os dados do agendamento
                 Console.WriteLine($"Criando Consulta ->\nData da Consulta: {dto.Data_Consulta}, Status da Consulta: {dto.Status}, ID do Paciente: {dto.ID_Paciente}, ID do Dentista: {dto.ID_Dentista}");
 
-                await _serviceConsulta.Insert(consulta);
+                await _consultaService.Insert(consulta);
                 return Redirect("~/");
             }
 
@@ -133,9 +128,8 @@ namespace Challenge_Odontoprev_ADB.Controllers
             }
 
             // Se voltar para a view, também recarregue os dados
-            var pacientes = await _servicePaciente.GetAll();
-            var dentistas = await _serviceDentista.GetAll();
-
+            var pacientes = await _pacienteService.GetAll();
+            var dentistas = await _dentistaService.GetAll();
             ViewBag.Pacientes = pacientes;
             ViewBag.Dentistas = dentistas;
 
@@ -146,12 +140,12 @@ namespace Challenge_Odontoprev_ADB.Controllers
         [HttpGet("Delete/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var consulta = await _serviceConsulta.GetById(id);
+            var consulta = await _consultaService.GetById(id);
             if (consulta == null)
             {
                 return NotFound();
             }
-            return View(new ConsultaReadDTO { ID = consulta.ID}); // View para confirmar a exclusão
+            return View(new ConsultaReadDTO { ID_Consulta = consulta.Id}); // View para confirmar a exclusão
         }
 
         // Delete: /appointments/delete/{id}
@@ -159,7 +153,7 @@ namespace Challenge_Odontoprev_ADB.Controllers
         //[ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            await _serviceConsulta.Delete(id);
+            await _consultaService.Delete(id);
             return Redirect("~/");
         }
 
@@ -167,7 +161,7 @@ namespace Challenge_Odontoprev_ADB.Controllers
         [HttpGet("Edit/{id}")]
         public async Task<IActionResult> Edit(int id)
         {
-            var consulta = await _serviceConsulta.GetById(id);
+            var consulta = await _consultaService.GetById(id);
             if (consulta == null)
             {
                 return NotFound();
@@ -175,14 +169,15 @@ namespace Challenge_Odontoprev_ADB.Controllers
 
             var dto = new ConsultaReadDTO
             {
-                ID = consulta.ID,
+                ID_Consulta = consulta.Id,
                 Data_Consulta = consulta.Data_Consulta,
                 ID_Paciente = consulta.ID_Paciente,
                 ID_Dentista = consulta.ID_Dentista
             };
 
-            var pacientes = await _servicePaciente.GetAll();
-            var dentistas = await _serviceDentista.GetAll();
+            // Retrieve patients and dentists and ensure non-null lists
+            var pacientes = await _pacienteService.GetAll() ?? new List<Paciente>();
+            var dentistas = await _dentistaService.GetAll() ?? new List<Dentista>();
 
             ViewBag.Pacientes = pacientes;
             ViewBag.Dentistas = dentistas;
@@ -195,14 +190,14 @@ namespace Challenge_Odontoprev_ADB.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, ConsultaReadDTO dto)
         {
-            if (id != dto.ID)
+            if (id != dto.ID_Consulta)
             {
                 return NotFound();
             }
 
             if (ModelState.IsValid)
             {
-                var consulta = await _serviceConsulta.GetById(id);
+                var consulta = await _consultaService.GetById(id);
                 if (consulta == null)
                 {
                     return NotFound();
@@ -215,15 +210,14 @@ namespace Challenge_Odontoprev_ADB.Controllers
                 consulta.ID_Dentista = dto.ID_Dentista;
 
                 // Salva as mudanças
-                await _serviceConsulta.Update(consulta);
+                await _consultaService.Update(consulta);
 
                 return Redirect("~/"); // Redireciona para a lista de agendamentos
             }
 
             // Caso o ModelState não seja válido, recarregue os dados e mostre o erro
-            var pacientes = await _servicePaciente.GetAll();
-            var dentistas = await _serviceDentista.GetAll();
-
+            var pacientes = await _pacienteService.GetAll();
+            var dentistas = await _dentistaService.GetAll();
             ViewBag.Pacientes = pacientes;
             ViewBag.Dentistas = dentistas;
 

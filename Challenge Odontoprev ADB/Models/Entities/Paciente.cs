@@ -8,7 +8,7 @@ public class Paciente : _BaseEntity
 {
     [Key]
     [Column("ID_PACIENTE")]
-    public override long ID { get; set; }
+    public override long Id { get; set; }
 
     [Required]
     [StringLength(30)]

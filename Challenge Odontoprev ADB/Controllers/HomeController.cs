@@ -1,76 +1,57 @@
+using Challenge_Odontoprev_ADB.Application.DTOs;
 using Challenge_Odontoprev_ADB.Models;
+using Challenge_Odontoprev_ADB.Models.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using Challenge_Odontoprev_ADB.Application.DTOs;
-using Challenge_Odontoprev_ADB.Application.Services;
-using Challenge_Odontoprev_ADB.Models.Entities;
+using Challenge_Odontoprev_ADB.Repositories;
 
 namespace Challenge_Odontoprev_ADB.Controllers
 {
-    public class HomeController : Controller
-    {
-        private readonly _IService<Consulta> _consultaService;
-		private readonly _IService<Paciente> _pacienteService;
-		private readonly _IService<Dentista> _dentistaService;
+	public class HomeController : Controller
+	{
+		private readonly ILogger<HomeController> _logger;
+		private readonly _IRepository<Consulta> _consultaService;
+		private readonly _IRepository<Paciente> _pacienteService;
+		private readonly _IRepository<Dentista> _dentistaService;
 
-		public HomeController(
-            _IService<Consulta> consulta,
-			_IService<Paciente> paciente,
-			_IService<Dentista> dentista
-		)
-		{
-            _consultaService = consulta;
-            _pacienteService = paciente;
-            _dentistaService = dentista;
+        public HomeController(ILogger<HomeController> logger, _IRepository<Consulta> consultaService, _IRepository<Paciente> pacienteService, _IRepository<Dentista> dentistaService)
+        {
+            _logger = logger;
+            _consultaService = consultaService;
+            _pacienteService = pacienteService;
+            _dentistaService = dentistaService;
         }
 
         public async Task<IActionResult> Index()
-        {
-            var consultas = await _consultaService.GetAll();
+		{
+			var consultas = await _consultaService.GetAll();
 
-            var consultaDTOs = consultas.Select(a => new ConsultaReadDTO
-            {
-                ID = a.ID,
-                Data_Consulta = a.Data_Consulta,
-                ID_Dentista = a.ID_Dentista,
-                ID_Paciente = a.ID_Paciente,
-                Status = a.Status
-            }).ToList();
+			var consultasDTO = consultas.Select(a => new ConsultaReadDTO 
+			{ 
+				ID_Consulta = a.Id,
+				Data_Consulta = a.Data_Consulta,
+				ID_Paciente = a.ID_Paciente,
+				ID_Dentista = a.ID_Dentista,
+				Status = a.Status,
+			}).ToList();
 
-			var pacientes = new Dictionary<long, string>();
-			var dentistas = new Dictionary<long, string>();
+            var pacientesList = await _pacienteService.GetAll();
+            var dentistasList = await _dentistaService.GetAll();
+            ViewBag.Pacientes = pacientesList.ToDictionary(p => p.Id, p => p.Nome);
+            ViewBag.Dentistas = dentistasList.ToDictionary(d => d.Id, d => d.Nome);
 
-			foreach (var consulta in consultaDTOs)
-			{
-				if (!pacientes.ContainsKey(consulta.ID_Paciente))
-				{
-					var paciente = await _pacienteService.GetById(consulta.ID_Paciente);
-					pacientes[consulta.ID_Paciente] = paciente?.Nome ?? "Desconhecido";
-				}
+            return View(consultasDTO);
+		}
 
-				if (!dentistas.ContainsKey(consulta.ID_Dentista))
-				{
-					var dentista = await _dentistaService.GetById(consulta.ID_Dentista);
-					dentistas[consulta.ID_Dentista] = dentista?.Nome ?? "Desconhecido";
-				}
-			}
+		public IActionResult Privacy()
+		{
+			return View();
+		}
 
-			// Passando os dicionários para a ViewBag
-			ViewBag.Pacientes = pacientes;
-			ViewBag.Dentistas = dentistas;
-
-			return View(consultaDTOs);
-        }
-
-        public IActionResult About()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
-    }
+		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+		public IActionResult Error()
+		{
+			return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+		}
+	}
 }

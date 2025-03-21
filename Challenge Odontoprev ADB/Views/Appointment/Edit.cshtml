@@ -7,8 +7,8 @@
 
 <h2 class="mt-3">@ViewData["Title"]</h2>
 
-<form asp-action="Edit" method="post" asp-route-id="@Model.ID">
-    <input type="hidden" name="Id" value="@Model.ID" />
+<form asp-action="Edit" method="post" asp-route-id="@Model.ID_Consulta">
+    <input type="hidden" name="Id" value="@Model.ID_Consulta" />
 
     <div class="form-group">
         <label asp-for="Data_Consulta">Data e Hora da Consulta</label>

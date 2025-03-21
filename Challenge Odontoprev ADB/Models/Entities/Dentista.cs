@@ -8,7 +8,7 @@ public class Dentista : _BaseEntity
 {
     [Key]
     [Column("ID_DENTISTA")]
-    public override long ID { get; set; }
+    public override long Id { get; set; }
 
     [Required]
     [StringLength(100)]

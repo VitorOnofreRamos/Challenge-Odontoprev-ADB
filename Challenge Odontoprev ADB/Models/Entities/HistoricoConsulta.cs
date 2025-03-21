@@ -8,7 +8,7 @@ public class HistoricoConsulta : _BaseEntity
 {
     [Key]
     [Column("ID_HISTORICO")]
-    public override long ID { get; set; }
+    public override long Id { get; set; }
 
     [Required]
     [ForeignKey("ID_CONSULTA")]
@@ -29,5 +29,6 @@ public class HistoricoConsulta : _BaseEntity
     public string Observacoes { get; set; }
 
     // Navegação
+    [ForeignKey(nameof(ID_Consulta))]
     public Consulta Consulta { get; set; }
 }
